@@ -4,8 +4,8 @@
 archivo.py - Base de datos del Certificates Archive (SQLite).
 
 Comandos:
-  init                         crea datos/archivo.sqlite con el esquema (v2)
-  migrar                       pasa la base a la última versión (v4) (copia previa)
+  init                         crea datos/archivo.sqlite con el esquema (v5)
+  migrar                       pasa la base a la última versión (v5) (copia previa)
   copia                        copia de seguridad en datos/copias/
   importar-viajes XLSX         viajes, visitas, lugares, aeropuertos y pines desde mis_viajes.xlsx
   viaje ...                    crea un viaje o cambia uno existente (--slug)
@@ -196,7 +196,7 @@ def version(con) -> int:
     return con.execute("PRAGMA user_version").fetchone()[0]
 
 
-ULTIMA = 4  # versión de schema.sql; migraciones/00N.sql lleva de N-1 a N
+ULTIMA = 5  # versión de schema.sql; migraciones/00N.sql lleva de N-1 a N
 
 
 def km_entre(a, b) -> float:
@@ -242,9 +242,23 @@ def nivel_premio(premio: str) -> str:
     return "mención"  # honor roll, distinction, merit, ambassador...
 
 
-def exigir_v2(con):
-    if version(con) < 2:
-        raise SystemExit("La base está en v1. Ejecuta: python archivo.py migrar")
+def categoria_comun(texto: str) -> str:
+    """Una de 4 categorías a partir de la categoría propuesta del catálogo ("IA/ética", "robótica"...)."""
+    t = norm(texto)
+    if not t:
+        return ""
+    if re.search(r"emprend|negocio|marketing|innovacion", t):
+        return "Emprendimiento"
+    if re.search(r"divulga|contenido|audiovisual|ensayo|periodismo", t):
+        return "Divulgación"
+    if re.search(r"social|mujeres|sostenib|circular|liderazgo", t):
+        return "Impacto social"
+    return "Ciencia y tecnología"
+
+
+def exigir_ultima(con):
+    if version(con) < ULTIMA:
+        raise SystemExit(f"La base está en v{version(con)}. Ejecuta: python archivo.py migrar")
 
 
 # --------------------------------------------------------------------------- importadores
@@ -299,7 +313,7 @@ def _texto(v) -> str:
 
 def cmd_importar_viajes(a):
     import openpyxl
-    con = connect(); exigir_v2(con)
+    con = connect(); exigir_ultima(con)
     wb = openpyxl.load_workbook(a.fichero, data_only=True)
     leer = lambda p: list(csv.DictReader(open(p, encoding="utf-8-sig"))) if Path(p).exists() else []
     geo = {(r["ciudad"], r["pais"]): r for r in leer(a.geo)}
@@ -375,7 +389,7 @@ def cmd_importar_viajes(a):
 
 
 def cmd_sello(a):
-    con = connect(); exigir_v2(con)
+    con = connect(); exigir_ultima(con)
     fecha = iso_date(a.fecha)
     uid = f"sello-{fecha}-{slug(a.sitio)}"
     with con:
@@ -396,7 +410,7 @@ def cmd_sello(a):
 
 def cmd_viaje(a):
     """Crea un viaje o, si el slug ya existe, cambia solo los campos que se pasan."""
-    con = connect(); exigir_v2(con)
+    con = connect(); exigir_ultima(con)
     clave = a.slug or slug(a.nombre or "")
     if not clave:
         raise SystemExit("indica --nombre (viaje nuevo) o --slug (viaje existente)")
@@ -413,8 +427,12 @@ def cmd_viaje(a):
     with con:
         t = con.execute("SELECT id FROM trips WHERE slug = ?", (clave,)).fetchone()
         if t:
+            antes = con.execute("SELECT inicio, fin FROM trips WHERE id = ?", (t["id"],)).fetchone()
             if campos:
                 con.execute(f"UPDATE trips SET {', '.join(k + ' = ?' for k in campos)} WHERE id = ?", (*campos.values(), t["id"]))
+            if "inicio" in campos or "fin" in campos:  # las visitas que tenían las fechas del viaje las siguen teniendo
+                con.execute("UPDATE visits SET inicio = (SELECT inicio FROM trips WHERE id = ?), fin = (SELECT fin FROM trips WHERE id = ?) "
+                            "WHERE trip_id = ? AND inicio IS ? AND fin IS ?", (t["id"], t["id"], t["id"], antes["inicio"], antes["fin"]))
             tid, accion = t["id"], "actualizado"
         else:
             if not a.nombre:
@@ -426,14 +444,16 @@ def cmd_viaje(a):
         if a.ciudad:
             v = con.execute("SELECT inicio, fin FROM trips WHERE id = ?", (tid,)).fetchone()
             pid = lugar_por_nombre(con, a.ciudad.strip(), a.pais.strip())
-            if not con.execute("SELECT 1 FROM visits WHERE place_id = ? AND trip_id = ? AND inicio IS ?", (pid, tid, v["inicio"])).fetchone():
+            if not con.execute("SELECT 1 FROM visits WHERE place_id = ? AND trip_id = ?", (pid, tid)).fetchone():  # ya visitada, con o sin fecha
                 con.execute("INSERT INTO visits (place_id, trip_id, inicio, fin) VALUES (?,?,?,?)", (pid, tid, v["inicio"], v["fin"]))
+            if a.nota is not None:
+                con.execute("UPDATE visits SET nota = ? WHERE place_id = ? AND trip_id = ?", (a.nota, pid, tid))
     print(f"viaje {clave}: {accion}")
 
 
 def cmd_lugar(a):
     """Crea un lugar o corrige sus coordenadas (y su nombre con --renombrar)."""
-    con = connect(); exigir_v2(con)
+    con = connect(); exigir_ultima(con)
     with con:
         pid = lugar_por_nombre(con, a.nombre.strip(), a.pais.strip())
         con.execute("UPDATE places SET lat = ?, lng = ?, coord_confianza = ? WHERE id = ?", (a.lat, a.lng, a.confianza, pid))
@@ -443,7 +463,7 @@ def cmd_lugar(a):
 
 
 def cmd_pin(a):
-    con = connect(); exigir_v2(con)
+    con = connect(); exigir_ultima(con)
     t = con.execute("SELECT id, slug FROM trips WHERE slug = ?", (a.viaje,)).fetchone()
     if not t:
         raise SystemExit(f"no existe el viaje '{a.viaje}' (mira los slugs con: archivo.py resumen)")
@@ -458,7 +478,7 @@ def cmd_pin(a):
 
 def cmd_pulir(_):
     """Arreglos automáticos y repetibles: lugar de los eventos, fechas de visitas y notas de 'Próximo viaje' caducadas."""
-    con = connect(); exigir_v2(con)
+    con = connect(); exigir_ultima(con)
     n = dict(eventos=0, visitas=0, notas=0)
     with con:
         for e in con.execute("SELECT id, slug, ciudad, trip_id FROM events WHERE place_id IS NULL").fetchall():
@@ -476,7 +496,19 @@ def cmd_pulir(_):
         n["notas"] = con.execute(f"UPDATE trips SET notas = '' WHERE notas = 'Próximo viaje' AND id IN {pasados}").rowcount
         n["notas"] += con.execute(f"UPDATE visits SET nota = trim(substr(nota, length('Próximo viaje:') + 1)) "
                                   f"WHERE nota LIKE 'Próximo viaje:%' AND trip_id IN {pasados}").rowcount
-    print(f"eventos con lugar: {n['eventos']} · visitas con fecha: {n['visitas']} · notas caducadas: {n['notas']}")
+        # coherencia: continente y región como los demás lugares del país; un evento es siempre presencial (regla del catálogo)
+        for col in ("continente", "region"):
+            n["lugares"] = n.get("lugares", 0) + con.execute(
+                f"UPDATE places SET {col} = (SELECT p2.{col} FROM places p2 WHERE p2.pais = places.pais AND p2.{col} <> '' "
+                f"GROUP BY p2.{col} ORDER BY COUNT(*) DESC LIMIT 1) WHERE {col} = '' AND pais <> '' AND "
+                f"(SELECT COUNT(DISTINCT p2.{col}) FROM places p2 WHERE p2.pais = places.pais AND p2.{col} <> '') " + ("= 1" if col == "region" else ">= 1")).rowcount
+        con.execute("UPDATE events SET modalidad = 'presencial' WHERE modalidad = ''")
+        con.execute("UPDATE events SET pais = (SELECT pais FROM places WHERE id = events.place_id) WHERE pais = '' AND place_id IS NOT NULL")
+        n["categorias"] = con.execute("UPDATE events SET categoria = (SELECT o.categoria FROM objects o WHERE o.event_id = events.id "
+                                      "AND o.categoria <> '' GROUP BY o.categoria ORDER BY COUNT(*) DESC LIMIT 1) WHERE categoria = '' AND "
+                                      "EXISTS (SELECT 1 FROM objects o WHERE o.event_id = events.id AND o.categoria <> '')").rowcount
+    print(f"eventos con lugar: {n['eventos']} · visitas con fecha: {n['visitas']} · notas caducadas: {n['notas']} · "
+          f"lugares completados: {n['lugares']} · eventos con categoría: {n['categorias']}")
 
 
 def cmd_copia(_):
@@ -486,7 +518,7 @@ def cmd_copia(_):
 def cmd_init(_):
     if DB.exists():
         v = version(sqlite3.connect(DB))
-        if v < 2:
+        if v < ULTIMA:
             raise SystemExit(f"La base ya existe en v{v}: usa python archivo.py migrar (init no la toca)")
         print(f"La base ya existe (v{v}): no hay nada que crear."); return
     DB.parent.mkdir(parents=True, exist_ok=True)
@@ -531,7 +563,7 @@ def imagen_web(origen: Path, carpeta: Path, uid: str, ancho: int = 1400) -> str:
 
 
 def cmd_importar_catalogo(a):
-    con = connect()
+    con = connect(); exigir_ultima(con)
     nuevos = repetidos = imagenes = 0
     with open(a.fichero, encoding="utf-8-sig", newline="") as f, con:
         lector = csv.DictReader(f)
@@ -547,8 +579,11 @@ def cmd_importar_catalogo(a):
             uid = (r.get("uid") or "").strip()
             archivo = (r.get("archivo") or "").strip()
             existe = con.execute("SELECT front_web FROM objects WHERE uid = ?", (uid,)).fetchone() if uid else None
+            categoria = categoria_comun(r.get("categoria_propuesta") or "")
             if not uid or existe:
                 repetidos += 1
+                if existe and categoria:  # importado antes de que hubiera categorías
+                    con.execute("UPDATE objects SET categoria = ? WHERE uid = ? AND categoria = ''", (categoria, uid))
                 if existe and archivo and not existe["front_web"]:  # certificado escaneado después de importarlo
                     img = imagen(fila, uid, archivo)
                     if img:
@@ -567,11 +602,11 @@ def cmd_importar_catalogo(a):
                 (r.get("tipo") or "certificado").strip(), "otro")
             img = imagen(fila, uid, archivo) if archivo else ""
             con.execute(
-                "INSERT INTO objects (uid, event_id, tipo, titulo, organizador, fecha, premio, num_archivo, front_web, created_utc) "
-                "VALUES (?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO objects (uid, event_id, tipo, titulo, organizador, fecha, premio, num_archivo, front_web, created_utc, categoria) "
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?)",
                 (uid, ev, tipo, r.get("titulo", "").strip(), r.get("organizador", "").strip(),
                  iso_date(r["fecha"]) if r.get("fecha") else "", r.get("rol_premio", ""), r.get("num_archivo", ""),
-                 img, now()))
+                 img, now(), categoria))
             nuevos += 1
     print(f"catálogo: {nuevos} nuevos · {repetidos} ya existían o sin uid" + (f" · imágenes añadidas: {imagenes}" if imagenes else ""))
 
@@ -608,7 +643,7 @@ def cmd_importar_fotos(a):
                 viaje = None
                 continue
             if line.startswith("#viaje"):
-                exigir_v2(con)
+                exigir_ultima(con)
                 v = line[len("#viaje"):].strip()
                 row = con.execute("SELECT id FROM trips WHERE slug = ? OR slug = ?", (v, slug(v))).fetchone()
                 if not row:
@@ -669,11 +704,23 @@ def cmd_importar_fotos(a):
 
 def cmd_evento(a):
     con = connect()
+    if a.slug:  # editar: cambia solo lo que se pasa; con --ciudad, pulir vuelve a enlazar el lugar
+        campos = {k: getattr(a, k) for k in ("organizador", "lugar", "ciudad", "pais", "modalidad", "categoria") if getattr(a, k)}
+        with con:
+            if not con.execute("SELECT 1 FROM events WHERE slug = ?", (a.slug,)).fetchone():
+                raise SystemExit(f"no existe el evento '{a.slug}'")
+            if "ciudad" in campos:
+                campos["place_id"] = None
+            if campos:
+                con.execute(f"UPDATE events SET {', '.join(k + ' = ?' for k in campos)} WHERE slug = ?", (*campos.values(), a.slug))
+        print(f"evento {a.slug}: actualizado"); return
+    if not (a.nombre and a.fecha):
+        raise SystemExit("indica --nombre y --fecha (evento nuevo) o --slug (editar uno existente)")
     with con:
         eid = get_or_create_event(con, a.nombre, a.fecha, a.organizador, a.lugar, a.ciudad, a.pais,
                                   a.modalidad, a.categoria)
         if a.viaje:
-            exigir_v2(con)
+            exigir_ultima(con)
             t = con.execute("SELECT id FROM trips WHERE slug = ?", (a.viaje,)).fetchone()
             if not t:
                 raise SystemExit(f"no existe el viaje '{a.viaje}'")
@@ -897,6 +944,7 @@ def main() -> int:
         p.add_argument(f"--{k}")
     p.add_argument("--km", dest="km_manual", type=float, help="km reales; sustituyen al cálculo")
     p.add_argument("--ciudad", default="", help="añade la visita a esta ciudad con las fechas del viaje")
+    p.add_argument("--nota", help="nota de la visita a --ciudad")
     p.add_argument("--pais", default=""); p.set_defaults(f=cmd_viaje)
     p = sub.add_parser("lugar", help="crea un lugar o corrige sus coordenadas")
     p.add_argument("--nombre", required=True); p.add_argument("--pais", default="")
@@ -906,8 +954,8 @@ def main() -> int:
     p.add_argument("--viaje", required=True, help="slug del viaje"); p.add_argument("--titulo", required=True)
     p.add_argument("--ciudad", required=True); p.add_argument("--pais", default=""); p.set_defaults(f=cmd_pin)
     sub.add_parser("pulir", help="arreglos automáticos repetibles").set_defaults(f=cmd_pulir)
-    p = sub.add_parser("evento")
-    p.add_argument("--nombre", required=True); p.add_argument("--fecha", required=True)
+    p = sub.add_parser("evento", help="crea un evento o, con --slug, cambia uno existente")
+    p.add_argument("--slug", default=""); p.add_argument("--nombre", default=""); p.add_argument("--fecha", default="")
     p.add_argument("--organizador", default=""); p.add_argument("--lugar", default=""); p.add_argument("--ciudad", default="")
     p.add_argument("--pais", default=""); p.add_argument("--modalidad", default="", choices=["", "presencial", "virtual"])
     p.add_argument("--categoria", default=""); p.add_argument("--viaje", default="", help="slug del viaje")

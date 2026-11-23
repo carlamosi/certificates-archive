@@ -1,6 +1,6 @@
-# Modelo de datos (esquema v4)
+# Modelo de datos (esquema v5)
 
-Fuente de verdad: `herramientas/archivo_db/schema.sql` (`PRAGMA user_version = 4`). Este documento explica el porqué; si no coincide con `schema.sql`, manda `schema.sql` y se corrige este.
+Fuente de verdad: `herramientas/archivo_db/schema.sql` (`PRAGMA user_version = 5`). Este documento explica el porqué; si no coincide con `schema.sql`, manda `schema.sql` y se corrige este.
 
 ## Dos ejes y lo que cuelga de ellos
 ```
@@ -36,6 +36,8 @@ sueltos: certificados online (objects con solo título), fotos sin evento ni via
 - **Sellos LEGO:** `tipo = 'sello'`, con fecha propia (el mes del diseño), sitio exacto (`sitio`), lugar y viaje.
 - **Personas:** nunca se fusionan solas; nombres parecidos solo generan aviso.
 - **Fechas:** texto ISO `AAAA`, `AAAA-MM` o `AAAA-MM-DD` (se admiten fechas incompletas).
+- **Categoría:** `objects.categoria` es una de 4 (Ciencia y tecnología, Divulgación, Emprendimiento, Impacto social), sacada de `categoria_propuesta` del catálogo; la de un evento es la más común de sus objetos (`archivo.py pulir`).
+- **Instagram:** `people.instagram` guarda solo el usuario (v4, sesión de fotos).
 - **Nivel del premio:** se calcula al exportar desde el texto libre de `premio` (primer premio, podio, finalista, mención, ponente, participación); no se guarda. Exporta `objetos[].nivel` y `totales.premios`.
 - **Lugar de un evento:** `archivo.py pulir` lo enlaza solo si la ciudad escrita coincide con un lugar con coordenadas, o si su viaje visita una única ciudad. Nunca adivina entre varias.
 - **Lo futuro no cuenta** en los totales hasta que llega (como en el Excel).

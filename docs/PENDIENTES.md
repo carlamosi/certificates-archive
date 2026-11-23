@@ -13,9 +13,10 @@
 4. Resolver el **025** repetido en `certificates_archive_v1.csv` (renumerar 2026 como 026–045 o mantener etiquetas impresas).
 5. Confirmar la fecha del **022** (LaIA List, supuesta septiembre 2025).
 6. Buscar certificado o lanyard de los viajes sin objeto: FLL Open Africa (may 2025), Girls Go STEM Meet Up (mar 2026), MBA League (may 2026), TikTok × OMS Ginebra (may 2026), MonNatura (jun–jul 2026), Changemaker Camp (ago 2026), RedeSTEAM (oct 2026).
-7. **Lugar de 19 eventos** (sin ciudad, el mapa no los pinta): FLL Junior 2019, FLL Masterpiece 2024, HP CodeWars, entrevista RN4, Tecnocamp, encuentro Persona E, Future Makers, Women Startup Challenge, Diada GrausTIC, STEM Women Congress, Calçotada IP, Escola Horitzó, MWC, Nit de les Telecos, taller Openchip, concurso Apolo (¿Torrejón?), HOPE, campamento Gran Canaria (¿qué pueblo?), Women in Tech Barcelona. Cuando se sepa: ciudad en el evento y `archivo.py pulir`.
-7b. **Categoría de los eventos** (bloque 2): el catálogo ya trae `categoria_propuesta` en los 60 certificados, pero con nombres sin unificar (`emprendimiento/tecnología`, `tecnología`…). Unificar en 5–6 temas y cargarla.
-7c. Fechas que faltan: viaje por el sur de Francia (sin año) y 6 eventos solo con año o mes.
+7. **Lugar de 2 eventos:** Taula rodona Escola Horitzó (feb 2026) y Hope! (jul 2026). Cuando se sepa: `archivo.py evento --slug SLUG --ciudad X` y `archivo.py pulir`.
+7b. **Categoría de 15 eventos sin certificado** (Ciencia y tecnología, Divulgación, Emprendimiento o Impacto social): `archivo.py evento --slug SLUG --categoria X`.
+7d. Lugares nuevos de los pines sin país ni continente (Colonia, Filipinas, Hannover, Lituania, Malta, Polonia, Salzburgo, Seattle, Viena).
+7c. Fechas que faltan: 6 eventos solo con año o mes (opcional).
 8. Decidir si FLL Masterpiece (feb 2024) y la final de Alicante (mar 2024) son fases distintas.
 9a. **Km por carretera (opcional):** en coche y tren los km calculados van en línea recta (se quedan cortos). Si sabes los reales de un viaje: `archivo.py viaje --slug SLUG --km 1234` (sustituyen al cálculo).
 9. Decidir si el 012 (HP CodeWars Team Photo) es certificado o foto.

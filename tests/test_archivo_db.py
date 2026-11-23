@@ -77,17 +77,17 @@ def test_migrar_conserva_datos():
     out = run(env, "migrar")
     con = db(env)
     assert recuentos(env) == antes, f"la migración cambia los recuentos\n{out}"
-    assert con.execute("PRAGMA user_version").fetchone()[0] == 4
+    assert con.execute("PRAGMA user_version").fetchone()[0] == 5
     assert con.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
     lugar = con.execute("SELECT p.nombre FROM objects o JOIN places p ON p.id = o.place_id WHERE o.uid = 'pin-1'").fetchone()
     assert lugar == ("Lisboa",), f"el pin no tiene su lugar: {lugar}"
-    assert list((Path(env["ARCHIVO_DB"]).parent / "copias").glob("*_antes-v4.sqlite")), "no hay copia antes de migrar"
+    assert list((Path(env["ARCHIVO_DB"]).parent / "copias").glob("*_antes-v5.sqlite")), "no hay copia antes de migrar"
 
 
 def test_migrar_dos_veces():
     env = base_v1()
     run(env, "migrar")
-    assert "ya está en v4" in run(env, "migrar")
+    assert "ya está en v5" in run(env, "migrar")
 
 
 def estructura(env):
@@ -517,6 +517,59 @@ def test_nivel_premio():
     niveles = [o["nivel"] for o in sorted(d["objetos_sueltos"], key=lambda o: int(o["uid"][2:]))]
     assert niveles == ["primer premio", "primer premio", "podio", "finalista", "finalista", "ponente", "participación", "mención"], niveles
     assert d["totales"]["premios"]["primer premio"] == 2, d["totales"]["premios"]
+
+
+def test_evento_editar_y_fechas_de_visitas():
+    env = base_pulir()
+    run(env, "pulir")                                            # la visita del viaje 'uno' hereda 2020-05-01..03
+    out = run(env, "evento", "--slug", "d", "--ciudad", "Toledo", "--lugar", "Catedral")
+    run(env, "pulir")
+    con = db(env)
+    assert con.execute("SELECT e.lugar, p.nombre FROM events e JOIN places p ON p.id = e.place_id WHERE slug = 'd'").fetchone()         == ("Catedral", "Toledo"), out
+    run(env, "viaje", "--slug", "uno", "--inicio", "2020-04", "--fin", "2020-04")
+    assert con.execute("SELECT inicio, fin FROM visits WHERE trip_id = 1").fetchone() == ("2020-04", "2020-04")
+    assert con.execute("SELECT inicio FROM visits WHERE trip_id = 2 ORDER BY inicio").fetchall() == [("2020-06-01",), ("2020-06-02",)]
+
+
+def test_categorias():
+    env = base_pulir(); t = Path(env["ARCHIVO_DB"]).parent / "cat.csv"
+    t.write_text("uid,num_archivo,tipo,titulo,organizador,fecha,rol_premio,categoria_propuesta,evento\n"
+                 "c-1,001,certificado,T1,O,2020-01,,robótica,a\nc-2,002,certificado,T2,O,2020-01,,IA/ética,a\n"
+                 "c-3,003,certificado,T3,O,2020-01,,neurociencia/divulgación,\nc-4,004,certificado,T4,O,2020-01,,emprendimiento/tecnología,\n"
+                 "c-5,005,certificado,T5,O,2020-01,,TIC/mujeres en tecnología,\nc-6,006,certificado,T6,O,2020-01,,,\n", encoding="utf-8")
+    run(env, "importar-catalogo", t)
+    con = db(env)
+    con.execute("UPDATE objects SET categoria = '' WHERE uid = 'c-1'"); con.commit()  # importado antes de existir la columna
+    out = run(env, "importar-catalogo", t)                                             # se rellena al repetir
+    cat = dict(con.execute("SELECT uid, categoria FROM objects"))
+    assert cat == {"c-1": "Ciencia y tecnología", "c-2": "Ciencia y tecnología", "c-3": "Divulgación", "c-4": "Emprendimiento",
+                   "c-5": "Impacto social", "c-6": ""}, (cat, out)
+    run(env, "pulir")
+    assert con.execute("SELECT categoria FROM events WHERE slug = 'a'").fetchone() == ("Ciencia y tecnología",)
+
+
+def test_pulir_coherencia():
+    env = base_pulir(); con = db(env)
+    con.execute("UPDATE places SET continente = 'Europa', region = 'Madrid' WHERE nombre = 'Madrid'")
+    con.execute("INSERT INTO places (nombre, pais, lat, lng) VALUES ('Getafe', 'España', 40.3, -3.7)"); con.commit()
+    run(env, "pulir")
+    assert con.execute("SELECT continente FROM places WHERE nombre = 'Getafe'").fetchone() == ("Europa",)
+    assert con.execute("SELECT modalidad, pais FROM events WHERE slug = 'a'").fetchone() == ("presencial", "España")
+    assert con.execute("SELECT modalidad FROM events WHERE slug = 'd'").fetchone() == ("presencial",)  # regla: un evento es presencial
+
+
+def test_base_antigua_pide_migrar():
+    env = base_temporal(); con = sqlite3.connect(env["ARCHIVO_DB"])
+    con.executescript((ROOT / "tests" / "fixtures" / "schema_v1.sql").read_text(encoding="utf-8"))
+    con.executescript((ROOT / "herramientas" / "archivo_db" / "migraciones" / "002.sql").read_text(encoding="utf-8")); con.close()
+    assert "migrar" in run(env, "viaje", "--nombre", "X", "--km", "10")
+    assert "migrar" in run(env, "init")
+
+
+def test_viaje_nota_de_visita():
+    env = base_pulir()
+    run(env, "viaje", "--slug", "uno", "--ciudad", "Madrid", "--nota", "Premios nuevos")
+    assert db(env).execute("SELECT nota FROM visits WHERE trip_id = 1").fetchall() == [("Premios nuevos",)]
 
 
 if __name__ == "__main__":

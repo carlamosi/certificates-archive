@@ -1,6 +1,6 @@
 # archivo_db · base de datos del archivo
 
-SQLite (`datos/archivo.sqlite`), **fuente de verdad** del archivo (esquema v4). Esquema en `schema.sql`; pasos v1→v2 y v2→v3 y v3→v4 en `migraciones/002.sql`, `003.sql` y `004.sql`.
+SQLite (`datos/archivo.sqlite`), **fuente de verdad** del archivo (esquema v5). Esquema en `schema.sql`; cada paso en `migraciones/00N.sql` (de N-1 a N).
 
 - **Dos ejes:** eventos y viajes (también familiares). Un viaje tiene visitas (ciudad + fechas) a lugares con coordenadas.
 - **Objetos** (lanyards, certificados, pines, sellos LEGO): cuelgan de un evento, un viaje, un lugar o solo de su título (certificado suelto).
@@ -10,13 +10,14 @@ SQLite (`datos/archivo.sqlite`), **fuente de verdad** del archivo (esquema v4). 
 ## Comandos
     pip install -r requirements.txt                         # openpyxl y pymupdf (una vez)
     python archivo.py init                                  # crea la base de datos (una vez)
-    python archivo.py migrar                                # a la última versión, v4 (hace copia antes)
+    python archivo.py migrar                                # a la última versión, v5 (hace copia antes)
     python archivo.py copia                                 # copia de seguridad en datos/copias/
     python archivo.py importar-viajes datos/mis_viajes.xlsx # viajes, visitas, lugares, aeropuertos y pines
     python archivo.py viaje --nombre "Premios (París)" --inicio 2026-12-03 --fin 2026-12-04 --transporte Avión --salida BCN --llegada ORY --ciudad París
     python archivo.py viaje --slug SLUG --nombre "Nombre nuevo" [--km 1200]   # cambia solo lo que pasas
     python archivo.py pin --viaje SLUG --titulo "El Principito" --ciudad París
     python archivo.py lugar --nombre "Planes de Son" --renombrar "MónNatura Pirineus" --lat 42.6181 --lng 1.0802   # coordenadas de Nominatim (OSM)
+    python archivo.py evento --slug SLUG --ciudad Barcelona --lugar CosmoCaixa   # cambia solo lo que pasas
     python archivo.py pulir                                 # arreglos automáticos; se puede repetir
     python archivo.py sello --fecha 2026-08-25 --sitio "LEGO Store Tivoli" --ciudad Copenhague [--pais Dinamarca] [--viaje SLUG] [--imagen RUTA]
     python archivo.py importar-objetos ruta/archive.json    # lanyards procesados

@@ -1,4 +1,4 @@
--- Certificates Archive · esquema SQLite (v4). Pasos: v1 -> v2 migraciones/002.sql, v2 -> v3 003.sql, v3 -> v4 004.sql
+-- Certificates Archive · esquema SQLite (v5). Pasos en migraciones/00N.sql (de N-1 a N)
 -- Fechas: texto ISO. Se admite AAAA, AAAA-MM o AAAA-MM-DD (cuando no se sabe el día).
 -- Ninguna tabla guarda datos sensibles (salud, religión, orientación, etc.).
 
@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS objects (
   back_web     TEXT    NOT NULL DEFAULT '',
   avisos       TEXT    NOT NULL DEFAULT '',
   created_utc  TEXT    NOT NULL DEFAULT '',
+  categoria    TEXT    NOT NULL DEFAULT '',                -- Ciencia y tecnología, Divulgación, Emprendimiento, Impacto social
   CHECK (event_id IS NOT NULL OR trip_id IS NOT NULL OR place_id IS NOT NULL OR titulo <> '')
 );
 CREATE INDEX IF NOT EXISTS ix_objects_event ON objects(event_id);
@@ -194,4 +195,4 @@ CREATE VIEW IF NOT EXISTS v_paises AS
 CREATE VIEW IF NOT EXISTS v_continentes AS
   SELECT continente, COUNT(*) AS paises, SUM(ciudades) AS ciudades FROM v_paises GROUP BY continente;
 
-PRAGMA user_version = 4;
+PRAGMA user_version = 5;

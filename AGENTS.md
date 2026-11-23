@@ -38,9 +38,9 @@ web/                            web estática (sin servidor, sin base de datos)
   img/web/                      WebP con transparencia
   img/certificados/             JPG de cada certificado (lo genera importar-catalogo; datos personales: NO va a git)
   sync.py                       copia lo procesado por la herramienta a web/
-herramientas/archivo_db/        base de datos SQLite del archivo (v2: eventos, viajes, lugares, objetos, sellos, personas, fotos, charlas)
-  migraciones/002.sql           paso v1 -> v2 (`archivo.py migrar`)
-  archivo.py                    CLI: init, importar-*, evento, charla, resumen, exportar
+herramientas/archivo_db/        base de datos SQLite del archivo (v5: eventos, viajes, lugares, objetos, sellos, personas, fotos, charlas)
+  migraciones/00N.sql           paso de la versión N-1 a N (`archivo.py migrar` aplica las que falten)
+  archivo.py                    CLI: init, migrar, importar-*, viaje, evento, lugar, pin, sello, charla, pulir, resumen, exportar
   schema.sql                    esquema (fuente de verdad del modelo de datos)
   README.md                     comandos y propiedades
 datos/                          fuentes de datos
@@ -81,8 +81,11 @@ python herramientas/archivo_db/archivo.py importar-fotos datos/entrada/fotos_per
 python herramientas/archivo_db/archivo.py importar-charlas datos/entrada/charlas.txt
 python herramientas/archivo_db/archivo.py importar-viajes datos/mis_viajes.xlsx
 python herramientas/archivo_db/archivo.py sello --fecha 2026-08-25 --sitio "LEGO Store Tivoli" --ciudad Copenhague --viaje <slug>
+python herramientas/archivo_db/archivo.py viaje --nombre "Premios (París)" --inicio 2026-12-03 --fin 2026-12-04 --salida BCN --llegada ORY --ciudad París
+python herramientas/archivo_db/archivo.py evento --slug <slug> --ciudad Barcelona --lugar CosmoCaixa   # editar: cambia solo lo que pasas
+python herramientas/archivo_db/archivo.py pulir           # arreglos automáticos repetibles (lugares, fechas, categorías)
 python herramientas/archivo_db/archivo.py copia            # hazla antes de cambios grandes
-python herramientas/archivo_db/archivo.py migrar           # v1 -> v2, con copia previa
+python herramientas/archivo_db/archivo.py migrar           # a la última versión (v5), con copia previa
 python herramientas/archivo_db/archivo.py resumen
 python herramientas/archivo_db/archivo.py exportar web/data/archivo.json
 
@@ -135,8 +138,8 @@ cd web && python -m http.server 8000
 - Herramienta lanyards: v3 completa; probada con 40 fotos sintéticas (error medio ~0,03 mm) y una foto real con esquinas manuales. **Pendiente: prueba con el lote real de la persona y con su impresora.**
 - Web: prototipo funcional, probado en Chromium headless (carga, cursor, giro, ficha, teclado, filtro). **Datos de demostración** (6 objetos inventados). **Pendiente: probar con lanyards reales y en móvil.**
 - Catálogo: 60 filas en la base (56 certificados, 40 con imagen). Regla: evento solo si fue presencial; si no, suelto. El número **025 está repetido** (ver docs/PENDIENTES.md).
-- Viajes: en la base de datos (v2) con visitas, lugares, aeropuertos, pines y sellos LEGO; totales calculados con vistas. **Pendiente: mapa.**
-- Base de datos: v2 con datos reales (27 eventos, 26 fotos, 42 personas, 18 viajes, 76 objetos); 24 tests. **Pendiente:** `charlas.txt` con las rutas de los vídeos, 18 certificados por escanear y que la web lea `archivo.json`.
+- Viajes: en la base de datos con visitas, lugares, aeropuertos, pines y sellos LEGO; km por viaje (círculo máximo o a mano) y totales calculados. Mapa en `web/mapa.html`.
+- Base de datos: v5 con datos reales (27 eventos, 26 fotos, 42 personas, 19 viajes, 101 objetos, 53.344 km); 36 tests. **Pendiente:** `charlas.txt` con las rutas de los vídeos, 18 certificados por escanear, lugar de 2 eventos.
 - **Git:** repositorio local (rama `main`, sin remoto). Commits solo cuando Carla lo pida (`/commit`); los datos personales están en `.gitignore`.
 
 ## Mapa de la documentación (un tema, un sitio)
