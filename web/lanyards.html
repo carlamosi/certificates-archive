@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Lanyards en línea de tiempo: gira cada tarjeta y abre su ficha.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Lanyards · Certificates Archive</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lanyards.css">
+</head>
+<body class="pag-lanyards">
+  <header class="bar glass">
+    <div class="brand">
+      <img src="img/logo.svg" alt="" width="36" height="36">
+      <div>
+        <h1>Certificates <b>Archive</b></h1>
+        <p id="count" class="sub">Cargando…</p>
+      </div>
+    </div>
+    <nav class="chips" aria-label="Secciones">
+      <a class="chip" href="index.html">Pared</a>
+      <a class="chip" href="mapa.html">Mapa</a>
+      <a class="chip" href="lanyards.html" aria-current="page">Lanyards</a>
+    </nav>
+  </header>
+
+  <main class="linea">
+    <div class="cabecera">
+      <span id="cabPeg"></span>
+      <div>
+        <h2 class="titulo">Lanyards</h2>
+        <p class="sub">
+          <span class="solo-raton">Un clic gira la tarjeta · doble clic abre su ficha</span>
+          <span class="solo-toque">Un toque gira la tarjeta · mantén pulsado para abrir su ficha</span>
+        </p>
+      </div>
+      <details class="teclas">
+        <summary>Teclas</summary>
+        <dl>
+          <dt><kbd>Tab</kbd> <kbd>←</kbd> <kbd>→</kbd></dt><dd>pasar de una tarjeta a otra</dd>
+          <dt><kbd>Enter</kbd> <kbd>Espacio</kbd></dt><dd>girar la tarjeta</dd>
+          <dt><kbd>F</kbd></dt><dd>abrir la ficha</dd>
+          <dt><kbd>Inicio</kbd> <kbd>Fin</kbd></dt><dd>primera y última</dd>
+          <dt><kbd>Esc</kbd></dt><dd>cerrar la ficha</dd>
+        </dl>
+      </details>
+    </div>
+
+    <aside id="ficha" class="ficha glass" role="dialog" aria-labelledby="fTitulo" tabindex="-1" hidden>
+      <button id="fCerrar" class="btn ghost redondo cerrar" aria-label="Cerrar la ficha">
+        <svg class="icono" aria-hidden="true"><use href="img/iconos.svg#cerrar"/></svg>
+      </button>
+      <div id="fCaras" class="caras"></div>
+      <div class="f-meta">
+        <span id="fPeg"></span>
+        <p class="kicker" id="fFecha"></p>
+        <h2 id="fTitulo"></h2>
+        <p class="sub" id="fLugar"></p>
+      </div>
+      <p id="fPremio" class="premio" hidden><span id="fPremioPeg"></span><b id="fPremioTxt"></b></p>
+      <div id="fAcciones" class="acciones"></div>
+    </aside>
+
+    <section id="carril" class="carril" aria-label="Línea de tiempo de lanyards" tabindex="-1">
+      <div id="pista" class="pista"></div>
+    </section>
+
+    <div id="notice" class="notice" hidden></div>
+  </main>
+
+  <script src="iconos.js"></script>
+  <script src="pasaporte.js"></script>
+  <script src="lanyards.js"></script>
+</body>
+</html>

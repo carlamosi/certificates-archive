@@ -1,0 +1,12 @@
+﻿iata,aeropuerto,ciudad,pais,veces_usado,lat,lng
+BCN,Aeropuerto de Barcelona-El Prat,Barcelona,España,6,41.2974,2.0833
+MAD,Aeropuerto Adolfo Suárez Madrid-Barajas,Madrid,España,1,40.4936,-3.5668
+BRU,Brussels Airport,Bruselas,Bélgica,2,50.901,4.4844
+CPH,Copenhagen Airport,Copenhague,Dinamarca,1,55.618,12.6508
+GVA,Geneva Airport,Ginebra,Suiza,1,46.2381,6.1089
+LCG,Aeropuerto de A Coruña,A Coruña,España,1,43.3021,-8.3773
+DOH,Hamad International Airport,Doha,Catar,1,25.2731,51.6081
+CPT,Cape Town International Airport,Ciudad del Cabo,Sudáfrica,1,-33.9715,18.6021
+LPA,Aeropuerto de Gran Canaria,Las Palmas de Gran Canaria,España,1,27.9319,-15.3866
+PRG,Aeropuerto de Praga Václav Havel,Praga,República Checa,0,50.1008,14.26
+ORY,Aeropuerto de París-Orly,París,Francia,0,48.7262,2.3652

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Mapa de viajes: países, ciudades, vuelos y kilómetros recorridos.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Mapa de viajes · Certificates Archive</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="pag-mapa">
+  <header class="bar glass">
+    <div class="brand">
+      <img src="img/logo.svg" alt="" width="36" height="36">
+      <div>
+        <h1>Certificates <b>Archive</b></h1>
+        <p id="count" class="sub">Cargando…</p>
+      </div>
+    </div>
+    <nav class="chips" aria-label="Secciones">
+      <a class="chip" href="index.html">Pared</a>
+      <a class="chip" href="mapa.html" aria-current="page">Mapa</a>
+    </nav>
+  </header>
+
+  <main id="mapa" data-base="papel">
+    <svg id="lienzo" role="img" aria-label="Mapa de los países visitados"></svg>
+    <div id="chinchetas" class="chinchetas"></div>
+
+    <section id="resumen" class="resumen glass" aria-label="Resumen de viajes">
+      <dl id="contadores" class="contadores"></dl>
+    </section>
+
+    <div class="herramientas">
+      <button id="viajesBtn" class="btn glass herr" aria-expanded="false" aria-controls="panel">
+        Viajes <span id="nViajes" class="num insignia"></span>
+      </button>
+      <button id="capasBtn" class="btn glass herr" aria-expanded="false" aria-controls="capasMenu">
+        <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4l8.5 4.5L12 13 3.5 8.5z"/><path d="M3.5 12.5L12 17l8.5-4.5M3.5 16L12 20.5l8.5-4.5"/></svg>
+        Capas
+      </button>
+      <div id="capasMenu" class="capas-menu glass" hidden></div>
+    </div>
+
+    <ul id="leyenda" class="leyenda glass" aria-label="Leyenda"></ul>
+
+    <div class="zoom glass">
+      <button id="zMas" class="btn ghost redondo" aria-label="Acercar">
+        <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>
+      </button>
+      <button id="zMenos" class="btn ghost redondo" aria-label="Alejar">
+        <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg>
+      </button>
+    </div>
+    <p id="credito" class="credito"></p>
+
+    <div id="cartela" class="cartela glass" aria-live="polite">
+      <span id="cPeg"></span>
+      <p class="kicker" id="cFecha"></p>
+      <h2 id="cTitle"></h2>
+      <p class="sub" id="cLugar"></p>
+    </div>
+
+    <aside id="panel" class="panel glass" hidden aria-labelledby="panelTitulo">
+      <div class="panel-barra">
+        <button id="panelVolver" class="btn ghost" hidden>
+          <svg class="icono" aria-hidden="true"><use href="img/iconos.svg#anterior"/></svg>Todos los viajes
+        </button>
+        <button id="panelCerrar" class="btn ghost redondo" aria-label="Cerrar">
+          <svg class="icono" aria-hidden="true"><use href="img/iconos.svg#cerrar"/></svg>
+        </button>
+      </div>
+      <div id="panelCuerpo" class="panel-cuerpo"></div>
+    </aside>
+    <div id="notice" class="notice" hidden></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-tile@1.0.0/dist/d3-tile.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+  <script src="iconos.js"></script>
+  <script src="pasaporte.js"></script>
+  <script src="mapa.js"></script>
+</body>
+</html>

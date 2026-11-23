@@ -1,0 +1,91 @@
+/* Página de pines. Tokens y componentes base: style.css */
+.pag-pines { overflow: hidden; }
+.pines-pagina {
+  flex: 1; min-height: 0; display: flex; gap: var(--s-6);
+  padding: var(--s-5) var(--s-5) var(--s-5);
+}
+.pines-main { flex: 1; min-width: 0; overflow-y: auto; display: flex; flex-direction: column; gap: var(--s-5); padding: 4px 4px var(--s-5); }
+.pines-cabeza { display: flex; align-items: center; gap: var(--s-5); }
+.pines-cabeza .pegatina.grande { width: 56px; height: 56px; }
+.pag-pines .contadores dd { font-size: 56px; line-height: 60px; }
+
+.grupos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--s-4); align-items: start; }
+.grupo-pais {
+  padding: 14px var(--s-4) var(--s-4); border-radius: var(--r-2);
+  background: color-mix(in srgb, var(--surface) 45%, transparent); border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+  display: flex; flex-direction: column; gap: var(--s-3);
+}
+.grupo-cabeza { display: flex; justify-content: space-between; align-items: baseline; color: var(--ink-2); }
+.grupo-cabeza h2 { margin: 0; font: 700 11px/16px var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+.grupo-cabeza .num { font: 500 13px/16px var(--sans); }
+.fichas-pin { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.pin-btn {
+  width: 76px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 6px 0;
+  border: 0; border-radius: 14px; background: transparent; cursor: pointer; position: relative;
+  transition: background-color var(--d-2) var(--ease-out), transform var(--d-1) var(--ease-out);
+}
+.pin-btn::after { content: ""; position: absolute; inset: -3px; }   /* área táctil */
+@media (hover: hover) { .pin-btn:hover { background: var(--accent-soft); } }
+.pin-btn:active { transform: scale(.96); }
+.pin-btn[aria-pressed="true"] { background: var(--accent-soft); }
+.pin-btn.del-viaje { box-shadow: inset 0 0 0 2px var(--accent); }
+.pin-ciudad { font: 500 12px/16px var(--sans); text-align: center; text-wrap: balance; }
+.pin-pais { margin-top: -4px; color: var(--ink-2); font: 500 11px/14px var(--sans); }
+
+/* chapa redonda: esmalte con relieve; con foto, la foto recortada */
+.chapa {
+  --e1: #F2C14E; --e2: #C98A1B; --borde: #E7D7B0;
+  width: 56px; height: 56px; border-radius: 50%; flex: none; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(160deg, var(--e1), var(--e2)); border: 3px solid var(--borde);
+  box-shadow: inset 0 2px 3px rgba(255,255,255,.6), inset 0 -3px 5px rgba(0,0,0,.18), 0 4px 8px -2px rgba(27,26,23,.3);
+  font: 700 11px/1 var(--sans); letter-spacing: .04em; color: #fff;
+}
+.chapa[data-t="1"] { --e1: #6F8FF5; --e2: #2F5BEA; --borde: #D5DDF7; }
+.chapa[data-t="2"] { --e1: #E97A6A; --e2: #B8443A; --borde: #EED1CB; }
+.chapa[data-t="3"] { --e1: #5FB59A; --e2: #2F7D66; --borde: #CFE5DD; }
+.chapa[data-t="4"] { --e1: #9A8CF0; --e2: #5E4FC8; --borde: #DCD7F5; }
+.chapa img { width: 100%; height: 100%; object-fit: cover; }
+.chapa.grande { width: 170px; height: 170px; border-width: 7px; font-size: 26px; box-shadow: inset 0 3px 6px rgba(255,255,255,.6), inset 0 -6px 10px rgba(0,0,0,.2), 0 18px 28px -10px rgba(27,26,23,.45); }
+
+/* ficha del pin */
+.pines-ficha {
+  position: relative; width: 360px; flex: none; padding: var(--s-5); border-radius: var(--r-3);
+  display: flex; flex-direction: column; gap: 20px; overflow-y: auto;
+}
+.pines-ficha .sello { padding: 12px; }
+.pines-ficha .marco { height: 300px; display: grid; place-items: center; background: radial-gradient(60% 60% at 50% 40%, var(--surface), color-mix(in srgb, var(--paper-2) 80%, var(--ink-2))); }
+.ficha-texto h2 { margin: 0; font: 700 32px/38px var(--sans); letter-spacing: -.02em; text-wrap: balance; }
+.ficha-botones { display: flex; gap: var(--s-2); margin-top: auto; }
+.ficha-botones .btn { height: 40px; text-decoration: none; }
+.ficha-botones a.btn { flex: 1; color: var(--accent-ink); }
+.ficha-botones .btn.ghost { border-color: var(--line); color: var(--ink); font-weight: 500; }
+.ficha-botones .btn.ghost[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.pines-ficha .ficha-cerrar { display: none; position: absolute; top: var(--s-3); right: var(--s-3); z-index: 1; }
+
+/* móvil: la ficha es una hoja inferior que sale al tocar un pin */
+@media (max-width: 760px) {
+  .pines-pagina { padding: var(--s-3) var(--s-4) 0; }
+  .pines-cabeza { gap: var(--s-4); }
+  .pag-pines .contadores dd { font-size: 36px; line-height: 40px; }
+  .pag-pines .contadores div { padding: 0 var(--s-4); }
+  .pines-cabeza .pegatina.grande { width: 44px; height: 44px; }
+  .pines-main { padding-bottom: 40vh; }
+  .grupos { grid-template-columns: 1fr; }
+  .pines-ficha {
+    position: fixed; left: var(--s-3); right: var(--s-3); bottom: calc(var(--s-3) + env(safe-area-inset-bottom, 0px)); z-index: 6;
+    width: auto; max-height: 56vh; flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--s-3);
+    padding: var(--s-4); background: color-mix(in srgb, var(--surface) 88%, transparent); animation: sube var(--d-3) var(--ease-out);
+  }
+  .pines-ficha .sello { width: 112px; padding: 8px; }
+  .pines-ficha .marco { height: 96px; }
+  .chapa.grande { width: 80px; height: 80px; border-width: 4px; font-size: 16px; }
+  .ficha-texto { flex: 1; min-width: 0; padding-right: 40px; }
+  .ficha-texto h2 { font-size: 22px; line-height: 28px; }
+  .ficha-botones { width: 100%; margin-top: 0; }
+  .pines-ficha .ficha-cerrar { display: inline-flex; }
+}
+@keyframes sube { from { transform: translateY(24px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .pines-ficha { animation: none; } }

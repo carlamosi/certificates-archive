@@ -1,0 +1,49 @@
+# Datos personales y originales: nunca al repositorio
+Lanyards_procesados/
+**/originals/
+**/master/
+*.heic
+*.HEIC
+*.heif
+# Fotos de prueba y salidas
+**/salida*/
+**/e2e/
+**/dbg/
+**/t/
+# Python
+__pycache__/
+*.pyc
+.venv/
+# Calibración de la impresora de la persona
+calibracion_impresora.json
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Base de datos personal (no va a git)
+datos/archivo.sqlite
+datos/*.sqlite-wal
+datos/*.sqlite-shm
+datos/entrada/*
+!datos/entrada/README.md
+!datos/entrada/*_EJEMPLO.txt
+datos/fotos_originales/
+datos/copias/
+datos/certificados_originales/
+web/img/certificados/
+# Vídeos de charlas: se guarda su ruta en la base, nunca el vídeo
+intervenciones/
+*.mov
+*.MOV
+*.mp4
+*.MP4
+
+# Exportación de la base para la web (lleva nombres de personas)
+web/data/archivo.json
+
+web/img/fotos/
+# Videos de las intervenciones (grabaciones del movil)
+web/video/
+
+# Nombres reales -> alias para publicar en GitHub (herramientas/publicar_github.py)
+datos/anonimizar.txt

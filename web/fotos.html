@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Fotos · Certificates Archive</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="fotos.css">
+</head>
+<body class="pag-fotos">
+  <header class="bar glass">
+    <div class="brand">
+      <img src="img/logo.svg" alt="" width="36" height="36">
+      <div>
+        <h1>Certificates <b>Archive</b></h1>
+        <p id="count" class="sub">Cargando…</p>
+      </div>
+    </div>
+    <nav class="chips" aria-label="Secciones">
+      <a class="chip" href="index.html">Pared</a>
+      <a class="chip" href="mapa.html">Mapa</a>
+      <a class="chip" href="fotos.html" aria-current="page">Fotos</a>
+    </nav>
+  </header>
+
+  <main class="album">
+    <aside class="filtros" aria-label="Filtros">
+      <div class="total">
+        <span id="pegFoto"></span>
+        <p class="num" id="total">–</p>
+        <p class="sub">fotos con personas</p>
+      </div>
+      <div class="busca">
+      <label class="buscador">
+        <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg>
+        <input id="q" type="search" placeholder="Buscar a una persona" aria-label="Buscar a una persona" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="sugerencias" aria-autocomplete="list">
+      </label>
+      <ul id="sugerencias" class="sugerencias glass" role="listbox" aria-label="Personas" hidden></ul>
+      </div>
+      <div id="anios" class="anios" role="group" aria-label="Año"></div>
+    </aside>
+
+    <section class="galeria" id="galeria" aria-label="Fotos">
+      <div class="cabeza-galeria">
+        <p id="resultado" class="sub" role="status" aria-live="polite"></p>
+        <button id="quitar" class="btn ghost chico" type="button" hidden>Ver todas</button>
+        <div class="modo" role="group" aria-label="Vista">
+          <button type="button" data-modo="album" aria-pressed="true">Álbum</button>
+          <button type="button" data-modo="mesa" aria-pressed="false">Mesa</button>
+        </div>
+      </div>
+      <div id="meses"></div>
+      <p id="vacio" class="vacio" hidden></p>
+    </section>
+  </main>
+
+  <div id="visor" class="sheet visor" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+    <div class="visor-card" id="visorCard" tabindex="-1">
+      <figure class="visor-foto sello"><div id="vCaja" class="caja"><img id="vImg" alt="" draggable="false"></div></figure>
+      <div class="visor-info glass">
+        <button id="vCerrar" class="btn ghost redondo close" aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#cerrar"/></svg></button>
+        <div class="visor-cab">
+          <span id="vPeg"></span>
+          <p class="kicker" id="vFecha"></p>
+          <h2 id="vEvento"></h2>
+          <p class="sub" id="vLugar"></p>
+        </div>
+        <p id="vNota" class="nota" hidden></p>
+        <p class="kicker gris">En la foto</p>
+        <div id="vPersonas" class="personas"></div>
+        <div class="acciones">
+          <button id="vEv" class="btn" type="button" hidden></button>
+          <a id="vMapa" class="btn ghost" href="mapa.html" hidden>En el mapa</a>
+          <a id="vBajar" class="btn ghost" href="#" download>Descargar</a>
+        </div>
+        <div class="nav">
+          <button id="vAnt" class="btn ghost"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#anterior"/></svg>Anterior</button>
+          <span id="vPos" class="sub"></span>
+          <button id="vSig" class="btn ghost">Siguiente<svg class="icono" aria-hidden="true"><use href="img/iconos.svg#siguiente"/></svg></button>
+        </div>
+        <p class="sub pista"><span class="tactil">Doble toque o pellizco para acercar · desliza para cambiar</span><span class="raton">Doble clic o rueda para acercar · teclas + − 0</span></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="iconos.js"></script>
+  <script src="pasaporte.js"></script>
+  <script src="fotos.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+// Formato para fotos con personas (mesas redondas, eventos, etc.)
+// Un bloque por evento (#evento), por viaje sin evento (#viaje) o para fotos sueltas (#sin-evento).
+// #evento Nombre | Organizador | Lugar | Ciudad | AAAA-MM-DD
+// AAAA/MM/DD - Nombre Apellido | Nombre Apellido => archivo_opcional.heic
+
+#evento Mesa redonda de estudiantes TIC | Dona Digital | Ateneu Barcelonès | Barcelona | 2025-09-09
+2025/09/09 - Persona A | Persona B | Persona C | Persona D
+
+#viaje Vacaciones familiares en Copenhague
+2026/08/27 - Nombre Apellido | Nombre Apellido => IMG_0001.heic
+
+#sin-evento
+2026/02/14 - Nombre Apellido => IMG_0002.heic

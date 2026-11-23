@@ -1,0 +1,115 @@
+/* Premios (vitrina). Ficha: docs/features/premios.md · Identidad: docs/diseno/IDENTIDAD.md */
+body.pag-premios { overflow: hidden; }
+
+/* metales por nivel: los únicos colores nuevos, solo en medallas y puntos */
+.pag-premios {
+  --m-oro: linear-gradient(150deg, #FBE08A, #D4A52A 55%, #B8861A);
+  --m-bronce: linear-gradient(150deg, #F0C3A0, #C98552 55%, #A0643A);
+  --m-plata: linear-gradient(150deg, #EEF1F6, #B9C1CE 55%, #8D97A6);
+  --m-azul: linear-gradient(150deg, #9DB4FF, #4D7CFF 55%, #2F5BEA);
+  --estante: linear-gradient(180deg, rgba(255,255,255,.95), rgba(214,208,197,.9));
+}
+@media (prefers-color-scheme: dark) {
+  .pag-premios { --estante: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.07)); }
+}
+.m-primer { --metal: var(--m-oro); }
+.m-podio { --metal: var(--m-bronce); }
+.m-finalista { --metal: var(--m-plata); }
+.m-mencion { --metal: var(--m-azul); }
+
+#premios {
+  display: flex; gap: var(--s-6); padding: var(--s-5) var(--s-5) var(--s-5);
+  overflow: auto; align-items: flex-start;
+}
+
+/* ---------- resumen ---------- */
+.resumen { width: 280px; flex: none; display: flex; flex-direction: column; gap: var(--s-1); position: sticky; top: 0; }
+.resumen .pegatina { width: 72px; height: 72px; transform: rotate(-6deg); }
+.total { margin: var(--s-2) 0 0; font: 300 96px/92px var(--sans); letter-spacing: -.04em; }
+.niveles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px var(--s-4); margin-top: var(--s-4); }
+.niveles > div { display: flex; align-items: center; gap: 10px; border: 0; }
+.niveles dd { font: 300 26px/28px var(--sans); }
+.niveles dt { font: 500 12px/16px var(--sans); }
+.metal-punto {
+  width: 14px; height: 14px; border-radius: 50%; flex: none; background: var(--metal);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 1px 2px rgba(27,26,23,.25);
+}
+.anios { margin-top: var(--s-5); display: flex; flex-direction: column; gap: 10px; }
+.anios-t { color: var(--ink-2); }
+.anio { display: grid; grid-template-columns: 44px 1fr 24px; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; }
+.anio b { font: 700 13px/20px var(--sans); }
+.anio span:last-child { font: 500 13px/20px var(--sans); color: var(--ink-2); text-align: right; }
+.barra { height: 10px; border-radius: 5px; background: var(--line); overflow: hidden; }
+.barra i { display: block; height: 100%; border-radius: 5px; background: linear-gradient(90deg, #4D7CFF, var(--accent)); }
+
+/* ---------- vitrina ---------- */
+.vitrina {
+  flex: 1; min-width: 0; padding: var(--s-5) 28px; border-radius: var(--r-3);
+  display: flex; flex-direction: column; gap: var(--s-5);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 55%, transparent), color-mix(in srgb, var(--surface) 25%, transparent));
+  border: 1px solid var(--glass-edge);
+  box-shadow: inset 0 1px 0 var(--glass-edge), 0 30px 60px -30px rgba(27,26,23,.35);
+}
+.estante { display: flex; flex-direction: column; gap: var(--s-2); }
+.estante-t { margin: 0; color: var(--ink-2); }
+.estante-t span { font-weight: 500; letter-spacing: 0; text-transform: none; }
+.fila { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; min-height: 100px; }
+.tabla { height: 8px; border-radius: 4px; background: var(--estante); box-shadow: 0 6px 10px -6px rgba(27,26,23,.35); }
+.vacio { margin: auto 0; color: var(--ink-2); font: 400 italic 15px/24px var(--sans); }
+
+.medalla {
+  width: 86px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 4px 0;
+  border: 0; border-radius: 14px; background: transparent; cursor: pointer; position: relative;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .medalla { transition: transform var(--d-2) var(--ease-spring); }
+  .medalla:hover { transform: translateY(-4px); }
+}
+.medalla:active { transform: scale(.96); }
+.medalla[aria-pressed="true"] { background: var(--accent-soft); }
+.disco { position: relative; width: 52px; height: 60px; display: flex; justify-content: center; }
+.cinta {
+  position: absolute; top: 0; width: 26px; height: 22px;
+  background: linear-gradient(90deg, var(--accent) 0 33%, var(--paper) 33% 66%, var(--accent) 66%);
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+}
+.oro {
+  position: absolute; bottom: 0; width: 44px; height: 44px; border-radius: 50%; background: var(--metal);
+  box-shadow: inset 0 2px 3px rgba(255,255,255,.7), inset 0 -3px 5px rgba(0,0,0,.2), 0 6px 10px -4px rgba(27,26,23,.45);
+  display: flex; align-items: center; justify-content: center;
+  font: 700 11px/1 var(--sans); color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,.35); font-variant-numeric: tabular-nums;
+}
+.nombre { font: 500 11px/14px var(--sans); text-align: center; text-wrap: balance; max-height: 28px; overflow: hidden; }
+
+/* ---------- ficha (cristal) ---------- */
+.ficha {
+  position: fixed; right: var(--s-5); bottom: var(--s-5); z-index: 6; width: 320px;
+  padding: var(--s-4) var(--s-4) var(--s-4) var(--s-5); border-radius: var(--r-2); display: flex; flex-direction: column; gap: var(--s-3);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  animation: subir var(--d-3) var(--ease-out);
+}
+.ficha.arriba { bottom: auto; top: 88px; }   /* si la medalla está abajo, la ficha sube para no taparla */
+.ficha h2 { margin: 0; padding-right: 36px; font: 700 20px/26px var(--sans); letter-spacing: -.01em; text-wrap: balance; }
+.ficha .redondo { position: absolute; top: var(--s-3); right: var(--s-3); }
+.f-nivel { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: var(--r-2); background: var(--accent-soft); }
+.f-nivel .metal-punto { width: 22px; height: 22px; }
+.f-nivel > span:last-child { display: flex; flex-direction: column; }
+.f-nivel b { font: 700 14px/20px var(--sans); }
+
+/* ---------- visor del certificado ---------- */
+.visor-card { width: min(760px, 100%); display: grid; place-items: center; padding: var(--s-7) var(--s-5) var(--s-5); }
+.visor-sello { margin: 0; max-width: 100%; }
+.visor-sello img { display: block; max-width: 100%; max-height: 72dvh; width: auto; height: auto; margin: auto; }
+
+/* ---------- móvil: resumen arriba, estantes debajo ---------- */
+@media (max-width: 760px) {
+  #premios { flex-direction: column; gap: var(--s-5); padding: var(--s-4) var(--s-4) 300px; align-items: stretch; }   /* sitio para que la ficha no tape las últimas medallas */
+  .resumen { width: auto; position: static; display: grid; grid-template-columns: auto 1fr; column-gap: var(--s-4); align-items: center; }
+  .resumen > #peg { grid-row: span 2; }
+  .total { font-size: 64px; line-height: 64px; margin: 0; }
+  .niveles, .anios { grid-column: 1 / -1; }
+  .vitrina { padding: var(--s-4); }
+  .medalla { width: calc((100% - 20px) / 3); min-width: 0; }
+  .ficha { top: auto; left: var(--s-3); right: var(--s-3); bottom: var(--s-3); width: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .ficha { animation: none; } }

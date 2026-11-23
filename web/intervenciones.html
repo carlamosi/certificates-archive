@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Charlas, mesas redondas y entrevistas, con su grabación.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Intervenciones en público · Certificates Archive</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="intervenciones.css">
+</head>
+<body class="pag-interv">
+  <header class="bar glass">
+    <div class="brand">
+      <img src="img/logo.svg" alt="" width="36" height="36">
+      <div>
+        <h1>Certificates <b>Archive</b></h1>
+        <p id="count" class="sub">Cargando…</p>
+      </div>
+    </div>
+    <nav class="chips" aria-label="Secciones">
+      <a class="chip" href="index.html">Pared</a>
+      <a class="chip" href="mapa.html">Mapa</a>
+      <a class="chip" href="intervenciones.html" aria-current="page">Intervenciones</a>
+    </nav>
+  </header>
+
+  <main class="interv">
+    <section id="resumen" class="interv-resumen glass" aria-label="Resumen de intervenciones"></section>
+
+    <div class="cols">
+      <section class="lista-col" aria-labelledby="titulo">
+        <h2 id="titulo" class="titulo">Intervenciones en público</h2>
+        <ul id="lista" class="lista"></ul>
+        <p class="sub nota">Las grabaciones son vídeos del móvil: se guarda la ruta del archivo, no se suben a ningún sitio.</p>
+      </section>
+
+      <section id="detalle" class="detalle" aria-label="Intervención seleccionada" aria-live="polite" hidden>
+        <div id="video" class="video"></div>
+        <div class="ficha">
+          <div>
+            <p id="dFecha" class="kicker"></p>
+            <h2 id="dEvento"></h2>
+            <p id="dLugar" class="sub"></p>
+          </div>
+          <div class="acciones">
+            <a id="dAbrir" class="btn" target="_blank" rel="noopener">Abrir el vídeo</a>
+            <a id="dEvt" class="btn ghost" aria-disabled="true" title="Todavía no hay página de eventos">Ver el evento</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <p id="vacio" class="sub" hidden>Todavía no hay intervenciones en el archivo.</p>
+  </main>
+
+  <script src="iconos.js"></script>
+  <script src="pasaporte.js"></script>
+  <script src="intervenciones.js"></script>
+</body>
+</html>

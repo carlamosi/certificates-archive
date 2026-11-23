@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Archivo de certificados con buscador y estado de escaneo.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Certificados · Certificates Archive</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="certificados.css">
+</head>
+<body class="pag-cert">
+  <header class="bar glass">
+    <div class="brand">
+      <img src="img/logo.svg" alt="" width="36" height="36">
+      <div>
+        <h1>Certificates <b>Archive</b></h1>
+        <p id="count" class="sub">Cargando…</p>
+      </div>
+    </div>
+    <nav class="chips" aria-label="Secciones">
+      <a class="chip" href="index.html">Pared</a>
+      <a class="chip" href="mapa.html">Mapa</a>
+      <a class="chip" href="certificados.html" aria-current="page">Certificados</a>
+    </nav>
+  </header>
+
+  <main id="cert">
+    <div class="cert-in">
+      <dl class="contadores-c" id="contadores"></dl>
+
+      <div class="controles">
+        <label class="buscar">
+          <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg>
+          <input id="q" type="search" aria-label="Buscar certificados" placeholder="Buscar por evento, organizador o nº" autocomplete="off">
+        </label>
+        <div class="vistas" id="vistas" role="group" aria-label="Mostrar"></div>
+        <p id="resultado" class="sub" aria-live="polite"></p>
+      </div>
+
+      <div id="rejilla"></div>
+      <p id="vacio" class="sub vacio" hidden>Nada coincide con la búsqueda.</p>
+      <div id="notice" class="notice" hidden></div>
+    </div>
+  </main>
+
+  <div id="ficha" class="cfi" role="dialog" aria-modal="true" aria-label="Certificado" hidden>
+    <div class="cfi-fondo" data-cerrar></div>
+    <div class="cfi-hoja" id="fHoja"></div>
+    <aside class="cfi-datos glass" tabindex="-1" id="fDatos">
+      <button class="btn ghost redondo cfi-x" id="fCerrar" aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#cerrar"/></svg></button>
+      <p class="kicker" id="fFecha"></p>
+      <h2 id="fTitulo"></h2>
+      <p class="sub" id="fOrg"></p>
+      <div id="fPremio" class="cfi-premio" hidden></div>
+      <p class="sub" id="fNum"></p>
+      <div class="nav">
+        <button class="btn ghost" id="fAnt" style="flex:1"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#anterior"/></svg>Anterior</button>
+        <button class="btn ghost" id="fSig" style="flex:1">Siguiente<svg class="icono" aria-hidden="true"><use href="img/iconos.svg#siguiente"/></svg></button>
+      </div>
+    </aside>
+  </div>
+
+  <script src="iconos.js"></script>
+  <script src="pasaporte.js"></script>
+  <script src="certificados.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+====================================================================================================
+AUTOTEST con medidas conocidas (acreditación A6-like con orificio roto; etiqueta blanca ~ papel)
+====================================================================================================
+  v2 · 90x130 base                   OK      err ancho/alto = +0.21 / +0.10 mm | calib 0.046 mm | 1 hueco(s) +rotura | borde 1.21px | 0.8s
+  a4 · A6 105x148 base               OK      err ancho/alto = +0.12 / +0.05 mm | calib 0.018 mm | 1 hueco(s) +rotura | borde 1.28px | 1.4s
+  a4 · luz lateral fuerte (35 %)     OK      err ancho/alto = +0.12 / +0.05 mm | calib 0.018 mm | 1 hueco(s) +rotura | borde 1.28px | 1.3s
+      avisos: luz muy desigual en la hoja: colócate de frente a la ventana o difumina la lámpara
+  a4 · móvil inclinado 10°           OK      err ancho/alto = +0.12 / +0.04 mm | calib 0.019 mm | 1 hueco(s) +rotura | borde 1.30px | 1.3s
+  a4 · baja resolución (7 px/mm)     OK      err ancho/alto = +0.16 / +0.07 mm | calib 0.031 mm | 1 hueco(s) +rotura | borde 1.12px | 1.3s
+  a4 · desenfoque ligero             OK      err ancho/alto = +0.16 / +0.05 mm | calib 0.037 mm | 1 hueco(s) +rotura | borde 1.90px | 1.3s
+  a4 · desenfoque fuerte             OK      err ancho/alto = +0.33 / +0.06 mm | calib 0.146 mm | 1 hueco(s) +rotura | borde 4.65px | 1.3s
+      avisos: foto desenfocada (borde 4.7 px): toca la pantalla sobre el objeto antes de disparar y apoya el móvil
+  a4 · tarjeta pequeña 54x86         OK      err ancho/alto = +0.14 / +0.07 mm | calib 0.018 mm | 0 hueco(s) | borde 1.28px | 1.3s
+  a4 · certificado blanco (difícil)  -> RECHAZADA: no distingo el objeto del papel (¿blanco sobre blanco?). Pon una cartulina oscura mate debajo del objeto y repite la foto
+
+LOTE ALEATORIO (40 fotos: plantilla, tamaño, giro, inclinación, luz, ruido al azar)
+  válidas: 40/40 | error medio 0.148 mm | mediana 0.143 mm | p95 0.327 mm | máximo 0.420 mm | sin detectar orificio: 0
+
+CASOS QUE DEBEN FALLAR (el programa debe negarse a guardar, no inventar medidas)
+  marcador tapado          -> rechazada correctamente: Solo veo 3 de 4 marcadores (faltan IDs [1]). Encuadra la hoja completa, sin tapar ni doblar ningún marcador.
+  objeto sobre marcadores  -> avisos: ['el objeto toca un marcador o el borde de la hoja: apártalo']
+
+RESUMEN: todos los casos principales dentro de ±0,6 mm

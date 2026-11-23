@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "page": "A4",
+  "page_mm": [
+    210,
+    297
+  ],
+  "ref_rect_mm": [
+    150,
+    210
+  ],
+  "ref_rect_origin_mm": [
+    30.0,
+    43.5
+  ],
+  "registration_crosses_mm": [
+    [
+      0,
+      0
+    ],
+    [
+      150,
+      0
+    ],
+    [
+      0,
+      210
+    ],
+    [
+      150,
+      210
+    ]
+  ],
+  "ruler_mm": 100,
+  "square_mm": 50,
+  "print_instruction": "Imprimir a 100 % (sin ajustar a página). El script calibra la escala con las cruces."
+}

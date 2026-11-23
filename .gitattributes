@@ -1,0 +1,15 @@
+# Texto siempre con LF (igual que .editorconfig); los lanzadores de Windows con CRLF
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+# Binarios: nunca convertir saltos de línea
+*.pdf binary
+*.xlsx binary
+*.webp binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.heic binary
+*.heif binary
+*.zip binary
+*.sqlite binary

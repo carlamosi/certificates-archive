@@ -1,0 +1,3 @@
+// slug del evento | tipo | título | fecha | duración en segundos | idioma | ruta del vídeo | personas
+// tipo: keynote | mesa_redonda | pitch | otro
+2026-10-23_healthtech-2030-innovation-challenge | keynote | Keynote speaker | 2026-10-23 | 1260 | es | /ruta/al/video.mp4 | Carla Monté

@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash tests/run_all.sh)",
+      "Bash(python tests/test_archivo_db.py)",
+      "Bash(python herramientas/archivo_db/archivo.py resumen)",
+      "Bash(python herramientas/archivo_db/archivo.py copia)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)"
+    ],
+    "deny": [
+      "Bash(rm * datos/*)",
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Edit(datos/archivo.sqlite)",
+      "Edit(datos/copias/**)",
+      "Edit(**/originals/**)",
+      "Edit(datos/certificados_originales/**)",
+      "Edit(legacy/**)"
+    ]
+  }
+}

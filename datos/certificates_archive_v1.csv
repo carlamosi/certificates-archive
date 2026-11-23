@@ -1,0 +1,61 @@
+﻿uid,num_archivo,tipo,titulo,organizador,fecha,rol_premio,categoria_propuesta,lugar,modalidad,caja_fisica,nota,evento,archivo
+2018-06-lego-education-robotix,001,certificado,LEGO Education Robotix,,2018-06,,robótica,,,,,,
+2019-02-first-lego-league-junior,002,certificado,FIRST LEGO League Junior,FIRST LEGO League,2019-02,,robótica,,,,,2019-02_first-lego-league-junior,
+2022-07-roblox-coding,003,certificado,Roblox Coding,CodeLearn,2022-07,,programación,,,,,,
+2022-07-video-editing,004,certificado,Video Editing,CodeLearn,2022-07,,creación de contenido,,,,,,
+2022-07-build-our-own-smart-home-with-arduino,005,certificado,Build Our Own Smart Home with Arduino,CodeLearn,2022-07,,robótica/electrónica,,,,,,
+2023-06-robotics,006,certificado,Robotics,La Vall,2023-06,,robótica,,,,,,
+2023-07-introduction-to-digital-fabrication,007,certificado,Introduction to Digital Fabrication,ESEIAAT (UPC),2023-07,,fabricación digital,,,,,,Introducció a la fabricació digital · ESEIAAT (UPC).pdf
+2024-02-first-lego-league-masterpiece-1st-prize-,008,certificado,FIRST LEGO League Masterpiece,FIRST LEGO League,2024-02,"1st Prize, Ingeniera Soy",robótica,,,,,2024-02_first-lego-league-masterpiece,
+2024-02-first-lego-league-masterpiece-participat,009,certificado,FIRST LEGO League Masterpiece,FIRST LEGO League,2024-02,Participation Recognition,robótica,,,,,2024-02_first-lego-league-masterpiece,
+2024-06-ciencia-oberta-1st-prize,010,certificado,Ciència Oberta,,2024-06,1st Prize,divulgación,,,,,,Ciència Oberta.pdf
+2025-03-hp-codewars,011,certificado,HP CodeWars,HP,2025-03,,programación,,,,,2025-03_hp-codewars,HP CodeWars.pdf
+2025-03-hp-codewars-team-photo,012,certificado,HP CodeWars · Team Photo,HP,2025-03,,programación,,,,"Es una foto de equipo, no un certificado: valorar tipo=foto",2025-03_hp-codewars,
+2025-03-first-lego-league-submerged-spanish-fina,013,certificado,FIRST LEGO League Submerged · Spanish Final,FIRST LEGO League,2025-03,Spanish Final,robótica,,,,,2025-03-29_first-lego-league-submerged-final-nacional,
+2025-06-technovation-girls-global-semifinalist-2,014,certificado,Technovation Girls,Technovation,2025-06,Global Semifinalist 2025,emprendimiento/tecnología,,,,,,Technovation Girls · Global Semifinalist 2025.pdf
+2025-06-dual-diploma-honor-roll,015,certificado,Dual Diploma,,2025-06,Honor Roll,académico,,,,,,
+2025-06-robotics,016,certificado,Robotics,La Vall,2025-06,,robótica,,,,,,
+2025-06-girls-go-circular-summer-hackathon,017,certificado,Girls Go Circular Summer Hackathon,Girls Go Circular,2025-06,,hackathon/sostenibilidad,,,,,2025-06_girls-go-circular-summer-hackathon,Barcelona Summer Hackhton · Girls Go STEM.png
+2025-07-tecnocamp,018,certificado,Tecnocamp,UC3M,2025-07,,tecnología,,,,,2025-07_tecnocamp,
+2025-07-data-science-with-python,019,certificado,Data Science with Python,UPF,2025-07,,ciencia de datos,,,,,,Data Science with Python · UPF.pdf
+2025-09-leadership-digital-transformation-ai,020,certificado,"Leadership, Digital Transformation & AI",,2025-09,,IA/liderazgo,,,,,,
+2025-09-future-makers-summer-school,021,certificado,Future Makers Summer School,UPC,2025-09,,tecnología,,,,,2025-09_future-makers-summer-school,Future Makers Summer School.pdf
+2025-09-laia-list-outstanding-ict-students-outst,022,certificado,LaIA List · Outstanding ICT Students,,2025-09,Outstanding ICT Students,IA/TIC,,,,Mes y año deducidos por la numeración (entre 021 y 023); en tu texto aparece pegado al 025. Confirmar,,
+2025-09-09-mesa-redonda-estudiantes-tic,,foto,Mesa redonda de estudiantes TIC,Dona Digital,2025-09-09,Ponente,TIC/mujeres en tecnología,"Ateneu Barcelonès, Barcelona",presencial,,Personas: Persona A | Persona B | Persona C | Persona D,2025-09-09_mesa-redonda-de-estudiantes-tic,
+2025-10-eureka-divulgadores-3rd-prize,023,certificado,Eureka Divulgadores,,2025-10,3rd Prize,divulgación,,,,,,Eureka Divulgadores 2025 · IST.pdf
+2025-11-business-essay-contest-top-10,024,certificado,Business Essay Contest,Hinskey Labs,2025-11,Top 10,negocios,,,,,,Business Essay Competiton · Hinksey Labs.png
+2025-12-bibliometrics-research-internship,025,certificado,Bibliometrics Research Internship,ThinkNeuro,2025-12,,neurociencia/investigación,,,,NÚMERO REPETIDO: el 025 también aparece en 2026 (Infographic Contest),,ThinkNeuro.pdf
+2026-02-infographic-contest-3rd-place-award,025,certificado,Infographic Contest,Sleep Research Society,2026-02,3rd Place Award,neurociencia/divulgación,,,,NÚMERO REPETIDO con Bibliometrics (2025-12). Propuesta: renumerar 2026 a 026-045,,Infographic Contest · Sleep Research Society.pdf
+2026-02-premis-equit-t,026,certificado,Premis Equit@t,UOC,2026-02,,social/tecnología,,,,,,Premis Equit@t · UOC.pdf
+2026-02-ai-accelerator,027,certificado,AI Accelerator,,2026-02,,IA,,,,,,AI Accelerator · Esade.pdf
+2026-03-dilemmas-and-dangers-in-ai,028,certificado,Dilemmas and Dangers in AI,Leaf,2026-03,,IA/ética,,,,,,Dilemmas and Dangers in AI · Leaf.pdf
+2026-03-teen-fact-checking-network,029,certificado,Teen Fact-Checking Network,,2026-03,,divulgación/periodismo,,,,,,Teen Fact Checking Network · Verificat.pdf
+2026-05-premis-premsa-comarcal-a-la-solidaritat-,030,certificado,Premis Premsa Comarcal a la Solidaritat,,2026-05,1st Prize,social,,,,,,Premsa Comarcal.pdf
+2026-06-girls-in-research,031,certificado,Girls in Research,,2026-06,,investigación,,,,,,Certificate G.I.R..jpg
+2026-06-bojos-per-la-ciencia-ia,032,certificado,Bojos per la Ciència IA,,2026-06,,IA/divulgación,,,,,,BxC IA.pdf
+2026-06-eureka-divulgadores-1st-prize,033,certificado,Eureka Divulgadores,,2026-06,1st Prize,divulgación,,,,,,
+2026-06-international-apollo-competition,034,certificado,International Apollo Competition,,2026-06,,aeroespacial,,,,En la lista aparece como 'Contest' y como 'Competition': unificado a Competition,2026-06-07_concurso-internacional-apolo,Concurso Internacional Apolo · INTA.pdf
+2026-06-the-knowledge-society,035,certificado,The Knowledge Society,,2026-06,,tecnología/emprendimiento,,,,,,The Knowledge Society.pdf
+2026-06-technovation-global-semifinalist-2026,036,certificado,Technovation,Technovation,2026-06,Global Semifinalist 2026,emprendimiento/tecnología,,,,,,Technovation Girls · Global Semifinalist 2026.pdf.pdf
+2026-07-master-of-molecular-biology-wizardry,037,certificado,Master of Molecular Biology Wizardry,,2026-07,,biología,,,,,,School of Molecular Magic.pdf
+2026-07-chemistry-rediscovered-1st-prize,038,certificado,Chemistry Rediscovered,,2026-07,1st Prize,química,,,,,2026-07-12_10th-euchems-chemistry-congress,
+2026-07-neurocamp,039,certificado,NeuroCamp,RICE Neuroscience Society,2026-07,,neurociencia,,,,Solo aparece en la segunda versión de la lista,,NeuroCamp · Rice University.pdf
+2026-07-inspiraciencia-1st-finalist,040,certificado,Inspiraciencia,,2026-07,1st Finalist,divulgación,,,,Solo aparece en la segunda versión de la lista,,Inspiraciencia · CSIC.pdf
+2026-08-awardx-europe-top-10,041,certificado,AwardX Europe,,2026-08,Top 10,emprendimiento,,,,Solo aparece en la segunda versión de la lista,,AwardX Europe Top 10.pdf
+2026-08-web-development-camp,042,certificado,Web Development Camp,Kode with Klossy,2026-08,,programación,,,,Solo aparece en la segunda versión de la lista,,Kode with Klossy Web Development.pdf
+2026-08-girls-go-stem-ambassador-ambassador,043,certificado,Girls Go STEM Ambassador,,2026-08,Ambassador,STEM,,,,Solo aparece en la segunda versión de la lista,,Student Ambassador · Girls Go STEM.pdf
+2026-09-lse-generate-global-innovation-challenge,044,certificado,LSE Generate Global Innovation Challenge,LSE,2026-09,1st Place,innovación,,,,Solo aparece en la segunda versión de la lista,,
+2026-10-23-healthtech-2030-innovation-challenge,,lanyard,HealthTech 2030 Innovation Challenge,Xartec Salut,2026-10-23,Speaker,salud/tecnología,"UPC · Sala Ágora, Barcelona",presencial,,Co-organizan IRIS y UPC (según el reverso del lanyard),2026-10-23_healthtech-2030-innovation-challenge,
+2025-07-14-digital-skills-circular-economy,,certificado,Digital Skills and the Circular Economy,Girls Go Circular (EIT RawMaterials),2025-07-14,,economía circular,,,,,,Digital Skills and the Circular Economy · Girls Go Circular.pdf
+2025-07-20-digital-marketing-basics,,certificado,Digital Marketing Basics,Grade Builder,2025-07-20,,marketing,,,,,,Digital Marketing · Grade Builder.png
+2025-10-16-immerse-essay-academic-distinction,,certificado,Immerse Education Essay Competition,Immerse Education,2025-10-16,Academic Distinction,ensayo,,,,,,Immerse Essay Competition · Academic Distinction.pdf
+2025-11-21-young-planet-leader-changemaker-academy,,certificado,Young Planet Leader Changemaker Academy,Young Planet Leaders,2025-11-21,,sostenibilidad,,,,,,Young Planet Leaders Academy.pdf
+2025-stem-reels-competition,,certificado,STEM Reels Competition,Future Leaders in Physics · physics.meme,2025,Winner,divulgación,,,,,,STEM Reels Competition · Future Leaders in Physics.png
+2026-top-scientists-3m,,certificado,Top Scientists 2026,Fundación 3M,2026,,ciencia,,,,"Curso 2025-2026, proyecto Vogagi",,Top Scientists · 3M.pdf
+2026-06-european-dna-day-essay,,certificado,European DNA Day Essay Contest,European Society of Human Genetics,2026-06,Honorable Mention,genética,,,,,,DNA Day 2026 Diploma of Honourable Mention.pdf
+2026-06-17-videominuto-unizar,,certificado,XXV Certamen Internacional Videominuto,Universidad de Zaragoza,2026-06-17,Finalista nacional,audiovisual,,,,,,Videominute International Contest.pdf
+2026-07-12-euchems-attendance,,certificado,10th EuChemS Chemistry Congress · Attendance,EuChemS,2026-07-16,,química,,,,,2026-07-12_10th-euchems-chemistry-congress,10th EuChemS.pdf
+2026-08-04-awardx-europe-finalist,,certificado,AwardX Europe Youth Entrepreneurship Pitch Competition,LaunchX,2026-08-04,Finalist (Custos),emprendimiento,,,,,,Custos_Finalist_2026 AwardX Europe Certificates.pdf
+2026-10-05-immerse-essay-merit,,certificado,Immerse Education Essay Competition,Immerse Education,2026-10-05,Merit (beca),ensayo,,,,,,Immerse Essay Competition.pdf
+2026-03-26-nit-telecos-acreditacion,,otro,Acreditación · 31a Nit de les Telecomunicacions i la Informàtica,telecos.cat,2026-03-26,,TIC,,,,,2026-03-26_nit-de-les-telecomunicacions-i-la-informatica,La Nit.PNG
+2025-apariciones-en-medios,,otro,Apariciones en medios (infografía),Jatta Printi Media,2025,,divulgación,,,,,,Jatta Printi Media.pdf

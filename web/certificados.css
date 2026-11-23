@@ -1,0 +1,85 @@
+/* Página de certificados · ficha: docs/features/certificados.md. Tokens en style.css */
+.pag-cert main { overflow-y: auto; }
+.cert-in { max-width: 1280px; margin: 0 auto; padding: var(--s-5) var(--s-5) var(--s-7); display: flex; flex-direction: column; gap: var(--s-5); }
+
+.contadores-c { margin: 0; display: flex; gap: var(--s-6); justify-content: flex-end; }
+.contadores-c > div { display: flex; flex-direction: column-reverse; align-items: flex-end; padding-left: var(--s-6); border-left: 1px solid var(--line); }
+.contadores-c > div:first-child { border: 0; padding: 0; }
+.contadores-c dd { font: 300 44px/46px var(--sans); letter-spacing: -.03em; }
+.contadores-c dt { font: 500 13px/20px var(--sans); color: var(--ink-2); }
+
+.controles { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+.buscar {
+  display: flex; align-items: center; gap: 10px; width: 360px; max-width: 100%; height: 44px; padding: 0 var(--s-4);
+  border-radius: var(--r-pill); background: color-mix(in srgb, var(--surface) 75%, transparent); border: 1px solid var(--line); color: var(--ink-2);
+}
+.buscar:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.buscar input { flex: 1; min-width: 0; border: 0; background: transparent; font: 400 14px/20px var(--sans); color: var(--ink); outline: none; }
+.vistas { display: flex; gap: var(--s-1); padding: 3px; border-radius: var(--r-pill); background: var(--line); overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+.vistas .chip { height: 38px; }
+.vistas .chip[aria-pressed="false"] { color: var(--ink-2); }
+#resultado { margin-left: auto; }
+
+.anio-t { margin: 0 0 var(--s-4); font: 700 11px/16px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); display: flex; align-items: center; gap: var(--s-3); }
+.anio-t::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.anio + .anio { margin-top: var(--s-6); }
+.cuadricula { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: var(--s-6) var(--s-5); padding-top: var(--s-2); }
+
+.hoja {
+  padding: 0; border: 0; background: transparent; text-align: left; cursor: pointer;
+  display: flex; flex-direction: column; gap: 10px; transform: rotate(var(--giro));
+  transition: transform var(--d-2) var(--ease-out);
+}
+@media (hover: hover) { .hoja:hover { transform: translateY(-3px) rotate(0deg); } }
+.hoja:active { transform: scale(.96); transition-duration: var(--d-1); }
+.hoja-papel {
+  position: relative; display: block; height: 150px; border-radius: 4px; background: var(--surface);
+  box-shadow: var(--sh-1), 0 14px 24px -12px rgba(27,26,23,.3);
+}
+.hoja-papel img:not(.pegatina) { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 4px; display: block; }
+.hoja-papel.pend { background: transparent; box-shadow: none; border: 1.5px dashed var(--ink-2); display: grid; place-items: center; font: 500 12px/16px var(--sans); color: var(--ink-2); }
+.cert-medalla { position: absolute; right: -10px; top: -12px; width: 36px; height: 36px; transform: rotate(8deg); }
+.hoja-txt { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.hoja-t { font: 500 14px/19px var(--sans); text-wrap: balance; }
+
+.vacio { text-align: center; padding: var(--s-7) 0; }
+
+/* ---------- ficha ---------- */
+.cfi { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; gap: var(--s-6); padding: var(--s-7); animation: fundido var(--d-3) var(--ease-out); }
+.cfi-fondo { position: absolute; inset: 0; background: rgba(20,22,30,.4); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.cfi-hoja {
+  position: relative; flex: 0 1 680px; height: min(560px, 100%); min-width: 0; border-radius: 6px; background: var(--surface);
+  box-shadow: 0 40px 70px -24px rgba(0,0,0,.55); display: grid; place-items: center; overflow: hidden; animation: subir var(--d-3) var(--ease-out);
+}
+.cfi-hoja img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.cfi-hoja.pend { background: transparent; box-shadow: none; border: 1.5px dashed var(--ink-2); }
+.cfi-vacia { display: flex; flex-direction: column; gap: 6px; text-align: center; color: var(--ink-2); font: 500 13px/20px var(--sans); }
+.cfi-vacia b { font: 700 15px/20px var(--sans); color: var(--ink); }
+.cfi-datos {
+  position: relative; flex: 0 0 300px; max-height: 100%; overflow-y: auto; padding: var(--s-5); border-radius: var(--r-3);
+  display: flex; flex-direction: column; gap: var(--s-3); background: color-mix(in srgb, var(--surface) 88%, transparent); outline: none;
+  animation: subir var(--d-3) var(--ease-out) 40ms backwards;
+}
+.cfi-datos h2 { margin: 0; padding-right: 48px; font: 700 22px/28px var(--sans); letter-spacing: -.01em; text-wrap: balance; }
+.cfi-x { position: absolute; top: var(--s-4); right: var(--s-4); }
+.cfi-premio { display: flex; align-items: center; gap: 10px; padding: var(--s-3) 14px; border-radius: var(--r-2); border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 70%, transparent); }
+.cfi-premio .pegatina { width: 32px; height: 32px; flex: none; }
+.cfi-premio > span { display: flex; flex-direction: column; min-width: 0; }
+.cfi-premio b { font: 500 15px/20px var(--sans); }
+.cfi-datos .nav { margin-top: var(--s-1); }
+
+@media (max-width: 800px) {
+  .cert-in { padding: var(--s-4) var(--s-4) var(--s-6); gap: var(--s-4); }
+  .contadores-c { justify-content: space-between; gap: var(--s-3); }
+  .contadores-c > div { padding-left: var(--s-3); align-items: flex-start; flex: 1; }
+  .contadores-c > div:first-child { padding: 0; }
+  .contadores-c dd { font-size: 32px; line-height: 36px; }
+  #resultado { margin-left: 0; }
+  .cuadricula { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--s-4); }
+  .cfi { flex-direction: column; padding: var(--s-3); gap: var(--s-3); justify-content: flex-end; overflow-y: auto; }
+  .cfi-hoja { flex: 0 0 auto; width: 100%; height: 38dvh; }
+  .cfi-datos { flex: 0 0 auto; width: 100%; max-height: 50dvh; border-radius: var(--r-3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hoja:hover { transform: rotate(var(--giro)); }
+}

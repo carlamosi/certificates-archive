@@ -1,0 +1,42 @@
+﻿ciudad,pais,continente,region,lat,lng,coord_confianza,estado,primera_fecha,n_visitas,pin,pin_id,viajes
+Andorra la Vella,Andorra,Europa,Andorra la Vella,42.5063,1.5218,alta,visitada,2021-08-01,1,sí,AND-2021,
+Coimbra,Portugal,Europa,Centro,40.2033,-8.4103,alta,visitada,2023-08-13,1,no,,Roadtrip familiar por España y Portugal (agosto 2023)
+Fátima,Portugal,Europa,Santarém,39.6162,-8.67,alta,visitada,2023-08-13,1,sí,ROADTRIP-2023-08,Roadtrip familiar por España y Portugal (agosto 2023)
+Madrid,España,Europa,Madrid,40.4168,-3.7038,alta,visitada,2023-08-13,5,sí,MAD-2023-08,Roadtrip familiar por España y Portugal (agosto 2023) || FIRST LEGO League: Visita a la ONCE (Madrid) || MBA League: Final Nacional de Emprendimiento (Madrid) || Viaje Madrid INTA (Concurso Internacional Apolo) || Concurso RedeSTEAM de Redeia (Madrid)
+Nazaré,Portugal,Europa,Centro,39.6012,-9.0703,alta,visitada,2023-08-13,1,sí,ROADTRIP-2023-08,Roadtrip familiar por España y Portugal (agosto 2023)
+Sintra,Portugal,Europa,Lisboa,38.8029,-9.3817,alta,visitada,2023-08-13,1,no,,Roadtrip familiar por España y Portugal (agosto 2023)
+Soria,España,Europa,Castilla y León,41.7664,-2.479,alta,visitada,2023-08-13,1,no,,Roadtrip familiar por España y Portugal (agosto 2023)
+Mérida,España,Europa,Extremadura,38.9161,-6.3437,alta,visitada,2023-08-14,1,no,,Roadtrip familiar por España y Portugal (agosto 2023)
+Lisboa,Portugal,Europa,Lisboa,38.7223,-9.1393,alta,visitada,2023-08-16,1,sí,LIS-2023-08,Roadtrip familiar por España y Portugal (agosto 2023)
+Salamanca,España,Europa,Castilla y León,40.9701,-5.6635,alta,visitada,2023-08-22,2,sí,SAL-2023-08,Roadtrip familiar por España y Portugal (agosto 2023) || Viaje Madrid INTA (Concurso Internacional Apolo)
+Alicante,España,Europa,Valencia,38.3452,-0.481,alta,visitada,2024-03-16,1,sí,ALC-2024,FIRST LEGO League: Final Nacional (Alicante)
+Ferrol,España,Europa,Galicia,43.4845,-8.2328,alta,visitada,2025-03-29,1,no,,FIRST LEGO League: Final Nacional (Ferrol)
+Ciudad del Cabo,Sudáfrica,África,Western Cape,-33.9249,18.4241,alta,visitada,2025-05-01,1,sí,CPT-2025,FIRST LEGO League: Open Africa (Ciudad del Cabo)
+Barcelona,España,Europa,Catalunya,41.3874,2.1686,alta,visitada,2026-03-23,1,no,,Girls Go STEM Meet Up (Barcelona)
+Ginebra,Suiza,Europa,Ginebra,46.2044,6.1432,alta,visitada,2026-05-19,1,no,,TikTok x Asamblea Anual de la OMS (Ginebra)
+Alcalá de Henares,España,Europa,Madrid,40.4818,-3.3643,alta,visitada,2026-06-07,1,sí,ALH-2026,Viaje Madrid INTA (Concurso Internacional Apolo)
+Torrejón de Ardoz,España,Europa,Madrid,40.4602,-3.4787,alta,visitada,2026-06-07,1,no,,Viaje Madrid INTA (Concurso Internacional Apolo)
+Planes de Son,España,Europa,Catalunya,42.6,1.15,revisar,visitada,2026-06-22,1,no,,MonNatura Pirineus: Joves i Ciència (Planes de Son)
+Amberes,Bélgica,Europa,Flandes,51.2194,4.4025,alta,visitada,2026-07-13,1,sí,ANT-2026,Viaje al Congreso de Química en Amberes (10th EuChemS)
+Mechelen,Bélgica,Europa,Flandes,51.0259,4.4776,alta,visitada,2026-07-13,1,no,,Viaje al Congreso de Química en Amberes (10th EuChemS)
+Róterdam,Países Bajos,Europa,Holanda Meridional,51.9244,4.4777,alta,visitada,2026-07-14,1,sí,ROT-2026,Viaje al Congreso de Química en Amberes (10th EuChemS)
+Arucas,España,Europa,Islas Canarias,28.1186,-15.5231,alta,visitada,2026-08-14,1,no,,Beca Juventud y Liderazgo: Campamento Changemaker (Gran Canaria)
+Artenara,España,Europa,Islas Canarias,28.0186,-15.6573,alta,visitada,2026-08-16,1,no,,Beca Juventud y Liderazgo: Campamento Changemaker (Gran Canaria)
+Teror,España,Europa,Islas Canarias,28.0614,-15.5481,alta,visitada,2026-08-16,1,no,,Beca Juventud y Liderazgo: Campamento Changemaker (Gran Canaria)
+Las Palmas de Gran Canaria,España,Europa,Islas Canarias,28.1235,-15.4363,alta,visitada,2026-08-17,1,sí,LPA-2026,Beca Juventud y Liderazgo: Campamento Changemaker (Gran Canaria)
+Gáldar,España,Europa,Islas Canarias,28.1472,-15.6503,alta,visitada,2026-08-18,1,no,,Beca Juventud y Liderazgo: Campamento Changemaker (Gran Canaria)
+Moya,España,Europa,Islas Canarias,28.1103,-15.5885,alta,visitada,2026-08-18,1,no,,Beca Juventud y Liderazgo: Campamento Changemaker (Gran Canaria)
+Copenhague,Dinamarca,Europa,Hovedstaden,55.6761,12.5683,alta,visitada,2026-08-25,1,no,,Vacaciones familiares en Copenhague
+Hillerød,Dinamarca,Europa,Hovedstaden,55.9279,12.301,alta,visitada,2026-08-27,1,sí,HIL-2026,Vacaciones familiares en Copenhague
+Christiania,Dinamarca,Europa,Hovedstaden,55.6736,12.5987,media,visitada,2026-08-29,1,sí,CHR-2026,Vacaciones familiares en Copenhague
+Malmö,Suecia,Europa,Escania,55.605,13.0038,alta,visitada,2026-08-29,1,sí,MAL-2026,Vacaciones familiares en Copenhague
+París,Francia,Europa,Isla de Francia,48.8566,2.3522,alta,futura,2026-11-20,1,no,,Women in Tech Europe Awards (París)
+Praga,República Checa,Europa,Praga,50.0755,14.4378,alta,futura,2026-11-24,1,no,,Women and Girls in STEM Forum (Praga)
+Brujas,Bélgica,Europa,Flandes,51.2093,3.2247,alta,sin fecha,,1,no,,Vacaciones familiares en Bruselas (verano 2024)
+Bruselas,Bélgica,Europa,Bruselas-Capital,50.8503,4.3517,alta,sin fecha,,1,no,,Vacaciones familiares en Bruselas (verano 2024)
+Carcassonne,Francia,Europa,Occitania,43.213,2.3491,alta,sin fecha,,1,no,,Roadtrip familiar por el sur de Francia
+Gante,Bélgica,Europa,Flandes,51.0543,3.7174,alta,sin fecha,,1,sí,GNT-2024,Vacaciones familiares en Bruselas (verano 2024)
+Montpellier,Francia,Europa,Occitania,43.6108,3.8767,alta,sin fecha,,1,no,,Roadtrip familiar por el sur de Francia
+Narbona,Francia,Europa,Occitania,43.1843,3.0035,alta,sin fecha,,1,no,,Roadtrip familiar por el sur de Francia
+Niza,Francia,Europa,Provenza-Alpes-Costa Azul,43.7102,7.262,alta,sin fecha,,1,no,,Roadtrip familiar por el sur de Francia
+Toulouse,Francia,Europa,Occitania,43.6047,1.4442,alta,sin fecha,,1,no,,Roadtrip familiar por el sur de Francia

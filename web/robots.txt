@@ -1,0 +1,3 @@
+# Archivo personal y privado: que ningún buscador lo indexe.
+User-agent: *
+Disallow: /

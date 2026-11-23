@@ -1,0 +1,25 @@
+LANYARD ARCHIVE
+===============
+1) Instalar (una vez):   py -m pip install -r requirements.txt      (Mac: python3 -m pip ...)
+   Debe ser opencv-contrib-python (no opencv-python).
+
+2) Imprime plantilla_calibracion_A4_v3.pdf al 100 % (sin "ajustar a página").
+   Mide con una regla la regla de 100 mm impresa y ejecuta UNA vez:
+       py lanyard_archive.py --medir-regla 99.6      (pon tu medida)
+
+3) Fotos EN ORDEN: anverso, reverso, anverso, reverso...  Cada pareja = un lanyard.
+   Hoja plana, los 4 marcadores visibles, luz de frente (ventana), móvil paralelo a la mesa.
+   Un objeto por hoja. Si es blanco, cartulina negra debajo.
+   Pon el agujero ARRIBA (los orificios solo se buscan en la parte superior; máximo 2).
+   Rectangulares: anverso y reverso reciben la misma medida. Formas libres (medallas): se recortan por su silueta.
+
+4) Doble clic en Iniciar.bat (Mac: Iniciar.command), elige la carpeta o el ZIP.
+   - Ves una ventana con las dos caras: ENTER = vale · 1/2 = marcar esa cara a mano · S = saltar · Q = salir
+   - Respondes evento, fecha, lugar... UNA vez por lanyard (Enter = repetir lo anterior).
+   - Al terminar se abre la carpeta "Lanyards_procesados", junto a tus fotos:
+       web/ (WebP transparente) · master/ (PNG transparente) · originals/ · archive.json · archive.csv
+   - Pines: py lanyard_archive.py --pin   (una foto = un pin; pregunta ciudad y fecha)
+   - --rapido: solo enseña la ventana si hay avisos.
+
+Si una pareja falla: repite la foto mala y pon esas dos fotos en una carpeta NUEVA.
+extras/ = pruebas y generador de plantilla (no hacen falta para usar el programa).

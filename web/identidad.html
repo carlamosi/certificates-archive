@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Guía visual del archivo: colores, letra, pegatinas y componentes.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Identidad · Certificates Archive</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* solo para esta página: la guía se desplaza, la pared no */
+    body { display: block; overflow: auto; background-attachment: fixed; }
+    .guia { max-width: 1040px; margin: 0 auto; padding: var(--s-7) var(--s-5) var(--s-8); }
+    .guia > header { display: flex; align-items: center; gap: var(--s-4); margin-bottom: var(--s-7); }
+    .guia > header img { width: 72px; height: 72px; transform: rotate(-3deg); filter: drop-shadow(0 6px 10px rgba(27,26,23,.2)); }
+    .display { margin: 0; font: 300 56px/60px var(--sans); letter-spacing: -.03em; }
+    .display b { font-weight: 700; }
+    section { margin-top: var(--s-7); }
+    section > h2 { margin: 0 0 var(--s-4); font: 700 22px/28px var(--sans); letter-spacing: -.01em; }
+    section > p { max-width: 64ch; margin: 0 0 var(--s-4); color: var(--ink-2); }
+    .fila { display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: center; }
+    .muestras { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s-3); }
+    .muestra { border-radius: var(--r-2); padding: var(--s-3); background: var(--surface); box-shadow: var(--sh-1); }
+    .muestra i { display: block; height: 56px; border-radius: var(--r-1); border: 1px solid var(--line); margin-bottom: var(--s-2); }
+    .muestra code { font: 500 12px/16px var(--sans); color: var(--ink-2); }
+    .pegs { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--s-4); }
+    .peg { display: grid; justify-items: center; gap: var(--s-2); padding: var(--s-4) var(--s-2); border-radius: var(--r-2); text-align: center; }
+    .peg .pegatina { width: 56px; height: 56px; }
+    .escala p { margin: 0 0 var(--s-3); }
+    .iconos .btn { color: var(--ink); }
+    .demo-sello { width: min(320px, 100%); }
+    .demo-sello img { display: block; width: 100%; height: 200px; object-fit: contain;
+      }
+    .demo-cartela { position: static; transform: none; opacity: 1; visibility: visible; pointer-events: auto; width: min(440px, 100%); }
+    table { border-collapse: collapse; width: 100%; max-width: 720px; font-variant-numeric: tabular-nums; }
+    td, th { text-align: left; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+    th { color: var(--ink-2); font-weight: 500; }
+    .prueba { width: 48px; height: 48px; border-radius: var(--r-1); background: var(--accent); cursor: pointer; border: 0; }
+    @media (hover: hover) { .prueba.d1:hover { transform: scale(.94); } .prueba.d3:hover { transform: translateY(-8px); } .prueba.d4:hover { transform: rotateY(180deg); } }
+    .prueba.d1 { transition: transform var(--d-1) var(--ease-out); }
+    .prueba.d3 { transition: transform var(--d-3) var(--ease-spring); }
+    .prueba.d4 { transition: transform var(--d-4) var(--ease-out); }
+    @media (max-width: 640px) { .display { font-size: 40px; line-height: 44px; } .guia { padding: var(--s-6) var(--s-4) var(--s-7); } }
+  </style>
+</head>
+<body>
+  <main class="guia">
+    <header>
+      <img src="img/logo.svg" alt="">
+      <div>
+        <h1 class="display">Certificates <b>Archive</b></h1>
+        <p class="sub">Guía visual viva. Las reglas están en docs/diseno/IDENTIDAD.md · <a href="index.html">Volver a la pared</a></p>
+      </div>
+    </header>
+
+    <section>
+      <h2>Color</h2>
+      <p>Papel claro, cristal y un solo acento: azul matasellos. Cambia el modo del sistema para ver la versión de noche.</p>
+      <div class="muestras" id="muestras"></div>
+    </section>
+
+    <section class="escala">
+      <h2>Tipografía · Open Sauce One</h2>
+      <p class="display num">27 eventos</p>
+      <p style="font:700 32px/38px var(--sans);letter-spacing:-.02em">FLL Masterpiece, primer premio</p>
+      <p style="font:700 22px/28px var(--sans)">Apollo Competition</p>
+      <p>Cuerpo: notas y avisos, a 15 px con 24 de línea.</p>
+      <p class="sub">12 de junio de 2026 · 85,6 × 54 mm</p>
+      <p class="kicker">Anverso</p>
+      <p><i>Voz de museo: observaciones y citas, nunca en bloques largos.</i></p>
+    </section>
+
+    <section>
+      <h2>Pegatinas · Fluent Emoji 3D</h2>
+      <p>Una por cada tipo de cosa de la base de datos. Dicen qué es algo; nunca decoran.</p>
+      <div class="pegs" id="pegs"></div>
+    </section>
+
+    <section class="iconos">
+      <h2>Iconos de interfaz</h2>
+      <p>Sprite propio, 24 px, trazo 1,75. Dicen qué se puede hacer.</p>
+      <div class="fila" id="iconos"></div>
+    </section>
+
+    <section>
+      <h2>Botones y chips</h2>
+      <p>Pasa el cursor, pulsa y navega con Tab para ver hover, press y foco.</p>
+      <div class="fila">
+        <button class="btn" id="bPrincipal"></button>
+        <button class="btn ghost">Secundario</button>
+        <button class="btn" disabled>Desactivado</button>
+        <nav class="chips" aria-label="Ejemplo de chips">
+          <button class="chip" aria-pressed="true">Todos <small>12</small></button>
+          <button class="chip" aria-pressed="false">2025 <small>4</small></button>
+          <button class="chip" aria-pressed="false">2026 <small>8</small></button>
+        </nav>
+      </div>
+    </section>
+
+    <section>
+      <h2>Sello y cartela</h2>
+      <p>Las imágenes del archivo van en marco de sello; lo que flota es cristal.</p>
+      <div class="fila" style="align-items:flex-start;gap:var(--s-6)">
+        <div class="sello demo-sello"><img src="img/web/2026-06-12_apollo-competition_front.webp" alt="Anverso del lanyard de la Apollo Competition"></div>
+        <div class="cartela glass demo-cartela" id="demoCartela">
+          <span id="cPeg"></span>
+          <p class="kicker">12 de junio de 2026</p>
+          <h2>Apollo Competition</h2>
+          <p class="sub">Lugar · ciudad</p>
+          <div class="acciones"><button class="btn" id="dOpen"></button><button class="btn ghost redondo" id="dFlip" aria-label="Girar"></button></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Movimiento</h2>
+      <p>Pasa el cursor por cada cuadrado. Con «reducir movimiento» activado solo hay fundidos.</p>
+      <table>
+        <tr><th>Token</th><th>Valor</th><th>Uso</th><th>Prueba</th></tr>
+        <tr><td>--d-1</td><td>120 ms</td><td>Pulsar</td><td><button class="prueba d1" aria-label="Prueba de 120 ms"></button></td></tr>
+        <tr><td>--d-3 + spring</td><td>280 ms</td><td>Pegatinas, cartela</td><td><button class="prueba d3" aria-label="Prueba de 280 ms"></button></td></tr>
+        <tr><td>--d-4</td><td>480 ms</td><td>Giro del lanyard</td><td><button class="prueba d4" aria-label="Prueba de 480 ms"></button></td></tr>
+      </table>
+    </section>
+  </main>
+
+  <script src="iconos.js"></script>
+  <script>
+    (() => {
+      const { PEGATINAS, pegatina, icono } = window.IDENTIDAD;
+      const $ = (s) => document.querySelector(s);
+      const tokens = ['--paper', '--paper-2', '--surface', '--ink', '--ink-2', '--accent', '--accent-soft', '--danger'];
+      const pinta = () => {
+        const css = getComputedStyle(document.documentElement);
+        $('#muestras').innerHTML = tokens.map((t) =>
+          `<div class="muestra"><i style="background:var(${t})"></i><code>${t}<br>${css.getPropertyValue(t).trim()}</code></div>`).join('');
+      };
+      pinta();
+      matchMedia('(prefers-color-scheme: dark)').addEventListener('change', pinta);
+      const nombres = { pais: 'país / continente', aeropuerto: 'aeropuerto', virtual: 'evento virtual' };
+      $('#pegs').innerHTML = Object.keys(PEGATINAS).map((k) =>
+        `<div class="peg">${pegatina(k)}<span class="sub">${nombres[k] || k}</span></div>`).join('');
+      $('#iconos').innerHTML = ['cerrar', 'anterior', 'siguiente', 'girar', 'abrir'].map((id) =>
+        `<button class="btn ghost redondo" aria-label="${id}" title="${id}">${icono(id)}</button>`).join('');
+      $('#bPrincipal').innerHTML = `Ver ficha ${icono('abrir')}`;
+      $('#dOpen').innerHTML = `Ver ficha ${icono('abrir')}`;
+      $('#dFlip').innerHTML = icono('girar');
+      $('#cPeg').innerHTML = pegatina('lanyard');
+    })();
+  </script>
+</body>
+</html>
