@@ -48,7 +48,7 @@ def videos_locales(datos):
 
 def ficheros(carpeta):
     for d, subs, fs in os.walk(carpeta):
-        subs[:] = [s for s in subs if s != '.git']
+        subs[:] = [s for s in subs if s not in ('.git', '.vercel')]
         for f in fs:
             yield os.path.join(d, f)
 
@@ -58,9 +58,9 @@ def git(*args):
 
 
 def vaciar_sin_git():
-    """Borra la copia anterior pero conserva su historial (.git): la carpeta es solo una copia de web/."""
+    """Borra la copia anterior pero conserva su historial (.git) y el enlace con Vercel (.vercel)."""
     for n in os.listdir(DESTINO):
-        if n != '.git':
+        if n not in ('.git', '.vercel'):
             p = os.path.join(DESTINO, n)
             shutil.rmtree(p) if os.path.isdir(p) else os.remove(p)
 
@@ -76,6 +76,7 @@ def main():
     vaciar_sin_git()
     shutil.copytree(WEB, DESTINO, ignore=NO_SUBIR, dirs_exist_ok=True)
     json.dump(VERCEL_JSON, open(os.path.join(DESTINO, 'vercel.json'), 'w', encoding='utf-8'), indent=2)
+    open(os.path.join(DESTINO, '.gitignore'), 'w').write('.vercel\n.env*\n')   # el enlace y el token de Vercel no se suben
 
     avisos = []
     os.makedirs(os.path.join(DESTINO, 'video'), exist_ok=True)
