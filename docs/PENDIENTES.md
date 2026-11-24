@@ -20,21 +20,24 @@
 8. Decidir si FLL Masterpiece (feb 2024) y la final de Alicante (mar 2024) son fases distintas.
 9a. **Km por carretera (opcional):** en coche y tren los km calculados van en línea recta (se quedan cortos). Si sabes los reales de un viaje: `archivo.py viaje --slug SLUG --km 1234` (sustituyen al cálculo).
 9. Decidir si el 012 (HP CodeWars Team Photo) es certificado o foto.
+9b. **Caja y página física** de cada certificado y lanyard (`caja_fisica`, hoy vacía en los 101 objetos): sin esto el buscador no puede decir dónde está cada cosa.
+9c. **Copia automática:** que `exportar` haga `copia` antes, si la última tiene más de un día (hoy depende de acordarse).
 
-## Web
-0g. **Aplicar la guía de diseño** (`docs/diseno/WEB_DISENO.md`): sustituir el logo cónico, la tipografía serif por Open Sauce One y el tema oscuro con amarillo.
-0h. **Generar la identidad** con `docs/diseno/PROMPT_IMAGENES_IDENTIDAD.md` y rehacer el símbolo en vector.
-0d. ~~Exportar la base a `web/data/archivo.json` y que `web/app.js` la lea~~ (hecho: `docs/features/datos-web.md`; falta pintar los datos en cada página).
-0e. **Página de personas:** ficha por persona con sus fotos y charlas (relaciones de la base de datos).
-0f. **Página de charlas:** reproductor o enlace junto al lanyard del mismo evento.
-10. **Probar en móvil** (viewport 390 px, tacto).
-11. **Mapa con dos capas** (viajes y eventos) con Leaflet + OpenStreetMap. Eventos virtuales ("Desde casa") fuera del mapa.
-12. Línea del tiempo horizontal 2018–hoy.
-13. Sala de museo (una sala por año, cartelas).
-14. Pines como colección enlazada al mapa.
-15. Red de personas (fotos de mesas redondas).
-16. Modo archivo físico (caja / página).
-17. Grabaciones junto al lanyard del evento (cuando existan).
+## Web · próximos módulos (en este orden)
+Hecho: identidad (`docs/diseno/IDENTIDAD.md`), pared, mapa, fotos, certificados, premios, pines, lanyards, intervenciones con vídeo, navegación pasaporte y publicación en Vercel.
+
+1. **Página de evento** (`evento.html?e=<slug>`): el centro del archivo. Reúne lanyard, certificados, premios, fotos, personas, charlas con vídeo y su viaje en el mapa. Activa el «Ver el evento» que hoy está desactivado en intervenciones, y todas las demás páginas enlazan aquí. Datos: ya están en `archivo.json`.
+2. **Inicio «Tu año en cifras»** (ficha `cifras-e-hitos.md`, acordada): sustituye a la pared como primera página. La pared aún muestra 6 lanyards de demostración, y es lo primero que se ve. La pared pasa a ser un módulo más.
+3. **Personas**: una ficha por persona con sus fotos, charlas y eventos en común. Después, la red (grafo) si aporta.
+4. **Línea del tiempo** 2018–hoy, con los hitos de `cifras-e-hitos`. Absorbe la idea de la «sala de museo por año»: no hacer las dos.
+5. **Pasaporte LEGO** (ficha `sellos-lego.md`, acordada): sellos por tienda, en el viaje y en el mapa.
+6. **Buscador** (también Ctrl+K desde cualquier página): eventos, personas, lugares y objetos. Con `caja_fisica` responde «caja 3, página 12» (modo archivo físico). Hoy ningún objeto tiene caja: primero, apuntarlas.
+
+## Web · UI/UX (repaso transversal)
+- **Coherencia entre las 9 páginas** (las hicieron sesiones distintas): cabecera, estados vacíos, modo claro y oscuro, tokens de `style.css` sin colores sueltos. Un repaso completo con `make-interfaces-feel-better` y la guía viva `identidad.html` al día.
+- **Teclado en la pared 3D:** hoy los lanyards no se alcanzan con Tab. Hace falta una lista accesible o un foco que recorra las piezas.
+- **Móvil real** (no solo emulado a 390 px): tacto en la pared y en el mapa, la barra inferior y la reproducción de vídeo en iPhone.
+- **Rendimiento en Vercel:** caché larga para `img/` y `video/` en `vercel.json`, e imágenes con `loading="lazy"` en todas las páginas.
 
 ## Herramienta
 18. Probar las ventanas de revisión con pantalla real (`cv2.imshow`).
@@ -42,4 +45,5 @@
 
 ## Riesgos abiertos
 - Pérdida de datos: no hay copia automática. Recomendar copia periódica de `LanyardArchive`.
-- Publicación futura: difuminar datos personales antes de cualquier publicación.
+- Web publicada en Vercel con datos completos (decisión de Carla, 24/11/2026). El enlace no se indexa (`noindex`), pero quien lo tenga lo ve todo. No compartirlo.
+- La base solo existe en este ordenador y en `datos/copias/`: copiar `datos/copias/` fuera (nube o USB) de vez en cuando.
