@@ -35,6 +35,7 @@ Fecha de corte: 23/11/2026. Esto es lo que hay, lo que está comprobado y lo que
 | Filtro por año | Hecho | Prueba: "3 de 7 objetos · 2025" |
 | Identidad visual: tokens claro/oscuro, Open Sauce One, logo sello, iconos SVG, pegatinas Fluent Emoji 3D | Hecho (23/11/2026) | Navegador a escritorio y 390 px, claro y oscuro; contraste AA calculado |
 | Guía visual viva `web/identidad.html` | Hecho | Navegador: colores, pegatinas, iconos, botones, sello, cartela |
+| Publicar en Vercel (`herramientas/preparar_vercel.py` → repo privado `carlamosi/certificates-archive-web`) | Hecho (24/11/2026) | 15,8 MB subidos; 9 páginas y 127 imágenes cargan con servidor local; **falta enlazar el repo en Vercel** (lo hace Carla una vez) |
 | Cartela: margen para llegar a los botones, botón «Girar», se abre al tocar en móvil | Hecho | Hover y clic en escritorio; toque a 390 px |
 | Pared 3D: colores desde tokens, sombra de contacto, 3 por fila en móvil, péndulo quieto con «reducir movimiento» | Hecho | Navegador; «reducir movimiento» **no probado** en el navegador |
 | Móvil | Hecho a 390 px | Emulación en el navegador; **pendiente en un móvil real** |

@@ -94,6 +94,9 @@ python web/sync.py "ruta/a/Lanyards_procesados"
 
 # Servir la web (obligatorio: el navegador bloquea JSON e imágenes desde file://)
 cd web && python -m http.server 8000
+
+# Publicar la web completa (datos, fotos, vídeos): la sube al repo PRIVADO certificates-archive-web y Vercel la publica
+python herramientas/preparar_vercel.py            # --prueba: solo prepara ../certificates-archive-vercel
 ```
 
 ## Decisiones técnicas (no cambiar sin motivo)
