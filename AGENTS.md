@@ -115,7 +115,7 @@ python herramientas/preparar_vercel.py            # --prueba: solo prepara ../ce
   documentada; no editar tablas en caliente.
 - **Portabilidad a Supabase/Postgres:** la base debe poder migrarse algún día (ver `docs/MIGRACION_SUPABASE.md`). Cada tabla nueva lleva una clave natural única; no usar funciones exclusivas de SQLite sin anotarlas allí.
 - **Personas:** clave = nombre normalizado (sin acentos, minúsculas). Nunca fusionar personas automáticamente: solo avisar.
-- **Vídeos:** son grabaciones del móvil **sin URL**. No se guardan en el repositorio: se guarda la ruta local (`archivo_local`). Si algún día se suben a algún sitio, añadir la URL en `url`.
+- **Vídeos:** son grabaciones del móvil **sin URL**. No se guardan en el repositorio: se guarda la ruta local del original (`archivo_local`, p. ej. `datos/intervenciones/IMG_0532.MOV`). La web usa `web/video/<nombre sin extensión>.mp4` en H.264, que crea `preparar_vercel.py` con ffmpeg (los `.MOV` del iPhone son HEVC y muchos navegadores no los reproducen). Si algún día se suben a YouTube, añadir la URL en `url`.
 - **Entrada de datos:** las fuentes van en `datos/entrada/` (gente.zip, fotos_personas.txt, charlas.txt). Esa carpeta no va a git.
 - **Datos sensibles:** la base de datos no debe guardar salud, religión, orientación, opiniones políticas ni datos de menores.
   Si la persona los pide, se rechaza y se explica por qué.
@@ -132,6 +132,7 @@ python herramientas/preparar_vercel.py            # --prueba: solo prepara ../ce
 - `[hidden]` debe tener `display: none !important` en el CSS; si no, un `display: grid` lo anula y la capa tapa el cursor.
 - En la ficha, el foco no debe ir a un botón que el propio Enter pulsaría al abrir. Usa `preventDefault` y enfoca el contenedor.
 - `file://` bloquea JSON e imágenes: siempre probar con servidor local.
+- Los `.MOV` del iPhone (HEVC) no se ven en Firefox ni en muchos Chrome: a la web solo van MP4 H.264 (`preparar_vercel.py`). Un vídeo vertical dentro de una caja 16:9 necesita `position: absolute` + `object-fit: contain`, o se recorta.
 - En OpenCV hay que tener `opencv-contrib-python` (ArUco). `opencv-python` a secas no tiene `cv2.aruco` completo.
 - Pruebas de interfaz: no hay pantalla en el entorno de la persona para `cv2.imshow`; el programa tiene `--sin-gui` y el modo de revisión cae a texto.
 - Las medidas en mm dependen de la escala real de la impresora: sin `--medir-regla` se asume 100 %.
@@ -142,7 +143,7 @@ python herramientas/preparar_vercel.py            # --prueba: solo prepara ../ce
 - Web: prototipo funcional, probado en Chromium headless (carga, cursor, giro, ficha, teclado, filtro). **Datos de demostración** (6 objetos inventados). **Pendiente: probar con lanyards reales y en móvil.**
 - Catálogo: 60 filas en la base (56 certificados, 40 con imagen). Regla: evento solo si fue presencial; si no, suelto. El número **025 está repetido** (ver docs/PENDIENTES.md).
 - Viajes: en la base de datos con visitas, lugares, aeropuertos, pines y sellos LEGO; km por viaje (círculo máximo o a mano) y totales calculados. Mapa en `web/mapa.html`.
-- Base de datos: v5 con datos reales (27 eventos, 26 fotos, 42 personas, 19 viajes, 101 objetos, 53.344 km); 36 tests. **Pendiente:** `charlas.txt` con las rutas de los vídeos, 18 certificados por escanear, lugar de 2 eventos.
+- Base de datos: v5 con datos reales (28 eventos, 26 fotos, 42 personas, 19 viajes, 101 objetos, 53.344 km); 36 tests. Charlas: 2 vídeos (Women in Tech Global Europe Awards, París) publicados en la web. **Pendiente:** vídeos de otras charlas si los hay, 18 certificados por escanear, lugar de 2 eventos.
 - **Git:** repositorio local (rama `main`, sin remoto). Commits solo cuando Carla lo pida (`/commit`); los datos personales están en `.gitignore`.
 
 ## Mapa de la documentación (un tema, un sitio)

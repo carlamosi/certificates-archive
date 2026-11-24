@@ -7,7 +7,7 @@
 
 ## Datos
 0a. **Fotos:** quién sale en `2026_03_26 -.jpg` y `2025_11_12.jpg` (sin nombres, no importadas). Gente.zip ya está importado.
-0b. **Charlas grabadas (vídeos del móvil, sin URL):** la persona indica en `datos/entrada/charlas.txt` la ruta de cada vídeo (keynote, mesa redonda, pitches) e importamos con `importar-charlas`. Primero: el vídeo de Rocío Vidal (de gente.zip) y los de `intervenciones/`.
+0b. **Charlas grabadas:** hechas las 2 de `datos/intervenciones/` (entrega y discurso del Aspiring Teen Award, París, 20/11/2026). Faltan los vídeos de otras charlas (HealthTech 2030, Mesa redonda TIC…) si existen: añadir una línea a `datos/entrada/charlas.txt`, `importar-charlas`, `exportar` y `preparar_vercel.py`. El vídeo de `gente.zip` es un mensaje grabado por otra persona, no una intervención de Carla: no va a charlas.
 0c. **Listado de eventos completo:** comprobar que el catálogo y los objetos cubren todos los eventos (ver `archivo.py resumen`).
 3b. **Escanear los certificados que faltan** (en el catálogo sin fichero): 001–006, 008, 009, 012, 013, 015, 016, 018, 020, 022, 033, 038, 044. Ponerlos en `datos/certificados_originales/`, rellenar la columna `archivo` del catálogo e importar.
 4. Resolver el **025** repetido en `certificates_archive_v1.csv` (renumerar 2026 como 026–045 o mantener etiquetas impresas).

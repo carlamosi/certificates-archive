@@ -21,7 +21,7 @@
       const base = { evento: e.nombre, lugar: [e.lugar, e.ciudad].filter(Boolean).join(' · ') };
       if (e.charlas && e.charlas.length) {
         for (const c of e.charlas) {
-          out.push({ ...base, fecha: c.fecha || e.fecha, tipo: tipoDe(c.tipo, `${c.titulo} ${e.nombre}`), local: c.archivo_local, url: c.url });
+          out.push({ ...base, fecha: c.fecha || e.fecha, tipo: tipoDe(c.tipo, `${c.titulo} ${e.nombre}`), titulo: c.titulo || '', local: c.archivo_local, url: c.url });
         }
         continue;
       }
@@ -31,8 +31,9 @@
     return out.sort((a, b) => b.fecha.localeCompare(a.fecha));
   }
 
-  // El navegador no abre rutas locales: el vídeo se busca en web/video/ por el nombre del fichero
-  const srcDe = (i) => i.url || (i.local ? 'video/' + encodeURIComponent(i.local.split(/[\\/]/).pop()) : '');
+  // El navegador no abre rutas locales: la web usa web/video/<nombre sin extensión>.mp4 (H.264), que crea
+  // herramientas/preparar_vercel.py desde el original (los .MOV del iPhone son HEVC y muchos navegadores no los abren)
+  const srcDe = (i) => i.url || (i.local ? 'video/' + encodeURIComponent(i.local.split(/[\\/]/).pop().replace(/\.[^.]+$/, '')) + '.mp4' : '');
   // Enlaces de YouTube (también no listados) se incrustan; otros enlaces solo se abren aparte
   function youtubeId(u) { const m = /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/))([\w-]{11})/.exec(u || ''); return m && m[1]; }
   function fechaDe(f) {
@@ -53,7 +54,7 @@
     filas.forEach((b, j) => b.setAttribute('aria-current', j === k));
     $('dFecha').textContent = `${f.mes} de ${f.anio}`;
     $('dEvento').textContent = i.evento;
-    $('dLugar').textContent = [i.lugar, TIPOS[i.tipo]].filter(Boolean).join(' · ');
+    $('dLugar').textContent = [i.titulo, i.lugar, TIPOS[i.tipo]].filter(Boolean).join(' · ');   // el título distingue varias charlas del mismo evento
     const aviso = (t) => { v.innerHTML = `<span class="kick">Grabación del móvil</span><p>${t}</p>`; };
     v.innerHTML = '';
     const yt = youtubeId(i.url);
@@ -63,7 +64,7 @@
     else {
       const el = document.createElement('video');
       el.controls = true; el.preload = 'metadata'; el.src = src;
-      el.addEventListener('error', () => aviso(`No encuentro el vídeo. Cópialo a <b>web/video/</b> como ${esc(decodeURIComponent(src.split('/').pop()))}`), { once: true });
+      el.addEventListener('error', () => aviso(`No encuentro el vídeo <b>${esc(decodeURIComponent(src.split('/').pop()))}</b>. Créalo con <b>python herramientas/preparar_vercel.py</b>`), { once: true });
       v.append(el);
     }
     const a = $('dAbrir');
@@ -81,7 +82,7 @@
     $('lista').innerHTML = items.map((i) => {
       const f = fechaDe(i.fecha);
       return `<li><button type="button" class="fila"><span class="fecha"><b>${f.mes} · ${f.anio}</b><span>día ${f.dia}</span></span>` +
-        `<span class="donde"><b>${esc(i.evento)}</b>${i.lugar ? `<span>${esc(i.lugar)}</span>` : ''}</span><span class="pastilla">${TIPOS[i.tipo]}</span></button></li>`;
+        `<span class="donde"><b>${esc(i.evento)}</b>${i.titulo || i.lugar ? `<span>${esc(i.titulo || i.lugar)}</span>` : ''}</span><span class="pastilla">${TIPOS[i.tipo]}</span></button></li>`;
     }).join('');
     const filas = [...document.querySelectorAll('.fila')];
     filas.forEach((b, k) => b.addEventListener('click', () => elegir(items, k, filas)));

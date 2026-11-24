@@ -25,6 +25,7 @@ SALIDA="$(python3 $A importar-charlas datos/entrada/charlas_EJEMPLO.txt)"; echo 
 SALIDA="$(python3 $A resumen)"; echo "$SALIDA" | grep -q "integridad referencial: OK" || { echo "FALLO: integridad"; exit 1; }
 unset ARCHIVO_DB
 python3 tests/test_archivo_db.py
+python3 tests/test_preparar_vercel.py
 echo "   base de datos de prueba: OK"
 echo "5/5 Datos de la web"
 python3 - << 'PY'

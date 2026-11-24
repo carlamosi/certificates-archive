@@ -4,7 +4,8 @@ Uso:  python herramientas/preparar_vercel.py            (prepara y sube: Vercel 
       python herramientas/preparar_vercel.py --prueba   (solo prepara la carpeta, sin subir)
 
 - Copia `web/` a `../certificates-archive-vercel/` (fuera del repositorio: lleva datos personales).
-- Añade los vídeos de las charlas que estén en el ordenador (`archivo_local` de la base) a `video/`.
+- Convierte los vídeos de las charlas (`archivo_local` de la base) a `web/video/<nombre>.mp4` (H.264, con ffmpeg),
+  una sola vez: los .MOV del iPhone son HEVC y muchos navegadores no los reproducen.
 - Comprueba que existen todas las imágenes y vídeos que cita `data/archivo.json`.
 - Se niega a subir un fichero de más de 95 MB (GitHub no acepta más de 100 MB por fichero).
 - Sube la carpeta a github.com/carlamosi/certificates-archive-web (PRIVADO). Vercel está enlazado a ese
@@ -38,12 +39,21 @@ def rutas_citadas(nodo):
 
 
 def videos_locales(datos):
-    """(ruta en el ordenador, nombre) de los vídeos de charlas que no tienen URL."""
+    """(ruta del original, nombre para la web) de los vídeos de charlas sin URL. Mismo nombre que usa intervenciones.js."""
     for e in datos.get('eventos', []):
         for c in e.get('charlas', []):
             p = c.get('archivo_local') or ''
             if p and not c.get('url'):
-                yield p, os.path.basename(p.replace('\\', '/'))
+                yield p, os.path.splitext(os.path.basename(p.replace('\\', '/')))[0] + '.mp4'
+
+
+def convertir_video(origen, final):
+    """MP4 H.264 + AAC, lado largo de 1280 px, arranque rápido: se ve en cualquier navegador y pesa poco."""
+    escala = "scale='if(gt(iw,ih),min(1280,iw),-2)':'if(gt(iw,ih),-2,min(1280,ih))'"
+    tmp = final + '.tmp.mp4'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', origen, '-vf', escala, '-c:v', 'libx264', '-preset', 'medium',
+                    '-crf', '24', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', tmp], check=True)
+    os.replace(tmp, final)   # si ffmpeg se corta, no queda un vídeo a medias con el nombre bueno
 
 
 def ficheros(carpeta):
@@ -72,23 +82,28 @@ def main():
         sys.exit('Falta web/data/archivo.json. Ejecuta antes: python herramientas/archivo_db/archivo.py exportar web/data/archivo.json')
     datos = json.load(open(datos_json, encoding='utf-8'))
 
+    # vídeos para la web en web/video/ (no va a git); se convierten una vez y se reutilizan
+    avisos = []
+    os.makedirs(os.path.join(WEB, 'video'), exist_ok=True)
+    for origen, nombre in videos_locales(datos):
+        final = os.path.join(WEB, 'video', nombre)
+        if os.path.exists(final):
+            continue
+        if not os.path.isabs(origen):
+            origen = os.path.join(PRINCIPAL, origen)
+        if os.path.exists(origen):
+            print(f'Convirtiendo {os.path.basename(origen)} → video/{nombre} …')
+            convertir_video(origen, final)
+        else:
+            avisos.append(f'vídeo no encontrado en el ordenador: {origen}')
+
     os.makedirs(DESTINO, exist_ok=True)
     vaciar_sin_git()
     shutil.copytree(WEB, DESTINO, ignore=NO_SUBIR, dirs_exist_ok=True)
     json.dump(VERCEL_JSON, open(os.path.join(DESTINO, 'vercel.json'), 'w', encoding='utf-8'), indent=2)
     open(os.path.join(DESTINO, '.gitignore'), 'w').write('.vercel\n.env*\n')   # el enlace y el token de Vercel no se suben
 
-    avisos = []
-    os.makedirs(os.path.join(DESTINO, 'video'), exist_ok=True)
-    for origen, nombre in videos_locales(datos):
-        final = os.path.join(DESTINO, 'video', nombre)
-        if os.path.exists(final):
-            continue
-        if os.path.exists(origen):
-            shutil.copy2(origen, final)
-        else:
-            avisos.append(f'vídeo no encontrado en el ordenador: {origen}')
-    avisos += [f'falta {r}' for r in sorted({r for r in rutas_citadas(datos) if not os.path.exists(os.path.join(DESTINO, r))})]
+    avisos +=[f'falta {r}' for r in sorted({r for r in rutas_citadas(datos) if not os.path.exists(os.path.join(DESTINO, r))})]
 
     todos = list(ficheros(DESTINO))
     mb = sum(os.path.getsize(f) for f in todos) / 1e6
