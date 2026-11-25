@@ -23,7 +23,7 @@
     const out = [];
     const add = (f, ev, viaje) => {
       if (f.web) out.push({ ...f, evento: ev ? ev.nombre : (viaje ? viaje.nombre : 'Foto suelta'), ciudad: ev ? ev.ciudad : '', clave: f.personas.map(norma),
-        evKey: ev ? ev.slug : (viaje ? 'viaje:' + viaje.slug : 'suelta'), mapa: !!(ev && ev.lat != null && ev.lng != null) });
+        slug: ev ? ev.slug : '', evKey: ev ? ev.slug : (viaje ? 'viaje:' + viaje.slug : 'suelta'), mapa: !!(ev && ev.lat != null && ev.lng != null) });
     };
     (d.eventos || []).forEach((e) => (e.fotos || []).forEach((f) => add(f, e)));
     (d.viajes || []).forEach((v) => (v.fotos || []).forEach((f) => add(f, null, v)));
@@ -104,7 +104,8 @@
     $('vPos').textContent = `${i + 1} de ${visibles.length}`;
     $('vEv').hidden = !!evento || f.nEvento < 2;   // «ver las N fotos del evento» solo si hay más de una
     $('vEv').textContent = `Ver las ${f.nEvento} fotos del evento`;
-    $('vMapa').hidden = !f.mapa; 
+    $('vEvt').hidden = !f.slug; if (f.slug) $('vEvt').href = `evento.html?e=${encodeURIComponent(f.slug)}`;
+    $('vMapa').hidden = !f.mapa;
     $('vBajar').href = f.web;
     $('vBajar').download = `${f.fecha}_${norma(f.evento).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}.webp`;
     resetZoom();

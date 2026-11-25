@@ -12,7 +12,7 @@
   box-shadow: inset 12px 0 14px -10px rgba(27,26,23,.28), var(--sh-2);
 }
 .hoja::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(transparent 0 31px, var(--page-line) 31px 32px); }
-.hoja::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 14px; background: linear-gradient(90deg, rgba(47,91,234,.7), rgba(47,91,234,.45)); }
+.hoja::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 14px; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 70%, transparent), color-mix(in srgb, var(--accent) 45%, transparent)); }
 .hoja > * { position: relative; z-index: 1; }
 @media (prefers-reduced-motion: no-preference) {
   .hoja.sig { animation: lego-sig var(--d-4) var(--ease-out); }
@@ -45,10 +45,10 @@
 
 .nav { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); margin-top: var(--s-4); }
 .nav .btn { min-width: 112px; }
-.nav output { font: 600 13px/20px var(--sans); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.nav output { font: 700 13px/20px var(--sans); color: var(--ink-2); font-variant-numeric: tabular-nums; }
 
 dialog#ficha { padding: var(--s-5); width: min(92vw, 380px); border-radius: var(--r-3); border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--sh-2); }
-dialog#ficha::backdrop { background: rgba(18,19,22,.45); backdrop-filter: blur(4px); }
+dialog#ficha::backdrop { background: var(--velo); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 dialog#ficha .caja { width: min(60vw, 220px); margin: 0 auto var(--s-4); }
 dialog#ficha h2 { margin: 0; font-size: 19px; line-height: 24px; }
 dialog#ficha dl { margin: var(--s-4) 0; display: grid; grid-template-columns: auto 1fr; gap: var(--s-1) var(--s-3); font: 500 14px/22px var(--sans); }

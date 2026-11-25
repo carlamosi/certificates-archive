@@ -7,7 +7,6 @@
 .pines-main { flex: 1; min-width: 0; overflow-y: auto; display: flex; flex-direction: column; gap: var(--s-5); padding: 4px 4px var(--s-5); }
 .pines-cabeza { display: flex; align-items: center; gap: var(--s-5); }
 .pines-cabeza .pegatina.grande { width: 56px; height: 56px; }
-.pag-pines .contadores dd { font-size: 56px; line-height: 60px; }
 
 .grupos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--s-4); align-items: start; }
 .grupo-pais {
@@ -59,25 +58,22 @@
 .pines-ficha .marco { height: 300px; display: grid; place-items: center; background: radial-gradient(60% 60% at 50% 40%, var(--surface), color-mix(in srgb, var(--paper-2) 80%, var(--ink-2))); }
 .ficha-texto h2 { margin: 0; font: 700 32px/38px var(--sans); letter-spacing: -.02em; text-wrap: balance; }
 .ficha-botones { display: flex; gap: var(--s-2); margin-top: auto; }
-.ficha-botones .btn { height: 40px; text-decoration: none; }
-.ficha-botones a.btn { flex: 1; color: var(--accent-ink); }
-.ficha-botones .btn.ghost { border-color: var(--line); color: var(--ink); font-weight: 500; }
+.ficha-botones a.btn { flex: 1; }
 .ficha-botones .btn.ghost[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
-.pines-ficha .ficha-cerrar { display: none; position: absolute; top: var(--s-3); right: var(--s-3); z-index: 1; }
+.pines-ficha .ficha-cerrar { display: none; }
 
 /* móvil: la ficha es una hoja inferior que sale al tocar un pin */
 @media (max-width: 760px) {
   .pines-pagina { padding: var(--s-3) var(--s-4) 0; }
   .pines-cabeza { gap: var(--s-4); }
-  .pag-pines .contadores dd { font-size: 36px; line-height: 40px; }
   .pag-pines .contadores div { padding: 0 var(--s-4); }
   .pines-cabeza .pegatina.grande { width: 44px; height: 44px; }
   .pines-main { padding-bottom: 40vh; }
   .grupos { grid-template-columns: 1fr; }
   .pines-ficha {
-    position: fixed; left: var(--s-3); right: var(--s-3); bottom: calc(var(--s-3) + env(safe-area-inset-bottom, 0px)); z-index: 6;
+    position: fixed; left: var(--s-3); right: var(--s-3); bottom: calc(var(--s-3) + var(--sobre-pestanas)); z-index: 6;   /* sobre las pestañas */
     width: auto; max-height: 56vh; flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--s-3);
-    padding: var(--s-4); background: color-mix(in srgb, var(--surface) 88%, transparent); animation: sube var(--d-3) var(--ease-out);
+    padding: var(--s-4); background: var(--glass-strong); animation: sube var(--d-3) var(--ease-out);
   }
   .pines-ficha .sello { width: 112px; padding: 8px; }
   .pines-ficha .marco { height: 96px; }

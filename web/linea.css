@@ -10,11 +10,7 @@
 .fch[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
 .fch.anio { padding: 0 var(--s-3); min-width: 56px; justify-content: center; }
 /* conmutador de vista (segmentado) */
-.vista { display: grid; grid-template-columns: 1fr 1fr; padding: 3px; gap: 2px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--ink) 6%, transparent); }
-.vista button { min-height: 44px; min-width: 88px; padding: 0 var(--s-4); border: 0; border-radius: var(--r-pill); background: none; color: var(--ink-2); font-weight: 500; cursor: pointer;
-  transition: background-color var(--d-2) var(--ease-out), transform var(--d-1) var(--ease-out); }
-.vista button:active { transform: scale(.96); }
-.vista button[aria-pressed="true"] { background: var(--surface); color: var(--ink); font-weight: 700; box-shadow: var(--sh-1); }
+.vista button { min-width: 88px; }
 
 /* A · río */
 .marco { border-radius: var(--r-3); overflow: hidden; }
@@ -24,7 +20,7 @@
 .est { position: absolute; top: 0; bottom: 0; scroll-snap-align: start; border-left: 1px solid var(--line); }
 .est:nth-child(even) { background: var(--tint); }
 .et { position: sticky; left: 12px; z-index: 3; display: grid; width: max-content; padding: 10px 0 0 10px; gap: 2px; }
-.et b { font: 800 40px/40px var(--sans); color: var(--accent); letter-spacing: -.02em; }
+.et b { font: 700 40px/40px var(--sans); color: var(--accent); letter-spacing: -.02em; }
 .med { display: block; width: 72px; height: 4px; border-radius: 4px; background: var(--accent-soft); overflow: hidden; }
 .med i { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
 .tk { position: absolute; left: 0; right: 0; height: 8px; background: repeating-linear-gradient(90deg, var(--ink-2) 0 1px, transparent 1px var(--mes)); opacity: .5; }
@@ -35,12 +31,12 @@
 .pista button:active, .fila:active, .tile:active { transform: scale(.96); }
 .pista button.off { opacity: .14; pointer-events: none; }
 .viaje { height: 36px; display: flex; align-items: center; gap: 6px; padding: 0 12px 0 6px; border: 1.5px solid var(--accent); border-radius: var(--r-pill);
-  background: var(--accent-soft); color: var(--ink); font: 600 12px/16px var(--sans); text-align: left; }
+  background: var(--accent-soft); color: var(--ink); font: 700 12px/16px var(--sans); text-align: left; }
 .viaje::after, .ev::after { content: ""; position: absolute; inset: -4px 0; }   /* área táctil de 44 px */
 .viaje .pegatina { width: 26px; height: 26px; filter: none; transform: none; }
 .viaje span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .viaje.fut { border-style: dashed; background: repeating-linear-gradient(135deg, var(--accent-soft) 0 6px, transparent 6px 12px); }
-.ev { height: 44px; width: 150px; display: flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; text-align: left; font: 600 12px/14px var(--sans); color: var(--ink); }
+.ev { height: 44px; width: 150px; display: flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; text-align: left; font: 700 12px/14px var(--sans); color: var(--ink); }
 .ev span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .ev .pegatina { width: 38px; height: 38px; }
 .ce { width: 44px; height: 44px; padding: 0; border: 0; background: none; display: grid; place-items: center; }
@@ -50,7 +46,7 @@
 /* B · salas */
 .sala { margin: 0 0 var(--s-5); padding: var(--s-5); border-radius: var(--r-3); scroll-margin-top: var(--s-3); }
 .cab { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3) var(--s-5); align-items: end; }
-.gran { margin: 0; font: 800 clamp(76px, 17vw, 156px)/.86 var(--sans); letter-spacing: -.04em;
+.gran { margin: 0; font: 700 clamp(76px, 17vw, 156px)/.86 var(--sans); letter-spacing: -.04em;
   background: linear-gradient(180deg, var(--accent) 20%, transparent 125%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .cifras { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); padding-bottom: 6px; }
 .cifras div { display: grid; }
@@ -69,18 +65,17 @@
 .fila { display: grid; grid-template-columns: 64px 30px 1fr auto; gap: var(--s-3); align-items: center; width: 100%; min-height: 48px; padding: 6px 8px; text-align: left; cursor: pointer;
   border: 0; border-bottom: 1px solid var(--line); background: none; border-radius: 0; transition: background var(--d-1); }
 .fila .pegatina { width: 28px; height: 28px; }
-.fila .t { font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.fila .t { font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .fila .t small { display: block; font: 500 12px/16px var(--sans); color: var(--ink-2); }
-.tag { font: 600 12px/16px var(--sans); color: var(--accent); text-align: right; font-variant-numeric: tabular-nums; }
+.tag { font: 700 12px/16px var(--sans); color: var(--accent); text-align: right; font-variant-numeric: tabular-nums; }
 .tag.prox { padding: 2px 8px; border: 1px dashed var(--accent); border-radius: var(--r-pill); }
 
 /* detalle (panel inferior, compartido) */
-.detalle { position: fixed; z-index: 40; left: 0; right: 0; bottom: max(16px, env(safe-area-inset-bottom)); width: min(440px, calc(100% - 32px)); margin: 0 auto; padding: var(--s-5);
+.detalle { position: fixed; z-index: 40; left: 0; right: 0; bottom: calc(var(--s-4) + var(--sobre-pestanas)); width: min(440px, calc(100% - 32px)); margin: 0 auto; padding: var(--s-5);
   border-radius: var(--r-3); max-height: 70vh; overflow-y: auto; animation: sube var(--d-3) var(--ease-out); }
 .detalle:focus { outline: none; }
 @keyframes sube { from { opacity: 0; transform: translateY(8px) scale(.96); } }
 .detalle h3 { margin: 4px 0 var(--s-3); font: 700 20px/26px var(--sans); padding-right: 48px; }
-.detalle .x { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--glass); cursor: pointer; font-size: 18px; }
 .detalle dl { display: grid; grid-template-columns: auto 1fr; gap: 4px var(--s-4); margin: 0 0 var(--s-4); font-size: 14px; }
 .detalle dt { color: var(--ink-2); font-weight: 500; }
 .detalle dd { margin: 0; font-variant-numeric: tabular-nums; }
@@ -90,14 +85,11 @@
 
 @media (max-width: 640px) {
   #linea { padding: var(--s-4) var(--s-4) 120px; }
-  .bar { row-gap: var(--s-1); }
-  .bar .brand .sub { display: none; }
-  h1 { font-size: 17px; }
   .sala { padding: var(--s-4); } .cab { grid-template-columns: 1fr; }
   .fila { grid-template-columns: 52px 28px 1fr; } .fila .tag { grid-column: 3; text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
   .detalle { animation: none; }
   .carril { scroll-behavior: auto; }
-  .tile, .fila, .vista button, .pista button { transition: none; }
+  .tile, .fila, .pista button { transition: none; }
 }

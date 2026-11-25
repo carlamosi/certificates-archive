@@ -6,8 +6,19 @@
   <meta name="robots" content="noindex">
   <title>Fotos · Certificates Archive</title>
   <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="img/app/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="img/app/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Archivo">
   <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-startup-image" href="img/app/arranque-claro.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: light)">
+  <link rel="apple-touch-startup-image" href="img/app/arranque-oscuro.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="splash.css">
+  <script src="splash.js"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="fotos.css">
 </head>
@@ -35,7 +46,7 @@
         <p class="sub">fotos con personas</p>
       </div>
       <div class="busca">
-      <label class="buscador">
+      <label class="campo">
         <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg>
         <input id="q" type="search" placeholder="Buscar a una persona" aria-label="Buscar a una persona" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="sugerencias" aria-autocomplete="list">
       </label>
@@ -48,7 +59,7 @@
       <div class="cabeza-galeria">
         <p id="resultado" class="sub" role="status" aria-live="polite"></p>
         <button id="quitar" class="btn ghost chico" type="button" hidden>Ver todas</button>
-        <div class="modo" role="group" aria-label="Vista">
+        <div class="segmento" role="group" aria-label="Vista">
           <button type="button" data-modo="album" aria-pressed="true">Álbum</button>
           <button type="button" data-modo="mesa" aria-pressed="false">Mesa</button>
         </div>
@@ -74,6 +85,7 @@
         <div id="vPersonas" class="personas"></div>
         <div class="acciones">
           <button id="vEv" class="btn" type="button" hidden></button>
+          <a id="vEvt" class="btn" href="evento.html" hidden>Ver el evento</a>
           <a id="vMapa" class="btn ghost" href="mapa.html" hidden>En el mapa</a>
           <a id="vBajar" class="btn ghost" href="#" download>Descargar</a>
         </div>

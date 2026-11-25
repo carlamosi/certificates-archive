@@ -19,17 +19,18 @@
 
   function preparar(A) {
     const out = [];
-    const add = (o, evento) => {
+    const add = (o, ev) => {
+      const evento = ev ? ev.nombre : '';
       if (o.tipo !== 'certificado') return;
       const img = o.front_web || '';
       out.push({
-        titulo: o.titulo || 'Sin título', org: o.organizador || '', fecha: o.fecha || '', premio: o.premio || '',
+        slug: ev ? ev.slug : '', titulo: o.titulo || 'Sin título', org: o.organizador || '', fecha: o.fecha || '', premio: o.premio || '',
         nivel: o.nivel ? mayus(o.nivel) : '', num: o.num_archivo || '', img, pendiente: !img, conPremio: !!o.nivel,
         buscable: norm([o.titulo, o.organizador, o.num_archivo, evento].join(' ')),
       });
     };
-    (A.eventos || []).forEach((e) => (e.objetos || []).forEach((o) => add(o, e.nombre)));
-    (A.objetos_sueltos || []).forEach((o) => add(o, ''));
+    (A.eventos || []).forEach((e) => (e.objetos || []).forEach((o) => add(o, e)));
+    (A.objetos_sueltos || []).forEach((o) => add(o, null));
     // más reciente primero; a igual fecha, por nº de archivo descendente
     out.sort((a, b) => b.fecha.localeCompare(a.fecha) || b.num.localeCompare(a.num));
     out.forEach((c, i) => { c.giro = GIROS[i % GIROS.length]; });
@@ -85,6 +86,7 @@
     p.hidden = !c.conPremio;
     p.innerHTML = c.conPremio ? `${IDENTIDAD.pegatina('premio')}<span><b>${esc(c.nivel)}</b>${c.premio ? `<span class="sub">${esc(c.premio)}</span>` : ''}</span>` : '';
     $('fNum').textContent = c.num ? `Nº ${c.num} en el archivo` : 'Sin número de archivo';
+    $('fEvt').hidden = !c.slug; if (c.slug) $('fEvt').href = `evento.html?e=${encodeURIComponent(c.slug)}`;
     $('fAnt').disabled = $('fSig').disabled = S.lista.length < 2;
   }
   function abrir(i, desde) {
@@ -120,7 +122,7 @@
       else if (e.key === 'ArrowLeft') mover(-1);
       else if (e.key === 'ArrowRight') mover(1);
       else if (e.key === 'Tab') {   // el foco no sale de la ficha
-        const f = [...$('ficha').querySelectorAll('button:not(:disabled)')];
+        const f = [...$('ficha').querySelectorAll('button:not(:disabled), a[href]:not([hidden])')];
         const dentro = f.includes(document.activeElement);
         if (!dentro || (e.shiftKey ? document.activeElement === f[0] : document.activeElement === f[f.length - 1])) { e.preventDefault(); (e.shiftKey ? f[f.length - 1] : f[0]).focus(); }
       }

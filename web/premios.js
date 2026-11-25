@@ -14,7 +14,7 @@
 
   // ------------------------------------------------------------------ datos (sin DOM: se prueba con node)
   function premios(A) {
-    const todos = [...(A.eventos || []).flatMap((e) => e.objetos || []), ...(A.objetos_sueltos || [])];
+    const todos = [...(A.eventos || []).flatMap((e) => (e.objetos || []).map((o) => ({ ...o, slug: e.slug }))), ...(A.objetos_sueltos || [])];
     return todos
       .map((o) => ({ o, n: NIVELES.find((x) => x.clave === norm(o.nivel)) }))
       .filter((x) => x.n)
@@ -81,6 +81,7 @@
     const ver = $('fVer');
     ver.disabled = !p.front_web;
     ver.textContent = p.front_web ? 'Ver el certificado' : 'Por escanear';
+    $('fEvt').hidden = !p.slug; if (p.slug) $('fEvt').href = `evento.html?e=${encodeURIComponent(p.slug)}`;
     $('ficha').hidden = false;
     const r = btn.getBoundingClientRect();
     const movil = matchMedia('(max-width: 760px)').matches;   // en móvil la ficha va siempre abajo y la medalla sube

@@ -14,7 +14,7 @@
   // Pines con su ciudad, país, fecha y viaje. Medidas y caja física no se leen: no se muestran.
   function pinesDe(A) {
     const ciudades = new Map(((A.totales || {}).ciudades || []).map((c) => [c.id, c]));
-    const lista = [];
+    const lista = [], slugs = new Map((A.eventos || []).map((e) => [e.id, e.slug]));
     for (const v of A.viajes || []) {
       for (const o of v.objetos || []) {
         if (o.tipo !== 'pin') continue;
@@ -26,7 +26,7 @@
         lista.push({
           uid: o.uid, ciudad: nombre, pais: c.pais || '', viaje: v, foto: o.front_web || '',
           codigo: corto && corto.length <= 4 ? corto : quitaAcentos(nombre).slice(0, 3).toUpperCase(),
-          fecha: ini ? mesAnio(ini) : v.anio || '', place: o.place_id,
+          fecha: ini ? mesAnio(ini) : v.anio || '', place: o.place_id, slug: slugs.get(o.event_id) || '',
         });
       }
     }
@@ -80,7 +80,7 @@
     if (!p) return;
     const resaltado = S.viaje === p.viaje.id;
     f.innerHTML = `
-      <button type="button" class="btn ghost redondo ficha-cerrar" aria-label="Cerrar">${IDENTIDAD.icono('cerrar')}</button>
+      <button type="button" class="btn ghost redondo close ficha-cerrar" aria-label="Cerrar">${IDENTIDAD.icono('cerrar')}</button>
       <div class="sello"><div class="marco">${chapa(p, 'grande')}</div></div>
       <div class="ficha-texto">
         <p class="kicker">${esc(p.fecha || 'Sin fecha')}</p>
@@ -88,7 +88,8 @@
         <p class="sub">${esc([p.pais, p.viaje.nombre].filter(Boolean).join(' · '))}</p>
       </div>
       <div class="ficha-botones">
-        <a class="btn" href="mapa.html?viaje=${p.viaje.id}">Ver en el mapa</a>
+        ${p.slug ? `<a class="btn" href="evento.html?e=${encodeURIComponent(p.slug)}">Ver el evento</a>` : ''}
+        <a class="btn${p.slug ? ' ghost' : ''}" href="mapa.html?viaje=${p.viaje.id}">Ver en el mapa</a>
         <button type="button" class="btn ghost" id="suViaje" aria-pressed="${resaltado}">Su viaje</button>
       </div>`;
   }

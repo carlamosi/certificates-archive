@@ -61,6 +61,8 @@ de un lanyard. Une las dos mitades del archivo: lo que se cuelga y lo que se via
 | `--accent-ink` | `#FFFFFF` | `#0D1220` | Texto sobre el acento |
 | `--accent-soft` | `rgba(47,91,234,.10)` | `rgba(124,155,255,.14)` | Fondos de hover y selección |
 | `--danger` | `#C8372D` | `#FF7A6E` | Solo avisos de calidad de foto |
+| `--glass-strong` | `--surface` al 88 % | igual | Fichas y paneles que deben leerse sobre cualquier fondo |
+| `--velo` | `rgba(20,22,30,.4)` | `rgba(0,0,0,.5)` | Fondo detrás de fichas y diálogos |
 
 **Contraste (WCAG, calculado):** claro: texto 15,9:1 · secundario 6,2:1 · acento sobre papel 5,0:1 · blanco sobre acento 5,5:1 · aviso 4,7:1.
 Oscuro: texto 16,2:1 · secundario 7,4:1 · acento 7,1:1 · texto sobre acento 7,1:1 · aviso 7,3:1. Todo AA.
@@ -88,7 +90,8 @@ Una sola familia. Fontsource `@fontsource/open-sauce-one@5.3.0` desde jsDelivr (
 
 | Rol | Tamaño / línea | Peso | Tracking |
 |---|---|---|---|
-| Display (contadores, portada) | 56 / 60 | 300 | −0.03em |
+| Display (contadores) | 44 / 48 (móvil 32 / 36) | 300 | −0.03em |
+| Display grande (portada, total de premios) | 56–96 | 300 | −0.03em |
 | H1 (título de ficha) | 32 / 38 | 700 | −0.02em |
 | H2 (cartela) | 22 / 28 | 700 | −0.01em |
 | Cuerpo | 15 / 24 | 400 | 0 |
@@ -177,6 +180,20 @@ Solo los que se usan: `cerrar`, `anterior`, `siguiente`, `girar`, `abrir`. Uno n
 - **Cartela:** cristal; pegatina del tipo + fecha en etiqueta; evento en H2; lugar en metadatos; botón «Ver ficha».
 - **Ficha:** cristal grande; anverso y reverso en marcos de sello; pares etiqueta/valor; avisos en `--danger` sin icono.
 - **Botones:** principal (acento, uno por vista), secundario (borde `--line`), icono (círculo de cristal de 40 px).
+  Un enlace con forma de botón (`a.btn`) no se subraya.
+
+### Componentes comunes de las páginas (`web/style.css`; repaso en `REPASO_UI.md`)
+- **Cerrar:** `.btn.ghost.redondo.close` con el icono `cerrar`, arriba a la derecha a 12 px. Nunca «✕» de texto.
+- **Ficha / diálogo:** fondo `--velo` con desenfoque de 8 px; hoja `--glass-strong` (cristal al 88 %), radio `--r-3`.
+  Esc cierra; al abrir, el foco va al contenedor; al cerrar, vuelve a lo que la abrió.
+- **Móvil:** lo que flota abajo se coloca sobre la barra de pestañas (`--sobre-pestanas`, incluye la zona segura del iPhone);
+  las hojas modales van por encima de todo (z-index 40).
+- **Campo de búsqueda** (`.campo`): píldora de cristal de 44 px, letra de 16 px (con menos, el iPhone amplía al escribir).
+- **Control segmentado** (`.segmento`): vista o modo; la opción activa es una pastilla `--surface` con `--sh-1`.
+- **Contadores** (`.contadores`): Display 300, separados por una línea `--line`.
+- **Título de página** (`.titulo`): H1 32/38 (26/32 en móvil).
+- **Estado vacío** (`.vacio`): una frase centrada en `--ink-2`. **Carga y avisos:** `.notice`.
+- Cada página solo añade su CSS propio (`<página>.css`); nada con nombre genérico fuera de su página.
 - **Pared 3D:** pared de galería clara (o azul noche en oscuro), carril de acero satinado, cordón fino en tinta, luz cálida desde arriba a la izquierda. Los colores se leen de los tokens CSS.
 
 ## 9. Lo que heredan el mapa y la página de personas

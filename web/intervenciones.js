@@ -46,7 +46,7 @@
     const n = (t) => items.filter((i) => i.tipo === t).length;
     const celdas = [[items.length, items.length === 1 ? 'intervención' : 'intervenciones'], ...RESUMEN.filter(([t]) => n(t)).map(([t, uno, varios]) => [n(t), n(t) === 1 ? uno : varios])];
     $('resumen').innerHTML = window.IDENTIDAD.pegatina('charla') +
-      `<dl class="cifras">${celdas.map(([v, nombre]) => `<div class="cifra"><dd class="num">${v}</dd><dt>${nombre}</dt></div>`).join('')}</dl>`;
+      `<dl class="cifras contadores">${celdas.map(([v, nombre]) => `<div class="cifra"><dd class="num">${v}</dd><dt>${nombre}</dt></div>`).join('')}</dl>`;
   }
 
   function elegir(items, k, filas) {

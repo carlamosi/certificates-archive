@@ -587,7 +587,7 @@
       </ol></section>
 
       ${ev.length || objs.length ? `<section><h3 class="kicker gris">Del archivo</h3><ul class="del-archivo">
-        ${ev.map((e) => `<li>${IDENTIDAD.pegatina('evento')}<span><b>${esc(e.nombre)}</b><span class="sub">${esc([e.fecha, e.organizador].filter(Boolean).join(' · '))}</span></span></li>`).join('')}
+        ${ev.map((e) => `<li>${IDENTIDAD.pegatina('evento')}<span><b><a href="evento.html?e=${encodeURIComponent(e.slug)}">${esc(e.nombre)}</a></b><span class="sub">${esc([e.fecha, e.organizador].filter(Boolean).join(' · '))}</span></span></li>`).join('')}
         ${porTipo.map(([t, n]) => `<li>${IDENTIDAD.pegatina(IDENTIDAD.PEGATINAS[t] ? t : 'evento')}<span><b>${plural(n, ...(nombreTipo[t] || [t, t + 's']))}</b><span class="sub">${esc(objetosDe(objs, t))}</span></span></li>`).join('')}
       </ul></section>` : ''}
 

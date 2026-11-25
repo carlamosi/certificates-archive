@@ -144,7 +144,7 @@
     if (!D.hayCifras) { $('count').textContent = 'Sin cifras'; $('relato').innerHTML = '<p class="vacio">Faltan las cifras anuales: ejecuta «archivo.py exportar web/data/archivo.json».</p>'; return; }
     if (D.kmTotal != null && D.kmAnios !== D.kmTotal) console.warn(`Los km por año (${D.kmAnios}) no cuadran con totales.km (${D.kmTotal})`);
     const sel = $('anios');
-    sel.innerHTML = [...AÑOS, 'all'].map((a) => `<button type="button" data-a="${a}">${a === 'all' ? 'Todo' : a}</button>`).join('');
+    sel.innerHTML = [...AÑOS, 'all'].map((a) => `<button type="button" class="chip" data-a="${a}">${a === 'all' ? 'Todo' : a}</button>`).join('');
     const elegir = (a, mover) => {
       sel.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.a === a));
       pintar(D, a);

@@ -22,7 +22,13 @@ MAX_FICHERO_MB = 95
 NO_SUBIR = shutil.ignore_patterns('__pycache__', '*.pyc', 'sync.py', 'README.md')
 VERCEL_JSON = {
     # el enlace es solo para Carla: que los buscadores no la indexen
-    'headers': [{'source': '/(.*)', 'headers': [{'key': 'X-Robots-Tag', 'value': 'noindex, nofollow'}]}],
+    'headers': [
+        {'source': '/(.*)', 'headers': [{'key': 'X-Robots-Tag', 'value': 'noindex, nofollow'}]},
+        # PWA: el service worker nunca se cachea (así se actualiza); el manifest con su tipo
+        {'source': '/sw.js', 'headers': [{'key': 'Cache-Control', 'value': 'no-cache'}, {'key': 'Content-Type', 'value': 'text/javascript; charset=utf-8'}]},
+        {'source': '/manifest.webmanifest', 'headers': [{'key': 'Content-Type', 'value': 'application/manifest+json'}]},
+        {'source': '/(img|video)/(.*)', 'headers': [{'key': 'Cache-Control', 'value': 'public, max-age=31536000, immutable'}]},
+    ],
 }
 
 

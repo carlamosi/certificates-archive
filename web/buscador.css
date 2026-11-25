@@ -1,0 +1,40 @@
+/* Buscador global (buscador.js, lo enlaza él mismo). Ficha: docs/features/buscador.md. Tokens de style.css. */
+.lupa-btn {
+  width: 44px; height: 44px; flex: none; margin-left: auto; padding: 0; display: grid; place-items: center;
+  border: 0; border-radius: var(--r-pill); background: transparent; color: var(--ink); cursor: pointer;
+  transition: transform var(--d-2) var(--ease-spring), background var(--d-2);
+}
+@media (hover: hover) { .lupa-btn:hover { background: var(--accent-soft); color: var(--accent); } }
+.lupa-btn:active { transform: scale(.94); }
+.lupa-btn .icono, .buscador .icono { width: 22px; height: 22px; flex: none; }
+.pp-cabeza { display: flex; align-items: center; gap: var(--s-2); }
+.pp-cabeza .kicker { margin-right: auto; }
+
+dialog.buscador { padding: 0; border: 0; background: transparent; width: min(640px, calc(100vw - 32px)); max-width: none; max-height: none; margin: 12vh auto auto; overflow: visible; color: var(--ink); }
+dialog.buscador::backdrop { background: var(--velo); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+dialog.buscador[open] { animation: pp-entra var(--d-3) var(--ease-out); }
+.buscador-caja { display: flex; flex-direction: column; max-height: min(620px, 76dvh); border-radius: var(--r-3); overflow: hidden; background: color-mix(in srgb, var(--surface) 86%, transparent); border: 1px solid var(--glass-edge); box-shadow: var(--sh-2); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); }
+.buscador-campo { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-2) var(--s-2) var(--s-2) var(--s-4); border-bottom: 1px solid var(--line); color: var(--ink-2); }
+.buscador-campo input { flex: 1; min-width: 0; height: 44px; border: 0; outline: 0; background: transparent; color: var(--ink); font: 500 16px/24px var(--sans); }
+.buscador-campo input::placeholder { color: var(--ink-2); opacity: .7; }
+.buscador-campo:focus-within { box-shadow: inset 0 -2px 0 var(--accent); }
+#buscadorLista { list-style: none; margin: 0; padding: var(--s-2); overflow-y: auto; overscroll-behavior: contain; }
+#buscadorLista:empty { display: none; }
+.b-grupo { padding: var(--s-3) var(--s-3) var(--s-1); font: 700 11px/16px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.b-op { display: flex; align-items: center; gap: var(--s-3); min-height: 44px; padding: 6px var(--s-3); border-radius: var(--r-1); cursor: pointer; }
+.b-op[aria-selected="true"] { background: var(--accent-soft); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent); }
+.b-peg .pegatina { width: 28px; height: 28px; display: block; transform: none; }
+.b-txt { display: flex; flex-direction: column; min-width: 0; }
+.b-txt b { font: 700 15px/20px var(--sans); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.b-txt small { font: 400 13px/18px var(--sans); color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.buscador-estado { margin: 0; padding: var(--s-4); font: 400 14px/20px var(--sans); color: var(--ink-2); }
+.buscador-estado:empty { display: none; }
+.buscador-pie { margin: 0; padding: var(--s-2) var(--s-4); border-top: 1px solid var(--line); font: 400 12px/18px var(--sans); color: var(--ink-2); }
+.buscador-pie kbd { font: inherit; padding: 0 6px; margin-right: 2px; border-radius: 6px; border: 1px solid var(--line); background: var(--glass); }
+@media (max-width: 640px) {
+  dialog.buscador { width: 100vw; height: 100dvh; margin: 0; }
+  .buscador-caja { height: 100dvh; max-height: none; border-radius: 0; background: var(--surface); padding-top: env(safe-area-inset-top, 0px); }
+  .buscador-pie { display: none; }
+  #buscadorLista { flex: 1; padding-bottom: calc(var(--s-4) + env(safe-area-inset-bottom, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) { dialog.buscador[open] { animation: none; } .lupa-btn { transition: none; } }

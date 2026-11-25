@@ -16,7 +16,6 @@
     ['certificados', 'Certificados', 'certificados.html', 'certificado', 'Colección', true],
     ['intervenciones', 'Intervenciones', 'intervenciones.html', 'charla', 'Trayectoria', true],
     ['premios', 'Premios', 'premios.html', 'premio', 'Trayectoria', true],
-    ['personas', 'Personas', '', 'persona', 'Trayectoria', false],
   ];
   const pagina = location.pathname.split('/').pop() || 'index.html';
   // páginas fuera del índice (p. ej. evento.html): su nombre sale del <title>, sin marcar ningún módulo
@@ -105,6 +104,9 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !hoja.hidden) { hoja.hidden = true; tabs.querySelectorAll('[aria-expanded="true"]').forEach((x) => x.setAttribute('aria-expanded', 'false')); }
   });
+
+  // ---- buscador global (Ctrl/⌘+K): script propio, añade su lupa a la barra y al índice
+  document.head.appendChild(Object.assign(document.createElement('script'), { src: 'buscador.js' }));
 
   // ---- cifras del archivo (opcional: sin archivo.json el índice funciona igual)
   const pon = (id, txt) => document.querySelectorAll(`[data-cifra="${id}"]`).forEach((el) => { el.textContent = txt; });

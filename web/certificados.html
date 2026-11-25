@@ -7,8 +7,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Certificados · Certificates Archive</title>
   <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="img/app/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="img/app/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Archivo">
   <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-startup-image" href="img/app/arranque-claro.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: light)">
+  <link rel="apple-touch-startup-image" href="img/app/arranque-oscuro.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="splash.css">
+  <script src="splash.js"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="certificados.css">
 </head>
@@ -30,10 +41,10 @@
 
   <main id="cert">
     <div class="cert-in">
-      <dl class="contadores-c" id="contadores"></dl>
+      <dl class="contadores" id="contadores"></dl>
 
       <div class="controles">
-        <label class="buscar">
+        <label class="campo buscar">
           <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg>
           <input id="q" type="search" aria-label="Buscar certificados" placeholder="Buscar por evento, organizador o nº" autocomplete="off">
         </label>
@@ -42,7 +53,7 @@
       </div>
 
       <div id="rejilla"></div>
-      <p id="vacio" class="sub vacio" hidden>Nada coincide con la búsqueda.</p>
+      <p id="vacio" class="vacio" hidden>Nada coincide con la búsqueda.</p>
       <div id="notice" class="notice" hidden></div>
     </div>
   </main>
@@ -51,12 +62,13 @@
     <div class="cfi-fondo" data-cerrar></div>
     <div class="cfi-hoja" id="fHoja"></div>
     <aside class="cfi-datos glass" tabindex="-1" id="fDatos">
-      <button class="btn ghost redondo cfi-x" id="fCerrar" aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#cerrar"/></svg></button>
+      <button class="btn ghost redondo close" id="fCerrar" aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#cerrar"/></svg></button>
       <p class="kicker" id="fFecha"></p>
       <h2 id="fTitulo"></h2>
       <p class="sub" id="fOrg"></p>
       <div id="fPremio" class="cfi-premio" hidden></div>
       <p class="sub" id="fNum"></p>
+      <a class="btn" id="fEvt" href="evento.html" hidden>Ver el evento</a>
       <div class="nav">
         <button class="btn ghost" id="fAnt" style="flex:1"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#anterior"/></svg>Anterior</button>
         <button class="btn ghost" id="fSig" style="flex:1">Siguiente<svg class="icono" aria-hidden="true"><use href="img/iconos.svg#siguiente"/></svg></button>

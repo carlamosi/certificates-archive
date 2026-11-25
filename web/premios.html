@@ -7,8 +7,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Premios · Certificates Archive</title>
   <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="img/app/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="img/app/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Archivo">
   <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-startup-image" href="img/app/arranque-claro.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: light)">
+  <link rel="apple-touch-startup-image" href="img/app/arranque-oscuro.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="splash.css">
+  <script src="splash.js"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="premios.css">
 </head>
@@ -43,7 +54,7 @@
     <section id="vitrina" class="vitrina" aria-label="Vitrina de premios"></section>
 
     <div id="ficha" class="ficha glass" role="group" aria-labelledby="fTitulo" hidden>
-      <button id="fCerrar" class="btn ghost redondo" aria-label="Cerrar">
+      <button id="fCerrar" class="btn ghost redondo close" aria-label="Cerrar">
         <svg class="icono" aria-hidden="true"><use href="img/iconos.svg#cerrar"/></svg>
       </button>
       <p id="fFecha" class="kicker"></p>
@@ -54,6 +65,7 @@
         <span><b id="fNivel"></b><span id="fPremio" class="sub"></span></span>
       </div>
       <button id="fVer" class="btn" type="button">Ver el certificado</button>
+      <a id="fEvt" class="btn ghost" href="evento.html" hidden>Ver el evento</a>
     </div>
     <div id="notice" class="notice" hidden></div>
   </main>

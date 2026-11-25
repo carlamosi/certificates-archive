@@ -1,19 +1,14 @@
 /* Inicio «Tu año en cifras» (recorrido narrado). Ficha: docs/features/cifras-e-hitos.md */
 .pag-inicio main { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: var(--s-5) var(--s-4) calc(var(--s-7) + env(safe-area-inset-bottom, 0px)); }
 .pag-inicio main > * { max-width: 1080px; margin-inline: auto; }
-.pag-inicio h2 { font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -.01em; margin: 0; }
+.pag-inicio h2 { font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: -.01em; margin: 0; }
 
 .anios { display: flex; gap: 6px; padding: 6px; border-radius: var(--r-pill); overflow-x: auto; scrollbar-width: none; margin-bottom: var(--s-5); }
 .anios::-webkit-scrollbar { display: none; }
-.anios button { flex: none; min-height: 44px; min-width: 52px; padding: 0 var(--s-4); border: 0; border-radius: var(--r-pill); background: transparent; cursor: pointer;
-  font: 600 14px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--ink-2); transition: background var(--d-2) var(--ease-spring), color var(--d-2), transform var(--d-1) var(--ease-out); }
-.anios button:active { transform: scale(.96); }
-@media (hover: hover) { .anios button:hover { background: var(--accent-soft); } }
-.anios button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.anios .chip { min-width: 52px; justify-content: center; }
 
 .lead { font-size: clamp(20px, 5vw, 28px); line-height: 1.35; font-weight: 500; letter-spacing: -.01em; margin: var(--s-2) 0 var(--s-6); max-width: 34ch; }
 .lead .r { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
-.vacio { color: var(--ink-2); padding: var(--s-4) 0; }
 
 .rel { position: relative; padding-left: 28px; display: grid; gap: var(--s-5); }
 .rel::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: linear-gradient(var(--accent), var(--line)); }
@@ -21,7 +16,7 @@
 .paso::before { content: ""; position: absolute; left: -28px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent); }
 @keyframes sube { from { opacity: 0; transform: translateY(10px); } }
 .paso header { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-2); }
-.paso h3 { margin: 0; font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -.01em; text-transform: lowercase; }
+.paso h3 { margin: 0; font-size: 22px; line-height: 28px; font-weight: 700; letter-spacing: -.01em; text-transform: lowercase; }
 .paso h3::first-letter { text-transform: uppercase; }
 .cuerpo { border-radius: var(--r-2); padding: var(--s-4); display: grid; gap: var(--s-4); }
 .linea { display: flex; gap: var(--s-3); align-items: flex-start; }
@@ -34,9 +29,9 @@
 .cierre { border-radius: var(--r-3); padding: var(--s-5); margin-top: var(--s-6); display: grid; gap: var(--s-4); }
 .cierre-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
 .accesos { display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
-a.acceso { display: flex; align-items: center; gap: var(--s-3); min-height: 64px; padding: var(--s-3) var(--s-4); border-radius: var(--r-2); color: var(--ink); font-weight: 600; transition: transform var(--d-1) var(--ease-out); }
+a.acceso { display: flex; align-items: center; gap: var(--s-3); min-height: 64px; padding: var(--s-3) var(--s-4); border-radius: var(--r-2); color: var(--ink); font-weight: 700; transition: transform var(--d-1) var(--ease-out); }
 a.acceso:active { transform: scale(.96); }
-a.acceso:hover { text-decoration: none; background: var(--accent-soft); }
+@media (hover: hover) { a.acceso:hover { text-decoration: none; background: var(--accent-soft); } }
 
 @media (min-width: 720px) { .pag-inicio main { padding-inline: var(--s-5); } .rel { padding-left: 44px; } .rel::before { left: 12px; } .paso::before { left: -44px; } }
-@media (prefers-reduced-motion: reduce) { .paso { animation: none; } .anios button, a.acceso { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .paso { animation: none; } a.acceso { transition: none; } }

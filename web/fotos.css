@@ -1,8 +1,5 @@
 /* Fotos con personas · docs/features/fotos.md. Tokens y componentes base: style.css */
 
-.pag-fotos .bar .sub { white-space: nowrap; }
-.pag-fotos .chip[aria-current="page"] { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
-.pag-fotos a.chip { text-decoration: none; }
 .album { display: flex; gap: var(--s-6); padding: var(--s-5) var(--s-5) 0; }
 
 /* ---------- filtros ---------- */
@@ -11,14 +8,6 @@
 .total .pegatina { grid-row: span 2; width: 44px; height: 44px; }
 .total p { margin: 0; }
 .total .num { font: 300 44px/48px var(--sans); letter-spacing: -.03em; }
-.buscador {
-  display: flex; align-items: center; gap: var(--s-2); height: 44px; padding: 0 14px; margin-bottom: var(--s-3);
-  border-radius: var(--r-pill); background: var(--glass); border: 1px solid var(--line);
-  box-shadow: inset 0 1px 0 var(--glass-edge); color: var(--ink-2);
-}
-.buscador:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
-.buscador input { flex: 1; min-width: 0; border: 0; background: transparent; outline: none; font: 400 14px/20px var(--sans); color: var(--ink); }
-.buscador input::placeholder { color: var(--ink-2); }
 .anios { display: flex; flex-direction: column; gap: var(--s-1); }
 .chip.anio { height: 44px; justify-content: space-between; padding: 0 14px; font-size: 14px; }
 .chip.anio::after { display: none; }   /* ya mide 44 px */
@@ -29,7 +18,6 @@
 .mes { margin-bottom: var(--s-6); }
 .mes h2 { margin: 0 0 var(--s-4); font: 700 32px/38px var(--sans); letter-spacing: -.02em; }
 .rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: var(--s-6) var(--s-5); padding: var(--s-2) var(--s-2) 0; }
-.vacio { margin: var(--s-7) 0; color: var(--ink-2); font: 500 15px/24px var(--sans); text-align: center; }
 
 .tarjeta {
   margin: 0; padding: 0; border: 0; background: transparent; text-align: left; cursor: zoom-in;
@@ -46,7 +34,7 @@
 .tarjeta:active { transform: rotate(var(--giro)) scale(.96); transition-duration: var(--d-1); }
 .pie { display: flex; flex-direction: column; padding: 0 2px; }
 .pie .nom { font: 500 14px/20px var(--sans); text-wrap: balance; }
-.matasellos {
+.marco .matasellos {
   position: absolute; right: -10px; top: -10px; width: 60px; height: 60px; border-radius: 50%; pointer-events: none;
   border: 1.5px solid color-mix(in srgb, var(--accent) 55%, transparent); color: color-mix(in srgb, var(--accent) 75%, transparent);
   display: flex; align-items: center; justify-content: center; text-align: center; transform: rotate(-14deg);
@@ -61,13 +49,12 @@
 .visor-info {
   position: relative; flex: 0 0 320px; min-width: 320px; display: flex; flex-direction: column; gap: var(--s-3);
   padding: var(--s-5); border-radius: var(--r-3);
-  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  background: var(--glass-strong);
   animation: subir var(--d-3) var(--ease-out) 40ms both;
 }
 .visor-cab { display: grid; grid-template-columns: auto 1fr; gap: 2px var(--s-3); padding-right: var(--s-6); align-items: center; }
 .visor-cab .pegatina { grid-row: span 3; width: 40px; height: 40px; }
 .visor-cab h2 { margin: 0; font: 700 22px/28px var(--sans); letter-spacing: -.01em; text-wrap: balance; }
-.visor-info .close { top: var(--s-4); right: var(--s-4); }
 .visor-info .kicker.gris { color: var(--ink-2); margin: var(--s-2) 0 0; padding-top: var(--s-3); border-top: 1px solid var(--line); }
 .personas { display: flex; flex-wrap: wrap; gap: 6px; }
 .persona {
@@ -89,24 +76,18 @@ a.persona .icono { width: 14px; height: 14px; color: var(--accent); }
   .album { flex-direction: column; gap: var(--s-3); padding: var(--s-3) var(--s-4) 0; }
   .filtros { width: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--s-2); overflow: visible; padding-bottom: 0; }
   .total { display: none; }
-  .buscador { flex: 1 1 100%; margin-bottom: 0; }
   .anios { flex-direction: row; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
   .anios::-webkit-scrollbar { display: none; }
   .chip.anio { flex: none; gap: 8px; }
   .galeria { padding: 0 var(--s-1) var(--s-7); }
   .mes h2 { font: 700 24px/30px var(--sans); }
   .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--s-4); }
-  .matasellos { width: 48px; height: 48px; right: -6px; top: -8px; font-size: 7px; line-height: 9px; }
-  .visor { padding: var(--s-3); align-items: end; }
+  .marco .matasellos { width: 48px; height: 48px; right: -6px; top: -8px; font-size: 7px; line-height: 9px; }
+  .visor { padding: var(--s-3) var(--s-3) calc(var(--s-3) + env(safe-area-inset-bottom, 0px)); align-items: end; }
   .visor-card { flex-direction: column; gap: var(--s-3); max-height: calc(100dvh - 24px); overflow-y: auto; }
   .visor-foto { padding: 10px; }
   .visor-foto img { max-height: 46dvh; }
   .visor-info { flex: none; min-width: 0; width: 100%; padding: var(--s-4); }
-}
-@media (max-width: 640px) {
-  .pag-fotos .bar { flex-wrap: nowrap; padding-right: var(--s-1); }
-  .pag-fotos .brand > div { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }   /* solo el logo; el nombre sigue para lectores de pantalla */
-  .pag-fotos .chip { padding: 0 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tarjeta, .tarjeta:hover, .tarjeta:active { transform: rotate(var(--giro, 0deg)); }
@@ -118,16 +99,6 @@ a.persona .icono { width: 14px; height: 14px; color: var(--accent); }
 .cabeza-galeria .sub { margin-right: auto; }
 .btn.chico { min-height: 36px; padding: 0 var(--s-3); font-size: 13px; position: relative; }
 .btn.chico::after { content: ""; position: absolute; inset: -4px 0; }   /* 44 px táctiles */
-.modo { display: inline-flex; padding: 3px; gap: 2px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--ink) 6%, transparent); }
-.modo button {
-  min-height: 36px; padding: 0 var(--s-4); border: 0; border-radius: var(--r-pill); background: transparent; color: var(--ink-2);
-  font: 500 13px/1 var(--sans); cursor: pointer; position: relative;
-  transition: background-color var(--d-2) var(--ease-out), color var(--d-2) var(--ease-out), transform var(--d-1) var(--ease-out);
-}
-.modo button::after { content: ""; position: absolute; inset: -4px 0; }
-.modo button:active { transform: scale(.96); }
-.modo button[aria-pressed="true"] { background: var(--surface); color: var(--ink); font-weight: 700; box-shadow: var(--sh-1); }
-@media (hover: hover) { .modo button[aria-pressed="false"]:hover { color: var(--ink); } }
 
 /* ---------- mesa: fotos sueltas sobre el papel; la que tocas sube al frente ---------- */
 .mesa .rejilla { gap: var(--s-5) 0; padding: var(--s-4) var(--s-4) 0; }
@@ -162,7 +133,6 @@ a.persona .icono { width: 14px; height: 14px; color: var(--accent); }
 
 /* ---------- sugerencias de nombres ---------- */
 .busca { position: relative; margin-bottom: var(--s-3); }
-.busca .buscador { margin-bottom: 0; }
 .sugerencias {
   position: absolute; z-index: 8; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: var(--s-1); list-style: none;
   border-radius: var(--r-2); background: var(--surface);   /* opaca: se lee sobre los chips de año */

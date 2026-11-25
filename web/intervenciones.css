@@ -3,14 +3,11 @@
 
 .interv-resumen { display: flex; align-items: center; gap: var(--s-5); padding: var(--s-4) var(--s-5); border-radius: var(--r-2); flex: none; }
 .interv-resumen .pegatina { width: 52px; height: 52px; }
-.cifras { display: flex; flex: 1; margin: 0; padding: 0; border: 0; gap: 0; }   /* anula el dl global */
-.cifra { flex: 1; display: flex; flex-direction: column-reverse; padding: 0 var(--s-4); border-left: 1px solid var(--line); }
-.cifra:first-child { border-left: 0; padding-left: 0; }
-.cifra dd { margin: 0; font: 300 44px/48px var(--sans); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
-.cifra dt { font: 500 13px/20px var(--sans); color: var(--ink-2); }
+.cifras { flex: 1; }
+.cifra { flex: 1; }
 
 .cols { flex: none; display: grid; grid-template-columns: minmax(340px, 480px) 1fr; gap: var(--s-6); align-items: start; }
-.titulo { margin: 0 0 var(--s-3); font: 700 32px/38px var(--sans); letter-spacing: -.02em; }
+.lista-col .titulo { margin-bottom: var(--s-3); }
 .lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s-1); }
 .fila {
   width: 100%; display: grid; grid-template-columns: 164px 1fr auto; gap: var(--s-4); align-items: center; text-align: left;
@@ -37,9 +34,6 @@
 .ficha { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--s-5); }
 .ficha h2 { margin: 0; font: 700 22px/28px var(--sans); letter-spacing: -.01em; text-wrap: balance; }
 .acciones { display: flex; gap: var(--s-2); flex: none; }
-.acciones .btn { text-decoration: none; }
-.acciones .btn:not(.ghost) { color: var(--accent-ink); }
-.acciones .btn.ghost { color: var(--ink); border: 1px solid var(--line); }
 .acciones [aria-disabled="true"] { opacity: .4; pointer-events: none; }
 
 @media (max-width: 760px) {
@@ -47,15 +41,11 @@
   .interv-resumen { padding: var(--s-3) var(--s-4); }
   .interv-resumen .pegatina { display: none; }
   .cifras { display: grid; grid-template-columns: 1fr 1fr; row-gap: var(--s-3); }
+  .cifra, .cifra + .cifra { padding: 0 var(--s-4); }
   .cifra:nth-child(odd) { border-left: 0; padding-left: 0; }
-  .cifra dd { font-size: 32px; line-height: 36px; }
   .cols { grid-template-columns: 1fr; gap: var(--s-5); }
   .detalle { order: -1; position: static; }
-  .titulo { font-size: 26px; line-height: 32px; }
   .fila { grid-template-columns: 1fr auto; row-gap: 2px; }
   .fila .donde { grid-column: 1 / -1; grid-row: 2; }
   .ficha { flex-direction: column; gap: var(--s-3); }
-  .pag-interv .bar { flex-wrap: nowrap; padding-right: var(--s-1); }
-  .pag-interv .brand div { display: none; }   /* con tres pestañas solo cabe el logo */
-  .pag-interv .chip { padding: 0 10px; }
 }

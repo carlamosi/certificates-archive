@@ -34,13 +34,13 @@ Hecho: identidad (`docs/diseno/IDENTIDAD.md`), pared, mapa, fotos, certificados,
 
 1. **Página de evento** (`evento.html?e=<slug>`): el centro del archivo. Reúne lanyard, certificados, premios, fotos, personas, charlas con vídeo y su viaje en el mapa. Activa el «Ver el evento» que hoy está desactivado en intervenciones, y todas las demás páginas enlazan aquí. Datos: ya están en `archivo.json`.
 2. **Inicio «Tu año en cifras»** (ficha `cifras-e-hitos.md`, acordada): sustituye a la pared como primera página. La pared aún muestra 6 lanyards de demostración, y es lo primero que se ve. La pared pasa a ser un módulo más.
-3. **Personas**: una ficha por persona con sus fotos, charlas y eventos en común. Después, la red (grafo) si aporta.
+3. ~~Personas~~: descartado (25/11). La página de Fotos ya cumple esa función.
 4. **Línea del tiempo** 2018–hoy, con los hitos de `cifras-e-hitos`. Absorbe la idea de la «sala de museo por año»: no hacer las dos.
 5. **Pasaporte LEGO** (ficha `sellos-lego.md`, verificada): hecha la página y los 18 sellos. Falta: sellos en la ficha de cada viaje y la tienda como punto del mapa; enlace en el menú.
 6. **Buscador** (también Ctrl+K desde cualquier página): eventos, personas, lugares y objetos. Con `caja_fisica` responde «caja 3, página 12» (modo archivo físico). Hoy ningún objeto tiene caja: primero, apuntarlas.
 
 ## Web · UI/UX (repaso transversal)
-- **Coherencia entre las 9 páginas** (las hicieron sesiones distintas): cabecera, estados vacíos, modo claro y oscuro, tokens de `style.css` sin colores sueltos. Un repaso completo con `make-interfaces-feel-better` y la guía viva `identidad.html` al día.
+- ~~Coherencia entre las páginas~~ **Hecho (25/11/2026)**: ver `docs/diseno/REPASO_UI.md`. Queda una revisión visual con capturas en el iPhone real.
 - **Teclado en la pared 3D:** hoy los lanyards no se alcanzan con Tab. Hace falta una lista accesible o un foco que recorra las piezas.
 - **Móvil real** (no solo emulado a 390 px): tacto en la pared y en el mapa, la barra inferior y la reproducción de vídeo en iPhone.
 - **Rendimiento en Vercel:** caché larga para `img/` y `video/` en `vercel.json`, e imágenes con `loading="lazy"` en todas las páginas.

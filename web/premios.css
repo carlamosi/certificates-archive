@@ -40,7 +40,7 @@ body.pag-premios { overflow: hidden; }
 .anio b { font: 700 13px/20px var(--sans); }
 .anio span:last-child { font: 500 13px/20px var(--sans); color: var(--ink-2); text-align: right; }
 .barra { height: 10px; border-radius: 5px; background: var(--line); overflow: hidden; }
-.barra i { display: block; height: 100%; border-radius: 5px; background: linear-gradient(90deg, #4D7CFF, var(--accent)); }
+.barra i { display: block; height: 100%; border-radius: 5px; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 70%, #fff), var(--accent)); }
 
 /* ---------- vitrina ---------- */
 .vitrina {
@@ -55,7 +55,7 @@ body.pag-premios { overflow: hidden; }
 .estante-t span { font-weight: 500; letter-spacing: 0; text-transform: none; }
 .fila { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; min-height: 100px; }
 .tabla { height: 8px; border-radius: 4px; background: var(--estante); box-shadow: 0 6px 10px -6px rgba(27,26,23,.35); }
-.vacio { margin: auto 0; color: var(--ink-2); font: 400 italic 15px/24px var(--sans); }
+.fila .vacio { margin: auto 0; text-align: left; font: italic 400 15px/24px var(--sans); }   /* voz de museo dentro del estante */
 
 .medalla {
   width: 86px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 4px 0;
@@ -85,12 +85,11 @@ body.pag-premios { overflow: hidden; }
 .ficha {
   position: fixed; right: var(--s-5); bottom: var(--s-5); z-index: 6; width: 320px;
   padding: var(--s-4) var(--s-4) var(--s-4) var(--s-5); border-radius: var(--r-2); display: flex; flex-direction: column; gap: var(--s-3);
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  background: var(--glass-strong);
   animation: subir var(--d-3) var(--ease-out);
 }
 .ficha.arriba { bottom: auto; top: 88px; }   /* si la medalla está abajo, la ficha sube para no taparla */
 .ficha h2 { margin: 0; padding-right: 36px; font: 700 20px/26px var(--sans); letter-spacing: -.01em; text-wrap: balance; }
-.ficha .redondo { position: absolute; top: var(--s-3); right: var(--s-3); }
 .f-nivel { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: var(--r-2); background: var(--accent-soft); }
 .f-nivel .metal-punto { width: 22px; height: 22px; }
 .f-nivel > span:last-child { display: flex; flex-direction: column; }
@@ -110,6 +109,6 @@ body.pag-premios { overflow: hidden; }
   .niveles, .anios { grid-column: 1 / -1; }
   .vitrina { padding: var(--s-4); }
   .medalla { width: calc((100% - 20px) / 3); min-width: 0; }
-  .ficha { top: auto; left: var(--s-3); right: var(--s-3); bottom: var(--s-3); width: auto; }
+  .ficha { top: auto; left: var(--s-3); right: var(--s-3); bottom: calc(var(--s-3) + var(--sobre-pestanas)); width: auto; }   /* sobre las pestañas */
 }
 @media (prefers-reduced-motion: reduce) { .ficha { animation: none; } }

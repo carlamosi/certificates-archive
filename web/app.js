@@ -352,11 +352,22 @@
       ['Orificio', it.agujero ? `ø ${it.agujero.replace(/;/g, ' · ')} mm` : ''],
     ].filter(([, v]) => v);
     $('#mDl').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${escapeHtml(v)}</dd>`).join('');
+    const slug = eventoDe(it);
+    $('#mEvt').hidden = !slug; if (slug) $('#mEvt').href = `evento.html?e=${encodeURIComponent(slug)}`;
     $('#mWarn').hidden = !it.avisos;
     $('#mWarn').textContent = it.avisos;
     setImg('#imgFront', it.front); setImg('#imgBack', it.back);
     $('#prev').disabled = S.sheetIndex === 0;
     $('#next').disabled = S.sheetIndex >= S.sheetList.length - 1;
+  }
+  // Evento de un objeto de la pared (datos de archive.json, sin slug): mismo criterio que lanyards.js
+  const sinAcentos = (s) => String(s || '').normalize('NFD').replace(/\p{M}/g, '').toLowerCase();
+  function eventoDe(it) {
+    const evs = (S.archivo && S.archivo.eventos) || [];
+    const nom = sinAcentos(it.evento), mes = it.fecha.slice(0, 7);
+    const e = evs.find((x) => (x.objetos || []).some((o) => o.uid === it.id))
+      || evs.filter((x) => x.nombre && String(x.fecha || '').slice(0, 7) === mes && nom.includes(sinAcentos(x.nombre))).sort((a, b) => b.nombre.length - a.nombre.length)[0];
+    return e ? e.slug : '';
   }
   function setImg(sel, src) {
     const el = $(sel);

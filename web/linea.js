@@ -76,7 +76,7 @@
   // ---- detalle (panel inferior, compartido) ----
   function abrir(b) {
     const i = items[b.dataset.id], im = i.imgs[0];
-    det.innerHTML = `<button type="button" class="x" aria-label="Cerrar">✕</button>
+    det.innerHTML = `<button type="button" class="x btn ghost redondo close" aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="img/iconos.svg#cerrar"/></svg></button>
       <div class="cabd">${im ? `<img class="m" src="${esc(im.src)}" data-fb="1" alt="">` : peg(i.peg)}<p class="kicker">${esc(i.tipo)} · ${esc(fmt(i.f))}</p></div>
       <h3>${esc(i.titulo)}</h3><dl>${i.det.filter((d) => d[1]).map((d) => `<dt>${d[0]}</dt><dd>${esc(d[1])}</dd>`).join('')}</dl>
       <a class="btn" href="${esc(i.href)}">${esc(i.link)}</a>`;

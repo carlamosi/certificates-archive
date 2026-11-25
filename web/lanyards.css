@@ -3,13 +3,12 @@
 
 .cabecera { display: flex; align-items: center; gap: var(--s-4); padding: var(--s-5) var(--s-5) 0; flex-wrap: wrap; }
 .cabecera .pegatina { width: 48px; height: 48px; }
-.titulo { margin: 0; font: 700 32px/38px var(--sans); letter-spacing: -.02em; }
 .solo-toque { display: none; }
 @media (hover: none) { .solo-raton { display: none; } .solo-toque { display: inline; } }
 
 .teclas { margin-left: auto; position: relative; }
 .teclas summary {
-  list-style: none; cursor: pointer; min-height: 36px; padding: 0 14px; display: inline-flex; align-items: center;
+  list-style: none; cursor: pointer; min-height: 40px; padding: 0 14px; display: inline-flex; align-items: center;
   border-radius: var(--r-pill); border: 1px solid var(--line); color: var(--ink-2); font: 500 13px/1 var(--sans);
   transition: background-color var(--d-2) var(--ease-out), transform var(--d-1) var(--ease-out);
 }
@@ -101,11 +100,10 @@ kbd {
   position: absolute; z-index: 7; top: var(--s-2); right: var(--s-5); bottom: var(--s-5); width: 400px; max-width: calc(100% - 2 * var(--s-5));
   display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-7) var(--s-5) var(--s-5);
   border-radius: var(--r-3); overflow-y: auto; outline: none;
-  background: color-mix(in srgb, var(--surface) 84%, transparent);
+  background: var(--glass-strong);
   animation: ficha-entra var(--d-3) var(--ease-out);
 }
 @keyframes ficha-entra { from { opacity: 0; transform: translateY(16px); } }
-.ficha .cerrar { position: absolute; top: var(--s-3); right: var(--s-3); }
 .caras { display: flex; flex-wrap: wrap; gap: var(--s-3); justify-content: center; }
 .lamina { height: 130px; aspect-ratio: var(--ratio); max-width: 100%; object-fit: contain; filter: drop-shadow(0 12px 12px rgba(27,26,23,.3)); }
 .lamina.vacia { display: grid; filter: none; }
@@ -120,14 +118,11 @@ kbd {
 .premio b { font-weight: 500; }
 .premio .pegatina { width: 32px; height: 32px; }
 .acciones { display: flex; gap: var(--s-2); margin-top: auto; }
-.acciones .btn { flex: 1; text-decoration: none; }
-.acciones .btn:not(.ghost) { color: var(--accent-ink); }
-.acciones .btn.ghost { color: var(--ink); }
+.acciones .btn { flex: 1; }
 
 @media (max-width: 640px) {
   .linea { --alto: 128px; }
   .cabecera { padding: var(--s-4) var(--s-4) 0; gap: var(--s-3); }
-  .titulo { font-size: 26px; line-height: 32px; }
   .teclas { display: none; }   /* sin teclado físico */
   .pista { padding-inline: var(--s-4); gap: var(--s-5); }
   .tarjetas { gap: var(--s-5); }
