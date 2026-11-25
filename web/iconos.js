@@ -7,7 +7,7 @@
     evento: 'Spiral calendar', virtual: 'Laptop', lanyard: 'Identification card', certificado: 'Scroll',
     premio: 'Sports medal', pin: 'Round pushpin', sello: 'Brick', foto: 'Camera with flash',
     charla: 'Microphone', viaje: 'Airplane', ciudad: 'Cityscape', aeropuerto: 'Airplane departure',
-    persona: 'Busts in silhouette', pais: 'Globe showing europe-africa',
+    persona: 'Busts in silhouette', pais: 'Globe showing europe-africa', estrella: 'Glowing star',
   };
   const url = (tipo) => {
     const carpeta = PEGATINAS[tipo] || PEGATINAS.evento;

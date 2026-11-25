@@ -3,9 +3,9 @@
   'use strict';
   const { pegatina } = window.IDENTIDAD;
   const $ = (s) => document.querySelector(s);
-  // Destinos de los botones de la ficha. null = el botón no se muestra (aún no hay página de eventos).
+  // Destinos de los botones de la ficha. null = el botón no se muestra.
   const DESTINO = {
-    evento: null,
+    evento: (slug) => `evento.html?e=${encodeURIComponent(slug)}`,
     mapa: (slug) => `mapa.html#evento=${encodeURIComponent(slug)}`,
   };
   const PULSACION_LARGA = 500;   // ms, móvil

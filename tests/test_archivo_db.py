@@ -1,4 +1,5 @@
 """Pruebas de la base de datos del archivo (herramientas/archivo_db). Sin pytest: python tests/test_archivo_db.py"""
+import json
 import os
 import sqlite3
 import subprocess
@@ -227,6 +228,19 @@ def test_sello_alta_e_idempotencia():
     r = con.execute("SELECT p.nombre, t.slug FROM objects o JOIN places p ON p.id = o.place_id "
                     "JOIN trips t ON t.id = o.trip_id WHERE o.uid = 'sello-2026-08-25-aeropuerto-de-barcelona'").fetchone()
     assert r == ("Barcelona", viaje), r
+
+
+def test_sello_varios_por_tienda():
+    env, _ = base_con_viajes()
+    base = ["sello", "--fecha", "2026-08-25", "--sitio", "LEGO Store Tivoli", "--ciudad", "Copenhague"]
+    run(env, *base, "--diseno", "Guardia real", "--imagen", "img/sellos/a.webp")
+    run(env, *base, "--diseno", "Ladrillo 2026"); run(env, *base, "--diseno", "Ladrillo 2026")
+    con = db(env)
+    r = con.execute("SELECT titulo, front_web FROM objects WHERE tipo = 'sello' ORDER BY uid").fetchall()
+    assert r == [("Guardia real", "img/sellos/a.webp"), ("Ladrillo 2026", "")], r
+    d = Path(env["ARCHIVO_DB"]).parent / "x.json"; run(env, "exportar", d)
+    t = json.loads(d.read_text(encoding="utf-8"))["totales"]["sellos"]
+    assert t == [{"tienda": "LEGO Store Tivoli", "ciudad": "Copenhague", "sellos": 2}], t
 
 
 def fotos(env, texto):
@@ -570,6 +584,34 @@ def test_viaje_nota_de_visita():
     env = base_pulir()
     run(env, "viaje", "--slug", "uno", "--ciudad", "Madrid", "--nota", "Premios nuevos")
     assert db(env).execute("SELECT nota FROM visits WHERE trip_id = 1").fetchall() == [("Premios nuevos",)]
+
+
+def _exportado_cifras():
+    import json
+    env, _ = base_con_viajes()
+    salida = Path(env["ARCHIVO_DB"]).parent / "web.json"
+    run(env, "exportar", salida)
+    return json.loads(salida.read_text(encoding="utf-8"))
+
+
+def test_anual():
+    """La suma de km por año cuadra con totales.km; los viajes futuros no suman; España no es «país nuevo»."""
+    d = _exportado_cifras()
+    assert sum(a["km"] for a in d["anual"].values()) == d["totales"]["km"] > 0, d["anual"]
+    assert sum(a["viajes"] for a in d["anual"].values()) == len([v for v in d["viajes"] if v["estado"] != "futuro"])
+    p = d["totales"]["km_perspectiva"]
+    assert p["vueltas_tierra"] == round(d["totales"]["km"] / 40075, 2) and {"avion", "tren", "coche"} == set(p["por_transporte"])
+    assert sum(a["paises_nuevos"] for a in d["anual"].values()) == len({c["pais"] for c in d["totales"]["ciudades"]} - {"España"})
+
+
+def test_hitos():
+    """Los hitos salen ordenados, sin repetir y sin fechas futuras."""
+    import datetime
+    h = _exportado_cifras()["hitos"]
+    assert [x["fecha"] for x in h] == sorted(x["fecha"] for x in h)
+    assert len({x["texto"] for x in h}) == len(h)
+    assert all(x["fecha"] <= datetime.date.today().isoformat() for x in h)
+    assert any(x["tipo"] == "pais" for x in h), h
 
 
 if __name__ == "__main__":

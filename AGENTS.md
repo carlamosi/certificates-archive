@@ -33,7 +33,7 @@ herramientas/lanyard_archive/   Herramienta de digitalización (fuente de verdad
   extras/make_template_a4.py    genera la plantilla A4 (vectorial)
   extras/INFORME_AUTOTEST.txt   último informe de precisión
 web/                            web estática (sin servidor, sin base de datos)
-  index.html · style.css · app.js
+  index.html (inicio «Tu año») · pared.html + app.js (pared 3D) · style.css · pasaporte.js (menú común)
   data/archive.json             datos que lee la web (lo genera sync.py)
   img/web/                      WebP con transparencia
   img/certificados/             JPG de cada certificado (lo genera importar-catalogo; datos personales: NO va a git)

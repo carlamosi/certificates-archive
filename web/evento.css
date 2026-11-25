@@ -1,0 +1,102 @@
+/* Página de evento · docs/features/evento.md. Tokens de style.css; versión «hoja de cuaderno». */
+.pag-evento { --cinta: rgba(255,224,130,.7); --hoja: #FFFDF8; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pag-evento { --cinta: rgba(255,214,102,.35); --hoja: #23262D; } }
+:root[data-theme="dark"] .pag-evento { --cinta: rgba(255,214,102,.35); --hoja: #23262D; }
+
+.evento { flex: 1; min-height: 0; overflow-y: auto; padding: var(--s-5); outline: none; }
+.pagina { max-width: 1080px; margin: 0 auto; padding: var(--s-6); border-radius: var(--r-3); background-color: var(--hoja); border: 1px solid var(--line); box-shadow: var(--sh-2);
+  background-image: repeating-linear-gradient(transparent 0 31px, var(--line) 31px 32px); display: grid; gap: var(--s-6); grid-template-columns: minmax(0, 1fr); }
+.pagina.con-tira { grid-template-columns: minmax(0, 1fr) 230px; }
+.pagina.compacta { max-width: 720px; }
+.pagina.compacta.con-tira { max-width: 900px; }
+.cuerpo { min-width: 0; display: flex; flex-direction: column; gap: var(--s-6); }
+
+.tit { position: relative; display: flex; gap: var(--s-5); align-items: center; flex-wrap: wrap; }
+.tit .sello { width: 170px; flex: none; transform: rotate(-3deg); aspect-ratio: 4 / 5; display: grid; place-items: center; background: var(--paper-2); }
+.tit .sello > img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.tit .sello .ph .pegatina { width: 80px; height: 80px; }
+.tit-txt { flex: 1 1 240px; min-width: 0; padding-right: 116px; }   /* deja sitio a las pegatinas flotantes */
+.tit h1 { margin: var(--s-1) 0 var(--s-3); font: 700 clamp(26px, 5vw, 42px)/1.05 var(--sans); letter-spacing: -.02em; white-space: normal; text-wrap: balance; }
+.datos { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--s-3) var(--s-4); margin: 0; padding: 0; border: 0; }
+.datos dt { font: 700 11px/16px var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.datos dd { margin: 0; font: 600 15px/22px var(--sans); }
+.peg-flot { position: absolute; right: 0; top: -14px; display: flex; gap: var(--s-1); }
+.peg-flot .pegatina { width: 52px; height: 52px; }
+.ph { display: grid; place-items: center; width: 100%; height: 100%; }
+.ph .pegatina { width: 56px; height: 56px; }
+.ph-img { object-fit: contain !important; padding: 18%; }
+
+.collage { display: flex; flex-wrap: wrap; gap: var(--s-5); align-items: flex-start; padding: var(--s-2) var(--s-2) var(--s-3); }
+.compacta .collage { justify-content: center; }
+.pola { position: relative; margin: 0; width: 200px; padding: 10px 10px 8px; background: #fff; color: #1B1A17; box-shadow: var(--sh-1); transform: rotate(var(--r, -2deg)); transition: transform var(--d-2) var(--ease-spring); }
+.pola:nth-child(3n+2) { width: 240px; margin-top: var(--s-5); }
+.pola:nth-child(3n) { width: 170px; }
+.compacta .pola:only-child { width: min(300px, 100%); }
+.pola::before { content: ""; position: absolute; top: -10px; left: 50%; width: 64px; height: 20px; margin-left: -32px; background: var(--cinta); transform: rotate(var(--t, 3deg)); pointer-events: none; }
+.pola img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #eee; }
+.pola figcaption { font: 600 12px/16px var(--sans); padding-top: 6px; }
+.pola.obj { background: transparent; box-shadow: none; padding: 0; color: var(--ink); }
+.pola.obj::before { display: none; }
+.pola.obj img { aspect-ratio: 4 / 5; object-fit: contain; background: transparent; filter: drop-shadow(0 8px 10px rgba(27,26,23,.22)); }
+.pola.obj img.ph-img { filter: none; }
+.pola.sin { width: min(320px, 100%) !important; margin-top: 0 !important; display: flex; align-items: center; gap: var(--s-3); padding: var(--s-4); background: var(--accent-soft); border-radius: var(--r-1); }
+.pola.sin .ph { width: auto; height: auto; flex: none; }
+.pola.sin figcaption { padding: 0; font-size: 14px; line-height: 20px; }
+.pola.sin figcaption .sub { display: block; }
+.ampliar { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 2px; }
+@media (hover: hover) { .pola:hover { transform: rotate(0) translateY(-3px); } }
+
+.notas { gap: var(--s-4); }
+.nota { flex: 1 1 220px; max-width: 320px; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; padding: var(--s-4); border: 0; background: var(--accent-soft); border-radius: var(--r-1); transform: rotate(1.5deg); cursor: pointer; transition: transform var(--d-2) var(--ease-spring); }
+.nota:nth-child(2n) { transform: rotate(-1.5deg); }
+.nota:disabled { cursor: default; }
+.nota[aria-expanded="true"] { transform: none; outline: 2px solid var(--accent); }
+.nota b { font: 600 14px/20px var(--sans); }
+.nota .pegatina { width: 32px; height: 32px; margin-bottom: var(--s-1); }
+.nota .ver { font: 700 12px/20px var(--sans); color: var(--accent); }
+@media (hover: hover) { .nota:not(:disabled):hover { transform: rotate(0) translateY(-2px); } }
+.nota-suelta { margin: 0; padding: var(--s-4); max-width: 320px; background: var(--accent-soft); border-radius: var(--r-1); transform: rotate(-1.5deg); color: var(--ink-2); font: 500 14px/22px var(--sans); }
+
+.video { position: relative; aspect-ratio: 16 / 9; max-height: 70vh; border-radius: var(--r-2); overflow: hidden; background: #0C0D10; display: grid; place-items: center; color: rgba(255,255,255,.85); text-align: center; }
+.video iframe, .video video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: contain; background: #000; }   /* absoluto: un vídeo vertical no se recorta */
+.video p { margin: 0; padding: 0 var(--s-5); font: 500 15px/24px var(--sans); }
+.video a { color: #fff; }
+
+.sec .kicker.gris { margin: 0 0 var(--s-3); }
+.personas { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.personas .chip { cursor: default; border-color: var(--line); background: var(--accent-soft); color: var(--ink); }
+
+.tira { align-self: start; padding: var(--s-4); border-radius: var(--r-2); }
+.tira ol { list-style: none; margin: var(--s-4) 0; padding: 0 0 0 var(--s-4); border-left: 2px dashed var(--accent); }
+.tira li { position: relative; padding: 0 0 var(--s-4) var(--s-3); font: 600 14px/20px var(--sans); }
+.tira li::before { content: ""; position: absolute; left: -23px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.tira .km { font: 300 40px/44px var(--sans); letter-spacing: -.02em; }
+.tira .km small { font: 600 14px var(--sans); color: var(--ink-2); }
+
+.vacio { align-items: flex-start; gap: var(--s-4); padding: var(--s-5) 0; }
+.vacio .pegatina { width: 64px; height: 64px; }
+.vacio h1 { margin: 0; font: 700 26px/32px var(--sans); white-space: normal; }
+.vacio .btn { text-decoration: none; color: var(--accent-ink); }
+
+.visor { border: 0; padding: var(--s-4); background: var(--surface); color: var(--ink); border-radius: var(--r-3); max-width: min(92vw, 900px); box-shadow: var(--sh-2); }
+.visor::backdrop { background: rgba(20,22,30,.5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.visor img { display: block; max-width: 100%; max-height: 75vh; margin: 0 auto; border-radius: var(--r-1); }
+.visor .sub { margin-top: var(--s-3); text-align: center; }
+.visor .btn { position: absolute; top: var(--s-3); right: var(--s-3); background: var(--glass); }
+
+@media (max-width: 820px) {
+  .evento { padding: var(--s-4) var(--s-4) 112px; }   /* sitio para la barra de pestañas de abajo */
+  .pagina, .pagina.con-tira { grid-template-columns: minmax(0, 1fr); padding: var(--s-4); gap: var(--s-5); }
+  .pag-evento .bar { flex-wrap: nowrap; padding-right: var(--s-1); }
+  .pag-evento .brand div { display: none; }
+  .pag-evento .chip { padding: 0 10px; }
+}
+@media (max-width: 480px) {
+  .pola, .pola:nth-child(3n+2), .pola:nth-child(3n) { width: calc(50% - 12px); margin-top: 0; }
+  .compacta .pola:only-child { width: min(260px, 100%); }
+  .peg-flot { display: none; }
+  .tit-txt { padding-right: 0; }
+  .tit .sello { width: 130px; }
+  .collage { gap: var(--s-4); }
+}
+@media (prefers-reduced-motion: reduce) { .pola, .nota { transition: none; } }

@@ -42,8 +42,12 @@ intervenciones/
 web/data/archivo.json
 
 web/img/fotos/
+web/img/sellos/
 # Videos de las intervenciones (grabaciones del movil)
 web/video/
 
 # Nombres reales -> alias para publicar en GitHub (herramientas/publicar_github.py)
 datos/anonimizar.txt
+
+# Pasaporte LEGO escaneado: la primera página tiene nombre completo y fecha de nacimiento
+datos/lego/

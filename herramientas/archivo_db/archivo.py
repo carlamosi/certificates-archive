@@ -391,7 +391,7 @@ def cmd_importar_viajes(a):
 def cmd_sello(a):
     con = connect(); exigir_ultima(con)
     fecha = iso_date(a.fecha)
-    uid = f"sello-{fecha}-{slug(a.sitio)}"
+    uid = f"sello-{fecha}-{slug(a.sitio)}" + (f"-{slug(a.diseno)}" if a.diseno else "")
     with con:
         if con.execute("SELECT 1 FROM objects WHERE uid = ?", (uid,)).fetchone():
             print(f"sello {uid}: ya existía"); return
@@ -401,9 +401,9 @@ def cmd_sello(a):
             if not row:
                 raise SystemExit(f"no existe el viaje '{a.viaje}' (mira los slugs con: archivo.py resumen)")
             trip = row["id"]
-        con.execute("INSERT INTO objects (uid, tipo, fecha, sitio, place_id, trip_id, front_web, created_utc) "
-                    "VALUES (?,?,?,?,?,?,?,?)",
-                    (uid, "sello", fecha, a.sitio.strip(), lugar_por_nombre(con, a.ciudad.strip(), a.pais.strip()),
+        con.execute("INSERT INTO objects (uid, tipo, titulo, fecha, sitio, place_id, trip_id, front_web, created_utc) "
+                    "VALUES (?,?,?,?,?,?,?,?,?)",
+                    (uid, "sello", a.diseno.strip(), fecha, a.sitio.strip(), lugar_por_nombre(con, a.ciudad.strip(), a.pais.strip()),
                      trip, a.imagen, now()))
     print(f"sello {uid}: añadido")
 
@@ -851,6 +851,85 @@ def cmd_fotos_web(_):
     print(f"fotos web: {nuevas} nuevas · {repetidas} ya hechas · en {FOTOS_WEB}")
 
 
+CASA = ("España", "Barcelona")  # donde vive: no cuenta como país ni ciudad «nuevos»
+MEDIO = {"avion": "avion", "ave": "tren", "tren": "tren", "coche": "coche", "autobus": "coche"}
+
+
+def bloques_cifras(out: dict, hoy: str, transportes: dict) -> tuple:
+    """`anual`, `hitos` y `km_perspectiva` a partir de lo ya exportado. Solo lo pasado (fecha <= hoy).
+    `transportes`: id de viaje -> texto de transporte. «Nuevo» = primera vez en el archivo ese año."""
+    pasado = lambda f: bool(f) and f <= hoy
+    anio = lambda f: f[:4]
+    # los viajes sin fecha suman en totales.km, así que van a un bloque «sin_fecha» para que todo cuadre
+    V = [v for v in out["viajes"] if v["estado"] != "futuro" and (not v["inicio"] or pasado(v["inicio"]))]
+    Vf = [v for v in V if v["inicio"]]
+    E = [e for e in out["eventos"] if pasado(e["fecha"])]
+    objs = [{**o, "fecha": o["fecha"] or e["fecha"], "slug": e["slug"]} for e in E for o in e["objetos"]] +            [{**o, "slug": None} for o in out["objetos_sueltos"]] +            [{**o, "slug": None} for v in out["viajes"] for o in v["objetos"]]
+    premios = sorted((o for o in objs if o.get("nivel") and pasado(o["fecha"])), key=lambda o: o["fecha"])
+    fotos = [f for e in E for f in e["fotos"]] + out["fotos_sueltas"]
+    persona = {}
+    for f in fotos:
+        for n in f["personas"]:
+            if pasado(f["fecha"]) and (n not in persona or f["fecha"] < persona[n]):
+                persona[n] = f["fecha"]
+    ciudades = [c for c in out["totales"]["ciudades"] if pasado(c["primera_visita"])]
+    paises = {}
+    for c in ciudades:
+        if c["pais"] not in paises or c["primera_visita"] < paises[c["pais"]][0]:
+            paises[c["pais"]] = (c["primera_visita"], c["continente"])
+    fechados = lambda tipo: sorted((o for o in objs if o["tipo"] == tipo and pasado(o["fecha"])), key=lambda o: o["fecha"])
+    anual = {}
+    def a(y):
+        return anual.setdefault(y, {"km": 0, "viajes": 0, "paises_nuevos": 0, "ciudades_nuevas": 0, "eventos": 0,
+                                    "premios": {}, "personas_nuevas": 0, "pines": 0, "sellos": 0})
+    for v in V:
+        y = anio(v["inicio"]) if v["inicio"] else "sin_fecha"
+        a(y)["km"] += v["km"] or 0; a(y)["viajes"] += 1
+    for p, (f, _) in paises.items():
+        if p != CASA[0]: a(anio(f))["paises_nuevos"] += 1
+    for c in ciudades:
+        if c["nombre"] != CASA[1]: a(anio(c["primera_visita"]))["ciudades_nuevas"] += 1
+    for e in E: a(anio(e["fecha"]))["eventos"] += 1
+    for o in premios: a(anio(o["fecha"]))["premios"][o["nivel"]] = a(anio(o["fecha"]))["premios"].get(o["nivel"], 0) + 1
+    for f in persona.values(): a(anio(f))["personas_nuevas"] += 1
+    for o in fechados("pin"): a(anio(o["fecha"]))["pines"] += 1
+    for o in fechados("sello"): a(anio(o["fecha"]))["sellos"] += 1
+
+    hitos = []
+    def add(fecha, tipo, texto, enlace=None):
+        if fecha: hitos.append({"fecha": fecha, "tipo": tipo, "texto": texto, "enlace": enlace})
+    if E:
+        e0 = min(E, key=lambda e: e["fecha"]); add(e0["fecha"], "evento", f"Primer evento: {e0['nombre']}", e0["slug"])
+    if premios:
+        add(premios[0]["fecha"], "premio", f"Primer premio: {premios[0]['titulo']}", premios[0]["slug"])
+        for nivel, txt, tipo in (("primer premio", "Primer primer premio", "premio"), ("ponente", "Primera vez como ponente", "charla")):
+            o = next((x for x in premios if x["nivel"] == nivel), None)
+            if o and not (nivel == "primer premio" and o is premios[0]):
+                add(o["fecha"], tipo, f"{txt}: {o['titulo']}", o["slug"])
+    av = next((v for v in Vf if v["vuelos"]), None)
+    if av: add(av["inicio"], "aeropuerto", f"Primer viaje en avión: {av['nombre']}", av["slug"])
+    for txt, cond in (("Primer país fuera de España", lambda p, c: p != CASA[0]), ("Primer país fuera de Europa", lambda p, c: c != "Europa")):
+        x = sorted((f, p) for p, (f, c) in paises.items() if cond(p, c))
+        if x: add(x[0][0], "pais", f"{txt}: {x[0][1]}")
+    for tipo, txt in (("sello", "Primer sello"), ("pin", "Primer pin")):
+        o = next(iter(fechados(tipo)), None)
+        if o: add(o["fecha"], tipo, f"{txt}: {o['titulo']}")
+    acum = 0
+    for v in sorted(Vf, key=lambda v: v["inicio"]):
+        antes, acum = acum, acum + (v["km"] or 0)
+        for u in (10000, 25000, 50000, 100000):
+            if antes < u <= acum: add(v["inicio"], "viaje", f"Cruzaste los {u:,} km en «{v['nombre']}»".replace(",", "."), v["slug"])
+    hitos.sort(key=lambda h: h["fecha"])
+
+    km = sum(v["km"] or 0 for v in V)
+    medios = {"avion": 0, "tren": 0, "coche": 0}
+    for v in V:  # los viajes mixtos («Coche y AVE») cuentan en el primer medio
+        m = MEDIO.get(norm(transportes.get(v["id"], "")).split(" y ")[0])
+        if m: medios[m] += v["km"] or 0
+    perspectiva = {"vueltas_tierra": round(km / 40075, 2), "luna_pct": round(km / 384400 * 100, 1), "por_transporte": medios}
+    return dict(sorted(anual.items())), hitos, perspectiva
+
+
 def cmd_exportar(a):
     con = connect()
     objetos = lambda filas: [{**dict(o), "nivel": nivel_premio(o["premio"])} for o in filas]
@@ -904,9 +983,13 @@ def cmd_exportar(a):
         out["totales"]["km"] = km_total
         niveles = [nivel_premio(r[0]) for r in con.execute("SELECT premio FROM objects WHERE premio <> ''")]
         out["totales"]["premios"] = {k: niveles.count(k) for k in dict.fromkeys(sorted(niveles))}
+        out["totales"]["sellos"] = filas("SELECT o.sitio AS tienda, p.nombre AS ciudad, COUNT(*) AS sellos FROM objects o "
+                                         "LEFT JOIN places p ON p.id = o.place_id WHERE o.tipo = 'sello' GROUP BY o.sitio, p.nombre ORDER BY o.sitio")
         out["objetos_sueltos"] = objetos(con.execute("SELECT * FROM objects WHERE event_id IS NULL AND trip_id IS NULL ORDER BY tipo, uid"))
         out["fotos_sueltas"] = [foto_json(p) for p in con.execute(
             "SELECT * FROM photos WHERE event_id IS NULL AND trip_id IS NULL ORDER BY fecha, archivo")]
+        transportes = {r["id"]: r["transporte"] for r in con.execute("SELECT id, transporte FROM trips")}
+        out["anual"], out["hitos"], out["totales"]["km_perspectiva"] = bloques_cifras(out, dt.date.today().isoformat(), transportes)
     Path(a.salida).parent.mkdir(parents=True, exist_ok=True)
     Path(a.salida).write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"exportado: {a.salida} ({len(events)} eventos, {len(people)} personas)")
@@ -921,6 +1004,7 @@ def main() -> int:
     p = sub.add_parser("sello", help="sello LEGO del pasaporte")
     p.add_argument("--fecha", required=True); p.add_argument("--sitio", required=True, help='"LEGO Store Tivoli"')
     p.add_argument("--ciudad", required=True); p.add_argument("--pais", default="")
+    p.add_argument("--diseno", default="", help="nombre del sello (varios por tienda y día)")
     p.add_argument("--viaje", default="", help="slug del viaje"); p.add_argument("--imagen", default="", help="foto o escaneo del sello")
     p.set_defaults(f=cmd_sello)
     p = sub.add_parser("importar-viajes"); p.add_argument("fichero")

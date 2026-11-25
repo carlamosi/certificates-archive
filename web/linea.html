@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Línea del tiempo del archivo: eventos, viajes y certificados por año, en río o por salas.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Línea del tiempo · Certificates Archive</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="linea.css">
+</head>
+<body class="pag-linea">
+  <header class="bar glass">
+    <div class="brand">
+      <img src="img/logo.svg" alt="" width="36" height="36">
+      <div>
+        <h1>Certificates <b>Archive</b></h1>
+        <p id="count" class="sub">Cargando…</p>
+      </div>
+    </div>
+    <nav class="chips" aria-label="Secciones">
+      <a class="chip" href="pared.html">Pared</a>
+      <a class="chip" href="mapa.html">Mapa</a>
+      <a class="chip" href="linea.html" aria-current="page">Línea</a>
+    </nav>
+  </header>
+
+  <main id="linea">
+    <div class="controles">
+      <div class="fila-ch">
+        <span class="etq">Vista</span>
+        <div class="vista" role="group" aria-label="Vista de la línea del tiempo">
+          <button type="button" data-vista="rio" aria-pressed="true">Río</button>
+          <button type="button" data-vista="salas" aria-pressed="false">Salas</button>
+        </div>
+      </div>
+      <div class="fila-ch" id="filtros" role="group" aria-label="Filtrar por tipo"><span class="etq">Mostrar</span></div>
+      <div class="fila-ch" id="anios" role="group" aria-label="Saltar a un año"><span class="etq">Ir a</span></div>
+      <p class="sub cuenta" id="cuenta" aria-live="polite"></p>
+    </div>
+
+    <section id="vista-rio" class="marco glass" aria-label="Río horizontal">
+      <div class="carril" id="carril" tabindex="0" role="region" aria-label="Línea del tiempo, desplazable en horizontal"><div class="pista" id="pista"></div></div>
+      <div class="leyenda sub"><span>▬ Viaje (discontinuo = próximo)</span><span>● Evento</span><span>● Certificado suelto</span><span>Barra bajo el año = densidad</span></div>
+    </section>
+    <section id="vista-salas" aria-label="Salas por año" hidden></section>
+    <div id="notice" class="notice" hidden></div>
+  </main>
+
+  <aside class="detalle glass" id="detalle" role="dialog" aria-label="Detalle" tabindex="-1" hidden></aside>
+
+  <script src="iconos.js"></script>
+  <script src="linea.js"></script>
+  <script src="pasaporte.js"></script>
+</body>
+</html>

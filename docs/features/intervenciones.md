@@ -8,9 +8,9 @@ Ver de un vistazo todo lo que Carla ha dicho en público (charlas como speaker, 
 - Entra: `web/intervenciones.html` + `intervenciones.js` + `intervenciones.css` (los tokens salen de `style.css`, sin editarlo). Barra igual que la del mapa con «Intervenciones» activo.
 - Resumen arriba, solo de intervenciones: total y cuántas son mesa redonda, charla como speaker o entrevista. Sin premios.
 - Lista (la más reciente arriba) donde mandan **mes y año** («Octubre · 2026») y el día queda pequeño debajo; evento, lugar y tipo en una pastilla.
-- Al elegir una: reproductor, fecha (mes y año), evento, lugar y tipo, y los botones «Abrir el vídeo» y «Ver el evento».
+- Al elegir una: reproductor, fecha (mes y año), evento, lugar y tipo, y los botones «Abrir el vídeo» y «Ver el evento» (→ `evento.html?e=<slug>`, ver `docs/features/evento.md`).
 - Sin vídeo: el reproductor dice «Sin grabación todavía» (sin error) y «Abrir el vídeo» queda desactivado.
-- No entra (de momento): página propia de evento (por eso «Ver el evento» está desactivado hasta que exista), transcripciones, subir vídeos a ningún sitio, ordenar o filtrar.
+- No entra (de momento): transcripciones, subir vídeos a ningún sitio, ordenar o filtrar.
 
 ## Datos
 Lee `web/data/archivo.json`; **sin cambios de esquema ni de exportación**.

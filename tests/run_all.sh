@@ -7,6 +7,10 @@ echo "1/5 Sintaxis Python"
 python3 -m py_compile herramientas/lanyard_archive/lanyard_core.py herramientas/lanyard_archive/lanyard_archive.py web/sync.py herramientas/archivo_db/archivo.py
 echo "2/5 Sintaxis JavaScript"
 node --check web/app.js
+node --check web/linea.js
+node tests/test_linea.js
+node --check web/inicio.js
+node tests/test_inicio.js
 echo "3/5 Pruebas de precisión rápidas (fotos sintéticas)"
 python3 herramientas/lanyard_archive/extras/selftest.py --rapido | tail -3
 echo "4/5 Base de datos (esquema, importaciones repetidas, integridad)"

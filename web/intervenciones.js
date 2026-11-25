@@ -18,7 +18,7 @@
   function recoger(archivo) {
     const out = [];
     for (const e of archivo.eventos || []) {
-      const base = { evento: e.nombre, lugar: [e.lugar, e.ciudad].filter(Boolean).join(' · ') };
+      const base = { slug: e.slug, evento: e.nombre, lugar: [e.lugar, e.ciudad].filter(Boolean).join(' · ') };
       if (e.charlas && e.charlas.length) {
         for (const c of e.charlas) {
           out.push({ ...base, fecha: c.fecha || e.fecha, tipo: tipoDe(c.tipo, `${c.titulo} ${e.nombre}`), titulo: c.titulo || '', local: c.archivo_local, url: c.url });
@@ -67,6 +67,7 @@
       el.addEventListener('error', () => aviso(`No encuentro el vídeo <b>${esc(decodeURIComponent(src.split('/').pop()))}</b>. Créalo con <b>python herramientas/preparar_vercel.py</b>`), { once: true });
       v.append(el);
     }
+    $('dEvt').href = `evento.html?e=${encodeURIComponent(i.slug)}`;
     const a = $('dAbrir');
     if (src) { a.href = src; a.removeAttribute('aria-disabled'); } else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); }
   }

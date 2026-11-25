@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Pasaporte LEGO: sellos por tienda, que se hojean como un pasaporte.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Pasaporte LEGO · Certificates Archive</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pasaporte-lego.css">
+</head>
+<body class="pag-lego">
+  <header class="bar glass">
+    <div class="brand">
+      <img src="img/logo.svg" alt="" width="36" height="36">
+      <div>
+        <h1>Certificates <b>Archive</b></h1>
+        <p id="count" class="sub">Cargando…</p>
+      </div>
+    </div>
+    <nav class="chips" aria-label="Secciones">
+      <a class="chip" href="pared.html">Pared</a>
+      <a class="chip" href="mapa.html">Mapa</a>
+    </nav>
+  </header>
+
+  <main class="lego-main">
+    <div class="libro">
+      <article class="hoja" id="hoja" aria-live="polite"></article>
+      <div class="nav">
+        <button class="btn ghost" id="ant" type="button">← Anterior</button>
+        <output id="pag" class="num"></output>
+        <button class="btn" id="sig" type="button">Siguiente →</button>
+      </div>
+      <p id="notice" class="sub" hidden></p>
+    </div>
+    <dialog id="ficha" aria-labelledby="f-t" tabindex="-1" autofocus></dialog>
+  </main>
+
+  <script src="iconos.js"></script>
+  <script src="pasaporte.js"></script>
+  <script src="pasaporte-lego.js"></script>
+</body>
+</html>

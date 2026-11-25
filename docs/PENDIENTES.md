@@ -26,11 +26,17 @@
 ## Web · próximos módulos (en este orden)
 Hecho: identidad (`docs/diseno/IDENTIDAD.md`), pared, mapa, fotos, certificados, premios, pines, lanyards, intervenciones con vídeo, navegación pasaporte y publicación en Vercel.
 
+**Diseño elegido por Carla (25/11, maquetas A/B en https://claude.ai/artifact/R6kS6vXg35a6BC1qb1ELxh):**
+- Evento → **B «Página de cuaderno»** (collage, polaroids, tira del viaje). Muchos eventos tienen poco (una foto o un certificado): con poco contenido debe verse completo y bonito, no vacío.
+- Inicio → **B «Recorrido narrado»** (el año contado mes a mes, cifras dentro del relato).
+- Línea del tiempo → **las dos**: «Río horizontal» y «Salas por año», con un conmutador de vista.
+- Pasaporte LEGO → **B «Pasaporte que se hojea»**.
+
 1. **Página de evento** (`evento.html?e=<slug>`): el centro del archivo. Reúne lanyard, certificados, premios, fotos, personas, charlas con vídeo y su viaje en el mapa. Activa el «Ver el evento» que hoy está desactivado en intervenciones, y todas las demás páginas enlazan aquí. Datos: ya están en `archivo.json`.
 2. **Inicio «Tu año en cifras»** (ficha `cifras-e-hitos.md`, acordada): sustituye a la pared como primera página. La pared aún muestra 6 lanyards de demostración, y es lo primero que se ve. La pared pasa a ser un módulo más.
 3. **Personas**: una ficha por persona con sus fotos, charlas y eventos en común. Después, la red (grafo) si aporta.
 4. **Línea del tiempo** 2018–hoy, con los hitos de `cifras-e-hitos`. Absorbe la idea de la «sala de museo por año»: no hacer las dos.
-5. **Pasaporte LEGO** (ficha `sellos-lego.md`, acordada): sellos por tienda, en el viaje y en el mapa.
+5. **Pasaporte LEGO** (ficha `sellos-lego.md`, verificada): hecha la página y los 18 sellos. Falta: sellos en la ficha de cada viaje y la tienda como punto del mapa; enlace en el menú.
 6. **Buscador** (también Ctrl+K desde cualquier página): eventos, personas, lugares y objetos. Con `caja_fisica` responde «caja 3, página 12» (modo archivo físico). Hoy ningún objeto tiene caja: primero, apuntarlas.
 
 ## Web · UI/UX (repaso transversal)

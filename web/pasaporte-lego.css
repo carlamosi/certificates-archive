@@ -1,0 +1,56 @@
+/* Pasaporte LEGO (versión B de la maqueta). Ficha: docs/features/sellos-lego.md · Tokens: style.css */
+.pag-lego { --page: #FBF9F4; --page-line: rgba(47,91,234,.07); --tinta: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pag-lego { --page: #181A20; --page-line: rgba(124,155,255,.08); --tinta: invert(1); } }
+:root[data-theme="dark"] .pag-lego { --page: #181A20; --page-line: rgba(124,155,255,.08); --tinta: invert(1); }
+
+.lego-main { flex: 1; min-height: 0; overflow-y: auto; padding: var(--s-5) var(--s-4) calc(var(--s-5) + env(safe-area-inset-bottom, 0px)); }
+.libro { max-width: 520px; margin: 0 auto; }
+.hoja {
+  position: relative; min-height: 560px; display: flex; flex-direction: column; padding: var(--s-5) var(--s-5) var(--s-4) 36px;
+  border-radius: 6px var(--r-3) var(--r-3) 6px; background: var(--page); border: 1px solid var(--line); overflow: hidden; touch-action: pan-y;
+  transform-origin: left center; perspective: 900px;
+  box-shadow: inset 12px 0 14px -10px rgba(27,26,23,.28), var(--sh-2);
+}
+.hoja::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(transparent 0 31px, var(--page-line) 31px 32px); }
+.hoja::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 14px; background: linear-gradient(90deg, rgba(47,91,234,.7), rgba(47,91,234,.45)); }
+.hoja > * { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .hoja.sig { animation: lego-sig var(--d-4) var(--ease-out); }
+  .hoja.ant { animation: lego-ant var(--d-4) var(--ease-out); }
+}
+@keyframes lego-sig { from { opacity: 0; transform: rotateY(-35deg) translateX(14px); } }
+@keyframes lego-ant { from { opacity: 0; transform: rotateY(35deg) translateX(-14px); } }
+
+.hoja header { display: flex; align-items: center; gap: var(--s-3); padding-bottom: var(--s-3); border-bottom: 1.5px dashed var(--line); }
+.hoja header > div { flex: 1; min-width: 0; }
+.hoja h2 { margin: 0; font-size: 19px; line-height: 24px; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+.hoja header .pegatina { width: 52px; height: 52px; }
+.hoja .n { font: 700 28px/1 var(--sans); color: var(--accent); }
+
+.estampas { flex: 1; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: var(--s-2) var(--s-3); padding: var(--s-4) 0; }
+.est {
+  width: 34%; padding: 0; border: 0; background: none; cursor: pointer; border-radius: var(--r-2); min-width: 44px; min-height: 44px;
+  transform: rotate(var(--rot)) translate(var(--dx), var(--dy)); opacity: var(--op);
+  transition: transform var(--d-2) var(--ease-spring), opacity var(--d-2);
+}
+@media (hover: hover) { .est:hover { transform: rotate(0) scale(1.06); opacity: 1; } }
+.est:active { transform: rotate(0) scale(.97); }
+.est img, dialog img.tinta { display: block; width: 100%; height: auto; filter: var(--tinta); }
+
+.pie { margin: 0; font: 500 12px/16px var(--sans); color: var(--ink-2); }
+.hoja.portada { justify-content: center; align-items: center; text-align: center; gap: var(--s-3); }
+.portada .pegatina { width: 96px; height: 96px; }
+.portada h2 { font-size: clamp(26px, 6vw, 36px); line-height: 1.1; }
+.portada p { margin: 0; }
+
+.nav { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); margin-top: var(--s-4); }
+.nav .btn { min-width: 112px; }
+.nav output { font: 600 13px/20px var(--sans); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+dialog#ficha { padding: var(--s-5); width: min(92vw, 380px); border-radius: var(--r-3); border: 1px solid var(--line); background: var(--surface); color: var(--ink); box-shadow: var(--sh-2); }
+dialog#ficha::backdrop { background: rgba(18,19,22,.45); backdrop-filter: blur(4px); }
+dialog#ficha .caja { width: min(60vw, 220px); margin: 0 auto var(--s-4); }
+dialog#ficha h2 { margin: 0; font-size: 19px; line-height: 24px; }
+dialog#ficha dl { margin: var(--s-4) 0; display: grid; grid-template-columns: auto 1fr; gap: var(--s-1) var(--s-3); font: 500 14px/22px var(--sans); }
+dialog#ficha dt { color: var(--ink-2); } dialog#ficha dd { margin: 0; }
+dialog#ficha .btn { width: 100%; }

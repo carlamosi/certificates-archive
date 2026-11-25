@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Evento · Certificates Archive</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="evento.css">
+</head>
+<body class="pag-evento">
+  <header class="bar glass">
+    <div class="brand">
+      <img src="img/logo.svg" alt="" width="36" height="36">
+      <div>
+        <h1>Certificates <b>Archive</b></h1>
+        <p id="count" class="sub">Cargando…</p>
+      </div>
+    </div>
+    <nav class="chips" aria-label="Secciones">
+      <a class="chip" href="index.html">Pared</a>
+      <a class="chip" href="mapa.html">Mapa</a>
+      <a class="chip" href="intervenciones.html">Intervenciones</a>
+    </nav>
+  </header>
+
+  <main id="evento" class="evento" tabindex="-1"></main>
+
+  <dialog id="visor" class="visor" aria-label="Imagen ampliada">
+    <img id="visorImg" alt="">
+    <p id="visorPie" class="sub"></p>
+    <button type="button" id="visorCerrar" class="btn ghost redondo" aria-label="Cerrar">✕</button>
+  </dialog>
+
+  <script src="iconos.js"></script>
+  <script src="pasaporte.js"></script>
+  <script src="evento.js"></script>
+</body>
+</html>

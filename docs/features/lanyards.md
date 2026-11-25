@@ -18,7 +18,7 @@ Ver todos sus lanyards colgados en orden de fecha, girarlos para ver las dos car
 - Lee `data/archive.json` (mismo formato que `app.js`: `fecha`, `evento`, `ciudad`, `lugar`, `rol`, `front_web`, `back_web`…). Sin él, aviso en pantalla.
 - Si existe `data/archivo.json`, enlaza cada lanyard con su evento: primero por `objetos[].uid` = `id` del lanyard; si no, por mismo mes y nombre del evento contenido en el del lanyard. El evento aporta ciudad, país, premio (`objetos[].premio`) y `slug`. Sin coincidencia, se usa lo del propio lanyard.
 - Sin reverso: la cara de atrás se muestra en blanco con «Sin reverso». Sin anverso: tarjeta de papel con el nombre del evento.
-- «En el mapa» → `mapa.html#evento=<slug>` (el mapa aún no lee el parámetro: abre el mapa). **«Ver el evento» se oculta hasta que exista una página de eventos**; el destino está en una constante (`DESTINO`) de `lanyards.js`.
+- «En el mapa» → `mapa.html#evento=<slug>` (el mapa aún no lee el parámetro: abre el mapa). «Ver el evento» → `evento.html?e=<slug>` (ver `docs/features/evento.md`); el destino está en una constante (`DESTINO`) de `lanyards.js`.
 - Sin cambios de esquema.
 
 ## Criterios de aceptación

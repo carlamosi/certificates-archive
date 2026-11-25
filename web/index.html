@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Pared 3D con los lanyards de los eventos de Carla: gíralos y abre su ficha.">
+  <meta name="description" content="Tu año en cifras: kilómetros, viajes, eventos y premios contados mes a mes.">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Certificates Archive</title>
+  <title>Tu año en cifras · Certificates Archive</title>
   <link rel="icon" href="img/logo.svg" type="image/svg+xml">
   <meta name="theme-color" content="#F7F4EE" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="inicio.css">
 </head>
-<body>
+<body class="pag-inicio">
   <header class="bar glass">
     <div class="brand">
       <img src="img/logo.svg" alt="" width="36" height="36">
@@ -20,49 +21,20 @@
         <p id="count" class="sub">Cargando…</p>
       </div>
     </div>
-    <nav id="years" class="chips" aria-label="Filtrar por año"></nav>
+    <nav class="chips" aria-label="Secciones">
+      <a class="chip" href="pared.html">Pared</a>
+      <a class="chip" href="mapa.html">Mapa</a>
+      <a class="chip" href="index.html" aria-current="page">Inicio</a>
+    </nav>
   </header>
 
-  <main id="stage">
-    <canvas id="wall" aria-label="Pared de lanyards"></canvas>
-    <div id="cartela" class="cartela glass" aria-live="polite">
-      <span id="cPeg"></span>
-      <p class="kicker" id="cFecha"></p>
-      <h2 id="cTitle"></h2>
-      <p class="sub" id="cLugar"></p>
-      <div class="acciones">
-        <button id="cOpen" class="btn"></button>
-        <button id="cFlip" class="btn ghost redondo" aria-label="Girar"></button>
-      </div>
-    </div>
-    <p id="hint" class="hint">Pasa el cursor para balancear · clic para girar · <kbd>Enter</kbd> abre la ficha</p>
-    <div id="notice" class="notice" hidden></div>
+  <main id="inicio">
+    <div class="anios glass" id="anios" role="group" aria-label="Año"></div>
+    <section id="relato"></section>
   </main>
 
-  <section id="sheet" class="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
-    <div class="sheet-card glass" tabindex="-1">
-      <button id="close" class="btn ghost redondo close" aria-label="Cerrar"></button>
-      <div class="faces">
-        <figure><div class="sello"><img id="imgFront" alt="Anverso"></div><figcaption class="kicker">Anverso</figcaption></figure>
-        <figure><div class="sello"><img id="imgBack" alt="Reverso"></div><figcaption class="kicker">Reverso</figcaption></figure>
-      </div>
-      <div class="meta">
-        <span id="mPeg"></span>
-        <p class="kicker" id="mFecha"></p>
-        <h2 id="mTitle"></h2>
-        <dl id="mDl"></dl>
-        <p class="warn" id="mWarn" hidden></p>
-      </div>
-      <div class="nav">
-        <button id="prev" class="btn ghost"></button>
-        <button id="next" class="btn ghost"></button>
-      </div>
-    </div>
-  </section>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="iconos.js"></script>
+  <script src="inicio.js"></script>
   <script src="pasaporte.js"></script>
-  <script src="app.js"></script>
 </body>
 </html>

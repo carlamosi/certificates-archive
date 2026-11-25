@@ -5,9 +5,11 @@
   const P = (t) => (window.IDENTIDAD ? IDENTIDAD.pegatina(t) : '');
   // [id, nombre, página, pegatina, grupo, ¿existe ya?]
   const MODULOS = [
-    ['pared', 'Pared 3D', 'index.html', 'lanyard', 'Inicio', true],
+    ['inicio', 'Tu año', 'index.html', 'estrella', 'Inicio', true],
+    ['pared', 'Pared 3D', 'pared.html', 'lanyard', 'Colección', true],
     ['mapa', 'Mapa', 'mapa.html', 'pais', 'Viajes', true],
-    ['tiempo', 'Línea del tiempo', '', 'evento', 'Viajes', false],
+    ['tiempo', 'Línea del tiempo', 'linea.html', 'evento', 'Viajes', true],
+    ['lego', 'Pasaporte LEGO', 'pasaporte-lego.html', 'sello', 'Viajes', true],
     ['lanyards', 'Lanyards', 'lanyards.html', 'lanyard', 'Colección', true],
     ['pines', 'Pines', 'pines.html', 'pin', 'Colección', true],
     ['fotos', 'Fotos', 'fotos.html', 'foto', 'Colección', true],
@@ -17,7 +19,8 @@
     ['personas', 'Personas', '', 'persona', 'Trayectoria', false],
   ];
   const pagina = location.pathname.split('/').pop() || 'index.html';
-  const actual = MODULOS.find((m) => m[2] === pagina) || MODULOS[0];
+  // páginas fuera del índice (p. ej. evento.html): su nombre sale del <title>, sin marcar ningún módulo
+  const actual = MODULOS.find((m) => m[2] === pagina) || ['', document.title.split(' · ')[0], pagina, '', ''];
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   // ---- barra: sello + «Archivo / sección»
@@ -40,7 +43,7 @@
   dlg.className = 'pasaporte';
   dlg.setAttribute('aria-label', 'Índice del archivo');
   const sellos = MODULOS.map(([id, nombre, url, peg, , hecho], i) => {
-    const giro = ['-2deg', '1.5deg', '-1deg', '2deg', '1deg', '-1.5deg', '2deg', '-2deg', '1deg', '-1deg'][i];
+    const giro = ['-2deg', '1.5deg', '-1deg', '2deg', '1deg', '-1.5deg', '2deg', '-2deg', '1deg', '-1deg', '1.5deg', '-2deg'][i];
     const aqui = id === actual[0];
     const dentro = `<span class="estampa-marco"><span class="estampa-cara">${P(peg)}<b>${esc(nombre)}</b><small data-cifra="${id}">${hecho ? '' : 'pronto'}</small></span></span>${aqui ? '<span class="matasellos" aria-hidden="true">AQUÍ</span>' : ''}`;
     return hecho
@@ -72,8 +75,8 @@
 
   // ---- móvil: pestañas abajo con una hoja por grupo
   const grupos = ['Inicio', 'Viajes', 'Colección', 'Trayectoria'];
-  const nombreTab = { Inicio: 'Pared', Viajes: 'Viajes', 'Colección': 'Colección', Trayectoria: 'Trayectoria' };
-  const pegTab = { Inicio: 'lanyard', Viajes: 'pais', 'Colección': 'pin', Trayectoria: 'charla' };
+  const nombreTab = { Inicio: 'Inicio', Viajes: 'Viajes', 'Colección': 'Colección', Trayectoria: 'Trayectoria' };
+  const pegTab = { Inicio: 'estrella', Viajes: 'pais', 'Colección': 'pin', Trayectoria: 'charla' };
   const tabs = document.createElement('nav');
   tabs.className = 'pestanas';
   tabs.setAttribute('aria-label', 'Secciones');
@@ -116,7 +119,7 @@
     pon('fotos', `${(A.eventos || []).reduce((s, e) => s + (e.fotos || []).length, 0) + (A.fotos_sueltas || []).length}`);
     pon('certificados', `${n((o) => o.tipo === 'certificado')}`);
     pon('premios', `${n((o) => ['primer premio', 'podio', 'finalista', 'mención'].includes(o.nivel))}`);
-    pon('pared', 'la entrada');
+    pon('pared', 'en 3D');
     const t = A.totales || {};
     const paises = (t.paises || []).filter((p) => p.ciudades > 0).length;
     const cifras = [[viajes, 'viajes'], [paises, 'países'], [t.km, 'km recorridos'], [(A.eventos || []).length, 'eventos']]
